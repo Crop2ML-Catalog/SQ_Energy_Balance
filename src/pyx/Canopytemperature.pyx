@@ -14,7 +14,8 @@ def model_canopytemperature(float minTair=0.7,
     Reference: Modelling energy balance in the wheat crop model SiriusQuality2:
             Evapotranspiration and canopy and soil temperature calculations
     Institution: INRA/LEPSE Montpellier
-    Abstract: It is calculated from the crop heat flux and the boundary layer conductance 
+    ExtendedDescription: It is calculated from the crop heat flux and the boundary layer conductance 
+    ShortDescription: It is calculated from the crop heat flux and the boundary layer conductance 
 
     """
     cdef float minCanopyTemperature

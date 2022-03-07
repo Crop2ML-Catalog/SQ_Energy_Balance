@@ -3,15 +3,19 @@
 <ModelUnit modelid="SQ.EnergyBalance.SoilEvaporation" name="SoilEvaporation" timestep="1" version="1.0">
     <Description>
         <Title>SoilEvaporation Model</Title>
-        <Authors>Pierre Martre</Authors>
-        <Institution>INRA Montpellier</Institution>
+        <Authors>Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin</Authors>
+        <Institution>New Zealand Institute for Crop and Food Research Ltd.,
+            New Zealand Institute for Crop and Food Research Ltd.,
+            New Zealand Institute for Crop and Food Research Ltd.,
+            New Zealand Institute for Crop and Food Research Ltd.
+        </Institution>
         <Reference>Modelling energy balance in the wheat crop model SiriusQuality2:
             Evapotranspiration and canopy and soil temperature calculations</Reference>
-        <Abstract>Starting from a soil at field capacity, soil evaporation  is assumed to
+        <ExtendedDescription>Starting from a soil at field capacity, soil evaporation  is assumed to
                 be energy limited during the first phase of evaporation and diffusion limited thereafter.
                 Hence, the soil evaporation model considers these two processes taking the minimum between
                 the energy limited evaporation (PtSoil) and the diffused limited
-                evaporation </Abstract>
+                evaporation </ExtendedDescription>
         <ShortDescription>Starting from a soil at field capacity, soil evaporation  is assumed to
             be energy limited during the first phase of evaporation and diffusion limited thereafter.
             Hence, the soil evaporation model considers these two processes taking the minimum between
@@ -51,4 +55,3 @@
       </Testsets>
 
 </ModelUnit>
-

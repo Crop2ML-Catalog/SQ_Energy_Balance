@@ -5,11 +5,17 @@ def model_diffusionlimitedevaporation(float deficitOnTopLayers=5341.0,
     """
 
     DiffusionLimitedEvaporation Model
-    Author: Pierre Martre
+    Author: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
     Reference: Modelling energy balance in the wheat crop model SiriusQuality2:
             Evapotranspiration and canopy and soil temperature calculations
-    Institution: INRA Montpellier
-    Abstract: the evaporation from the diffusion limited soil 
+    Institution: New Zealand Institute for Crop and Food Research Ltd.,
+            New Zealand Institute for Crop and Food Research Ltd.,
+            New Zealand Institute for Crop and Food Research Ltd.,
+            New Zealand Institute for Crop and Food Research Ltd.
+        
+    ExtendedDescription: the evaporation from the diffusion limited soil 
+    ShortDescription: It calculates the diffusion limited evaropration
+        
 
     """
     cdef float diffusionLimitedEvaporation

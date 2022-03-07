@@ -3,11 +3,15 @@
 <ModelUnit modelid="SQ.EnergyBalance.NetRadiationEquivalentEvaporation" name="NetRadiationEquivalentEvaporation" timestep="1" version="1.0">
     <Description>
         <Title>NetRadiationEquivalentEvaporation Model</Title>
-        <Authors>Pierre Martre</Authors>
-        <Institution>INRA/LEPSE Montpellier</Institution>
+        <Authors>Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin</Authors>
+        <Institution>New Zealand Institute for Crop and Food Research Ltd.,
+            New Zealand Institute for Crop and Food Research Ltd.,
+            New Zealand Institute for Crop and Food Research Ltd.,
+            New Zealand Institute for Crop and Food Research Ltd.
+        </Institution>
         <Reference>Modelling energy balance in the wheat crop model SiriusQuality2:
             Evapotranspiration and canopy and soil temperature calculations</Reference>
-        <Abstract> It is given by dividing net radiation by latent heat of vaporization of water </Abstract>
+        <ExtendedDescription> It is given by dividing net radiation by latent heat of vaporization of water </ExtendedDescription>
         <ShortDescription>It is given by dividing net radiation by latent heat of vaporization of water</ShortDescription>
     </Description>
     <Inputs>
@@ -40,4 +44,3 @@
       </Testsets>
 
 </ModelUnit>
-

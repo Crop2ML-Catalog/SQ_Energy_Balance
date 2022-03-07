@@ -5,11 +5,16 @@ def model_netradiationequivalentevaporation(float lambdaV=2.454,
     """
 
     NetRadiationEquivalentEvaporation Model
-    Author: Pierre Martre
+    Author: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
     Reference: Modelling energy balance in the wheat crop model SiriusQuality2:
             Evapotranspiration and canopy and soil temperature calculations
-    Institution: INRA/LEPSE Montpellier
-    Abstract:  It is given by dividing net radiation by latent heat of vaporization of water 
+    Institution: New Zealand Institute for Crop and Food Research Ltd.,
+            New Zealand Institute for Crop and Food Research Ltd.,
+            New Zealand Institute for Crop and Food Research Ltd.,
+            New Zealand Institute for Crop and Food Research Ltd.
+        
+    ExtendedDescription:  It is given by dividing net radiation by latent heat of vaporization of water 
+    ShortDescription: It is given by dividing net radiation by latent heat of vaporization of water
 
     """
     cdef float netRadiationEquivalentEvaporation

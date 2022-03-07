@@ -3,11 +3,16 @@
 <ModelUnit modelid="SQ.EnergyBalance.Penman" name="Penman" timestep="1" version="1.0">
     <Description>
         <Title>Penman Model</Title>
-        <Authors>Pierre Martre</Authors>
-        <Institution>INRA/LEPSE Montpellier</Institution>
+        <Authors>Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin</Authors>
+        <Institution>New Zealand Institute for Crop and Food Research Ltd.,
+            New Zealand Institute for Crop and Food Research Ltd.,
+            New Zealand Institute for Crop and Food Research Ltd.,
+            New Zealand Institute for Crop and Food Research Ltd.
+        </Institution>
         <Reference>Modelling energy balance in the wheat crop model SiriusQuality2:
             Evapotranspiration and canopy and soil temperature calculations</Reference>
-        <Abstract>It uses Penmann-Monteith method vase on the availability of wind and vapor pressure daily data</Abstract>
+        <ExtendedDescription>It uses Penmann-Monteith method vase on the availability of wind and vapor pressure daily data</ExtendedDescription>
+        <ShortDescription>It uses Penmann-Monteith method vase on the availability of wind and vapor pressure daily data</ShortDescription>
     </Description>
     <Inputs>
 
@@ -53,4 +58,3 @@
       </Testsets>
 
 </ModelUnit>
-

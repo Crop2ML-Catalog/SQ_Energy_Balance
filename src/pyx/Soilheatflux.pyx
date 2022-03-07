@@ -6,11 +6,16 @@ def model_soilheatflux(float netRadiationEquivalentEvaporation=638.142,
     """
 
     SoilHeatFlux Model
-    Author: Pierre Martre
+    Author: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
     Reference: Modelling energy balance in the wheat crop model SiriusQuality2:
             Evapotranspiration and canopy and soil temperature calculations
-    Institution: INRA/LEPSE Montpellier
-    Abstract: The available energy in the soil 
+    Institution: New Zealand Institute for Crop and Food Research Ltd.,
+            New Zealand Institute for Crop and Food Research Ltd.,
+            New Zealand Institute for Crop and Food Research Ltd.,
+            New Zealand Institute for Crop and Food Research Ltd.
+        
+    ExtendedDescription: The available energy in the soil 
+    ShortDescription: The available energy in the soil
 
     """
     cdef float soilHeatFlux

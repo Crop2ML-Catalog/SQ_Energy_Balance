@@ -7,11 +7,16 @@ def model_priestlytaylor(float netRadiationEquivalentEvaporation=638.142,
     """
 
     evapoTranspirationPriestlyTaylor  Model
-    Author: Pierre Martre
+    Author: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
     Reference: Modelling energy balance in the wheat crop model SiriusQuality2:
             Evapotranspiration and canopy and soil temperature calculations
-    Institution: INRA Montpellier
-    Abstract: Calculate Energy Balance 
+    Institution: New Zealand Institute for Crop and Food Research Ltd.,
+            New Zealand Institute for Crop and Food Research Ltd.,
+            New Zealand Institute for Crop and Food Research Ltd.,
+            New Zealand Institute for Crop and Food Research Ltd.
+        
+    ExtendedDescription: Calculate Energy Balance 
+    ShortDescription: It uses Priestly-Taylor method
 
     """
     cdef float evapoTranspirationPriestlyTaylor

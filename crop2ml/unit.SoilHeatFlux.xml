@@ -3,11 +3,15 @@
 <ModelUnit modelid="SQ.EnergyBalance.SoilHeatFlux" name="SoilHeatFlux" timestep="1" version="1.0">
     <Description>
         <Title>SoilHeatFlux Model</Title>
-        <Authors>Pierre Martre</Authors>
-        <Institution>INRA/LEPSE Montpellier</Institution>
+        <Authors>Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin</Authors>
+        <Institution>New Zealand Institute for Crop and Food Research Ltd.,
+            New Zealand Institute for Crop and Food Research Ltd.,
+            New Zealand Institute for Crop and Food Research Ltd.,
+            New Zealand Institute for Crop and Food Research Ltd.
+        </Institution>
         <Reference>Modelling energy balance in the wheat crop model SiriusQuality2:
             Evapotranspiration and canopy and soil temperature calculations</Reference>
-        <Abstract>The available energy in the soil </Abstract>
+        <ExtendedDescription>The available energy in the soil </ExtendedDescription>
         <ShortDescription>The available energy in the soil</ShortDescription>
     </Description>
     <Inputs>
@@ -45,4 +49,3 @@
 
 
 </ModelUnit>
-

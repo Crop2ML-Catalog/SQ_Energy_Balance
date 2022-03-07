@@ -3,11 +3,15 @@
 <ModelUnit modelid="SQ.EnergyBalance.CropHeatFlux" name="CropHeatFlux" timestep="1" version="1.0">
     <Description>
         <Title>CropHeatFlux Model</Title>
-        <Authors>Pierre Martre</Authors>
-        <Institution>INRA/LEPSE Montpellier</Institution>
+        <Authors>Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin</Authors>
+        <Institution>New Zealand Institute for Crop and Food Research Ltd.,
+            New Zealand Institute for Crop and Food Research Ltd.,
+            New Zealand Institute for Crop and Food Research Ltd.,
+            New Zealand Institute for Crop and Food Research Ltd.
+        </Institution>
         <Reference>abModelling energy balance in the wheat crop model SiriusQuality2:
             Evapotranspiration and canopy and soil temperature calculations</Reference>
-        <Abstract>It is calculated from net Radiation, soil heat flux and potential transpiration </Abstract>
+        <ExtendedDescription>It is calculated from net Radiation, soil heat flux and potential transpiration </ExtendedDescription>
         <ShortDescription>It calculates the crop heat flux
         </ShortDescription>
     </Description>
