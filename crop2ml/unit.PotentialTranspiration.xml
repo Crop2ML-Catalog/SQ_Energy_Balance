@@ -9,8 +9,7 @@
             New Zealand Institute for Crop and Food Research Ltd.,
             New Zealand Institute for Crop and Food Research Ltd.
         </Institution>
-        <Reference>Modelling energy balance in the wheat crop model SiriusQuality2:
-            Evapotranspiration and canopy and soil temperature calculations</Reference>
+        <Reference> http://www1.clermont.inra.fr/siriusquality/?page_id=547</Reference>
         <ExtendedDescription>SiriusQuality2 uses availability of water from the soil reservoir as a method to restrict
                     transpiration as soil moisture is depleted </ExtendedDescription>
         <ShortDescription>It uses the availability of water from the soil reservoir as a method to restrict

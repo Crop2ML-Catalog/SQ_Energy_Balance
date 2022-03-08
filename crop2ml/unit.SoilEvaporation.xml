@@ -9,8 +9,7 @@
             New Zealand Institute for Crop and Food Research Ltd.,
             New Zealand Institute for Crop and Food Research Ltd.
         </Institution>
-        <Reference>Modelling energy balance in the wheat crop model SiriusQuality2:
-            Evapotranspiration and canopy and soil temperature calculations</Reference>
+        <Reference> http://www1.clermont.inra.fr/siriusquality/?page_id=547</Reference>
         <ExtendedDescription>Starting from a soil at field capacity, soil evaporation  is assumed to
                 be energy limited during the first phase of evaporation and diffusion limited thereafter.
                 Hence, the soil evaporation model considers these two processes taking the minimum between
