@@ -2,27 +2,31 @@
 from copy import copy
 from array import array
 from math import *
+from typing import *
 
 import numpy
-from math import *
 
-def model_penman(evapoTranspirationPriestlyTaylor = 449.367,
-         hslope = 0.584,
-         VPDair = 2.19,
-         psychrometricConstant = 0.66,
-         Alpha = 1.5,
-         lambdaV = 2.454,
-         rhoDensityAir = 1.225,
-         specificHeatCapacityAir = 0.00101,
-         conductance = 598.685):
+#%%CyML Model Begin%%
+def model_penman(evapoTranspirationPriestlyTaylor:float,
+         hslope:float,
+         VPDair:float,
+         psychrometricConstant:float,
+         Alpha:float,
+         lambdaV:float,
+         rhoDensityAir:float,
+         specificHeatCapacityAir:float,
+         conductance:float):
     """
      - Name: Penman -Version: 1.0, -Time step: 1
      - Description:
                  * Title: Penman Model
-                 * Author: Pierre Martre
-                 * Reference: Modelling energy balance in the wheat crop model SiriusQuality2:
-                 Evapotranspiration and canopy and soil temperature calculations
-                 * Institution: INRA/LEPSE Montpellier
+                 * Authors: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
+                 * Reference:  https://doi.org/10.1016/0168-1923(94)02214-5
+                 * Institution: New Zealand Institute for Crop and Food Research Ltd.,
+                 New Zealand Institute for Crop and Food Research Ltd.,
+                 New Zealand Institute for Crop and Food Research Ltd.,
+                 New Zealand Institute for Crop and Food Research Ltd.
+             
                  * ExtendedDescription: It uses Penmann-Monteith method vase on the availability of wind and vapor pressure daily data
                  * ShortDescription: It uses Penmann-Monteith method vase on the availability of wind and vapor pressure daily data
      - inputs:
@@ -125,6 +129,7 @@ def model_penman(evapoTranspirationPriestlyTaylor = 449.367,
                                ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
     """
 
-    evapoTranspirationPenman = None
+    evapoTranspirationPenman:float
     evapoTranspirationPenman = evapoTranspirationPriestlyTaylor / Alpha + (1000.0 * (rhoDensityAir * specificHeatCapacityAir * VPDair * conductance / (lambdaV * (hslope + psychrometricConstant))))
     return evapoTranspirationPenman
+#%%CyML Model End%%

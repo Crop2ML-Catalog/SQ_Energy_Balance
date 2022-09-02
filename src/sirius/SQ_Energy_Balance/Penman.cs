@@ -63,8 +63,8 @@ namespace SiriusQualityEnergyBalance.Strategies
             v4.DefaultValue = 1.225;
             v4.Description = "Density of air";
             v4.Id = 0;
-            v4.MaxValue = 1.225;
-            v4.MinValue = 1.225;
+            v4.MaxValue = -1D;
+            v4.MinValue = -1D;
             v4.Name = "rhoDensityAir";
             v4.Size = 1;
             v4.Units = "";
@@ -179,11 +179,7 @@ namespace SiriusQualityEnergyBalance.Strategies
             _pd = new CRA.ModelLayer.MetadataTypes.PublisherData();
             _pd.Add("Creator", "Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin");
             _pd.Add("Date", "");
-            _pd.Add("Publisher", "New Zealand Institute for Crop and Food Research Ltd.,
-            New Zealand Institute for Crop and Food Research Ltd.,
-            New Zealand Institute for Crop and Food Research Ltd.,
-            New Zealand Institute for Crop and Food Research Ltd.
-        ");
+            _pd.Add("Publisher", "New Zealand Institute for Crop and Food Research Ltd., New Zealand Institute for Crop and Food Research Ltd., New Zealand Institute for Crop and Food Research Ltd., New Zealand Institute for Crop and Food Research Ltd. "); 
         }
 
         private ModellingOptionsManager _modellingOptionsManager;
@@ -294,8 +290,8 @@ namespace SiriusQualityEnergyBalance.Strategies
 
             rhoDensityAirVarInfo.Name = "rhoDensityAir";
             rhoDensityAirVarInfo.Description = "Density of air";
-            rhoDensityAirVarInfo.MaxValue = 1.225;
-            rhoDensityAirVarInfo.MinValue = 1.225;
+            rhoDensityAirVarInfo.MaxValue = -1D;
+            rhoDensityAirVarInfo.MinValue = -1D;
             rhoDensityAirVarInfo.DefaultValue = 1.225;
             rhoDensityAirVarInfo.Units = "";
             rhoDensityAirVarInfo.ValueType = VarInfoValueTypes.GetInstanceForName("Double");

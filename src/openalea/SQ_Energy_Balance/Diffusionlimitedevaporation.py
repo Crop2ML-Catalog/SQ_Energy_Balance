@@ -1,49 +1,62 @@
 # coding: utf8
-import numpy
+from copy import copy
+from array import array
 from math import *
+from typing import *
+from datetime import datetime
 
-def model_diffusionlimitedevaporation(deficitOnTopLayers = 5341.0,
-         soilDiffusionConstant = 4.2):
+import numpy
+
+#%%CyML Model Begin%%
+def model_diffusionlimitedevaporation(deficitOnTopLayers:float,
+         soilDiffusionConstant:float):
     """
+     - Name: DiffusionLimitedEvaporation -Version: 1.0, -Time step: 1
      - Description:
                  * Title: DiffusionLimitedEvaporation Model
-                 * Author: Pierre Martre
-                 * Reference: Modelling energy balance in the wheat crop model SiriusQuality2:
-                 Evapotranspiration and canopy and soil temperature calculations
-                 * Institution: INRA Montpellier
-                 * Abstract: the evaporation from the diffusion limited soil 
+                 * Authors: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
+                 * Reference:  https://doi.org/10.1016/0168-1923(94)02214-5
+                 * Institution: New Zealand Institute for Crop and Food Research Ltd.,
+                 New Zealand Institute for Crop and Food Research Ltd.,
+                 New Zealand Institute for Crop and Food Research Ltd.,
+                 New Zealand Institute for Crop and Food Research Ltd.
+             
+                 * ExtendedDescription: the evaporation from the diffusion limited soil 
+                 * ShortDescription: It calculates the diffusion limited evaropration
+             
      - inputs:
                  * name: deficitOnTopLayers
-                               ** min : 0
-                               ** default : 5341
-                               ** max : 10000
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                               ** description : deficit On TopLayers
                                ** variablecategory : auxiliary
                                ** datatype : DOUBLE
-                               ** inputtype : variable
-                               ** unit : g m-2 d-1
-                               ** description : deficit On TopLayers
-                 * name: soilDiffusionConstant
-                               ** parametercategory : soil
+                               ** default : 5341
                                ** min : 0
-                               ** datatype : DOUBLE
-                               ** max : 10
+                               ** max : 10000
+                               ** unit : g m-2 d-1
                                ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** default : 4.2
-                               ** inputtype : parameter
-                               ** unit : 
+                               ** inputtype : variable
+                 * name: soilDiffusionConstant
                                ** description : soil Diffusion Constant
+                               ** parametercategory : soil
+                               ** datatype : DOUBLE
+                               ** default : 4.2
+                               ** min : 0
+                               ** max : 10
+                               ** unit : 
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                               ** inputtype : parameter
      - outputs:
                  * name: diffusionLimitedEvaporation
-                               ** min : 0
-                               ** variablecategory : state
-                               ** max : 5000
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** datatype : DOUBLE
-                               ** unit : g m-2 d-1
                                ** description : the evaporation from the diffusion limited soil 
+                               ** variablecategory : state
+                               ** datatype : DOUBLE
+                               ** min : 0
+                               ** max : 5000
+                               ** unit : g m-2 d-1
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
     """
 
+    diffusionLimitedEvaporation:float
     if deficitOnTopLayers / 1000.0 <= 0.0:
         diffusionLimitedEvaporation = 8.3 * 1000.0
     else:
@@ -52,3 +65,4 @@ def model_diffusionlimitedevaporation(deficitOnTopLayers = 5341.0,
         else:
             diffusionLimitedEvaporation = 0.0
     return diffusionLimitedEvaporation
+#%%CyML Model End%%

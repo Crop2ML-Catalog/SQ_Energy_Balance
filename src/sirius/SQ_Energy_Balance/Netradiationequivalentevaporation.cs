@@ -38,10 +38,10 @@ namespace SiriusQualityEnergyBalance.Strategies
             //Inputs
             List<PropertyDescription> _inputs0_0 = new List<PropertyDescription>();
             PropertyDescription pd1 = new PropertyDescription();
-            pd1.DomainClassType = typeof(SiriusQualityEnergyBalance.DomainClass.EnergyBalanceState);
+            pd1.DomainClassType = typeof(SiriusQualityEnergyBalance.DomainClass.EnergyBalanceAuxiliary);
             pd1.PropertyName = "netRadiation";
-            pd1.PropertyType = (SiriusQualityEnergyBalance.DomainClass.EnergyBalanceStateVarInfo.netRadiation).ValueType.TypeForCurrentValue;
-            pd1.PropertyVarInfo =(SiriusQualityEnergyBalance.DomainClass.EnergyBalanceStateVarInfo.netRadiation);
+            pd1.PropertyType = (SiriusQualityEnergyBalance.DomainClass.EnergyBalanceAuxiliaryVarInfo.netRadiation).ValueType.TypeForCurrentValue;
+            pd1.PropertyVarInfo =(SiriusQualityEnergyBalance.DomainClass.EnergyBalanceAuxiliaryVarInfo.netRadiation);
             _inputs0_0.Add(pd1);
             mo0_0.Inputs=_inputs0_0;
 
@@ -109,11 +109,7 @@ namespace SiriusQualityEnergyBalance.Strategies
             _pd = new CRA.ModelLayer.MetadataTypes.PublisherData();
             _pd.Add("Creator", "Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin");
             _pd.Add("Date", "");
-            _pd.Add("Publisher", "New Zealand Institute for Crop and Food Research Ltd.,
-            New Zealand Institute for Crop and Food Research Ltd.,
-            New Zealand Institute for Crop and Food Research Ltd.,
-            New Zealand Institute for Crop and Food Research Ltd.
-        ");
+            _pd.Add("Publisher", "New Zealand Institute for Crop and Food Research Ltd., New Zealand Institute for Crop and Food Research Ltd., New Zealand Institute for Crop and Food Research Ltd., New Zealand Institute for Crop and Food Research Ltd. "); 
         }
 
         private ModellingOptionsManager _modellingOptionsManager;
@@ -189,11 +185,11 @@ namespace SiriusQualityEnergyBalance.Strategies
             try
             {
                 //Set current values of the inputs to the static VarInfo representing the inputs properties of the domain classes
-                SiriusQualityEnergyBalance.DomainClass.EnergyBalanceStateVarInfo.netRadiation.CurrentValue=s.netRadiation;
+                SiriusQualityEnergyBalance.DomainClass.EnergyBalanceAuxiliaryVarInfo.netRadiation.CurrentValue=a.netRadiation;
                 ConditionsCollection prc = new ConditionsCollection();
                 Preconditions pre = new Preconditions(); 
-                RangeBasedCondition r1 = new RangeBasedCondition(SiriusQualityEnergyBalance.DomainClass.EnergyBalanceStateVarInfo.netRadiation);
-                if(r1.ApplicableVarInfoValueTypes.Contains( SiriusQualityEnergyBalance.DomainClass.EnergyBalanceStateVarInfo.netRadiation.ValueType)){prc.AddCondition(r1);}
+                RangeBasedCondition r1 = new RangeBasedCondition(SiriusQualityEnergyBalance.DomainClass.EnergyBalanceAuxiliaryVarInfo.netRadiation);
+                if(r1.ApplicableVarInfoValueTypes.Contains( SiriusQualityEnergyBalance.DomainClass.EnergyBalanceAuxiliaryVarInfo.netRadiation.ValueType)){prc.AddCondition(r1);}
                 prc.AddCondition(new RangeBasedCondition(_modellingOptionsManager.GetParameterByName("lambdaV")));
                 string preConditionsResult = pre.VerifyPreconditions(prc, callID); if (!string.IsNullOrEmpty(preConditionsResult)) { pre.TestsOut(preConditionsResult, true, "PreConditions errors in strategy " + this.GetType().Name); } return preConditionsResult;
             }
@@ -219,7 +215,7 @@ namespace SiriusQualityEnergyBalance.Strategies
 
         private void CalculateModel(SiriusQualityEnergyBalance.DomainClass.EnergyBalanceState s, SiriusQualityEnergyBalance.DomainClass.EnergyBalanceState s1, SiriusQualityEnergyBalance.DomainClass.EnergyBalanceRate r, SiriusQualityEnergyBalance.DomainClass.EnergyBalanceAuxiliary a, SiriusQualityEnergyBalance.DomainClass.EnergyBalanceExogenous ex)
         {
-            double netRadiation = s.netRadiation;
+            double netRadiation = a.netRadiation;
             double netRadiationEquivalentEvaporation;
             netRadiationEquivalentEvaporation = netRadiation / lambdaV * 1000.0d;
             a.netRadiationEquivalentEvaporation= netRadiationEquivalentEvaporation;

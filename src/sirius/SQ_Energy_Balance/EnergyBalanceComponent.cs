@@ -249,7 +249,7 @@ namespace SiriusQualityEnergyBalance.Strategies
 
         public string Description
         {
-            get { return "see documentation at http://www1.clermont.inra.fr/siriusquality/?page_id=547" ;}
+            get { return "Modelling energy balance in the wheat crop model SiriusQuality2: Evapotranspiration and canopy and soil temperature calculations                        see documentation at http://www1.clermont.inra.fr/siriusquality/?page_id=547    " ;}
         }
 
         public string URL
@@ -290,9 +290,9 @@ namespace SiriusQualityEnergyBalance.Strategies
         private  void SetPublisherData()
         {
             _pd = new CRA.ModelLayer.MetadataTypes.PublisherData();
-            _pd.Add("Creator", "Pierre MARTRE");
+            _pd.Add("Creator", "Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin");
             _pd.Add("Date", "");
-            _pd.Add("Publisher", "INRA/LEPSE");
+            _pd.Add("Publisher", "New Zealand Institute for Crop and Food Research Ltd., New Zealand Institute for Crop and Food Research Ltd., New Zealand Institute for Crop and Food Research Ltd., New Zealand Institute for Crop and Food Research Ltd. "); 
         }
 
         private ModellingOptionsManager _modellingOptionsManager;
@@ -622,8 +622,8 @@ namespace SiriusQualityEnergyBalance.Strategies
 
             rhoDensityAirVarInfo.Name = "rhoDensityAir";
             rhoDensityAirVarInfo.Description = "Density of air";
-            rhoDensityAirVarInfo.MaxValue = 1.225;
-            rhoDensityAirVarInfo.MinValue = 1.225;
+            rhoDensityAirVarInfo.MaxValue = -1D;
+            rhoDensityAirVarInfo.MinValue = -1D;
             rhoDensityAirVarInfo.DefaultValue = 1.225;
             rhoDensityAirVarInfo.Units = "";
             rhoDensityAirVarInfo.ValueType = VarInfoValueTypes.GetInstanceForName("Double");

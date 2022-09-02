@@ -16,10 +16,13 @@ public class EvapoTranspiration
         //- Name: EvapoTranspiration -Version: 1.0, -Time step: 1
         //- Description:
     //            * Title: Evapotranspiration Model
-    //            * Author: Pierre Martre
-    //            * Reference: Modelling energy balance in the wheat crop model SiriusQuality2:
-    //            Evapotranspiration and canopy and soil temperature calculations
-    //            * Institution: INRA Montpellier
+    //            * Author: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
+    //            * Reference:  https://doi.org/10.1016/0168-1923(94)02214-5
+    //            * Institution: New Zealand Institute for Crop and Food Research Ltd.,
+    //            New Zealand Institute for Crop and Food Research Ltd.,
+    //            New Zealand Institute for Crop and Food Research Ltd.,
+    //            New Zealand Institute for Crop and Food Research Ltd.
+    //        
     //            * ExtendedDescription: According to the availability of wind and/or vapor pressure daily data, the
     //            SiriusQuality2 model calculates the evapotranspiration rate using the Penman (if wind
     //            and vapor pressure data are available) (Penman 1948) or the Priestly-Taylor

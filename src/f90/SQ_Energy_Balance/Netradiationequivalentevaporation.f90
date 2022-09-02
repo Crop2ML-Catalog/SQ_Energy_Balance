@@ -1,24 +1,23 @@
-MODULE Netradiationequivalentevaporationmod
-    IMPLICIT NONE
-CONTAINS
-
-    SUBROUTINE model_netradiationequivalentevaporation(lambdaV, &
+SUBROUTINE model_netradiationequivalentevaporation(lambdaV, &
         netRadiation, &
         netRadiationEquivalentEvaporation)
-        IMPLICIT NONE
-        REAL, INTENT(IN) :: lambdaV
-        REAL, INTENT(IN) :: netRadiation
-        REAL, INTENT(OUT) :: netRadiationEquivalentEvaporation
-        !- Name: NetRadiationEquivalentEvaporation -Version: 1.0, -Time step: 1
-        !- Description:
+    IMPLICIT NONE
+    REAL, INTENT(IN) :: lambdaV
+    REAL, INTENT(IN) :: netRadiation
+    REAL, INTENT(OUT) :: netRadiationEquivalentEvaporation
+    !- Name: NetRadiationEquivalentEvaporation -Version: 1.0, -Time step: 1
+    !- Description:
     !            * Title: NetRadiationEquivalentEvaporation Model
-    !            * Author: Pierre Martre
-    !            * Reference: Modelling energy balance in the wheat crop model SiriusQuality2:
-    !            Evapotranspiration and canopy and soil temperature calculations
-    !            * Institution: INRA/LEPSE Montpellier
+    !            * Author: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
+    !            * Reference:  https://doi.org/10.1016/0168-1923(94)02214-5
+    !            * Institution: New Zealand Institute for Crop and Food Research Ltd.,
+    !            New Zealand Institute for Crop and Food Research Ltd.,
+    !            New Zealand Institute for Crop and Food Research Ltd.,
+    !            New Zealand Institute for Crop and Food Research Ltd.
+    !        
     !            * ExtendedDescription:  It is given by dividing net radiation by latent heat of vaporization of water 
     !            * ShortDescription: It is given by dividing net radiation by latent heat of vaporization of water
-        !- inputs:
+    !- inputs:
     !            * name: lambdaV
     !                          ** description : latent heat of vaporization of water
     !                          ** parametercategory : constant
@@ -39,7 +38,7 @@ CONTAINS
     !                          ** unit : MJ m-2 d-1
     !                          ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
     !                          ** inputtype : variable
-        !- outputs:
+    !- outputs:
     !            * name: netRadiationEquivalentEvaporation
     !                          ** variablecategory : auxiliary
     !                          ** description : net Radiation in Equivalent Evaporation 
@@ -48,7 +47,5 @@ CONTAINS
     !                          ** max : 5000
     !                          ** unit : g m-2 d-1
     !                          ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-        netRadiationEquivalentEvaporation = netRadiation / lambdaV * 1000.0
-    END SUBROUTINE model_netradiationequivalentevaporation
-
-END MODULE
+    netRadiationEquivalentEvaporation = netRadiation / lambdaV * 1000.0
+END SUBROUTINE model_netradiationequivalentevaporation

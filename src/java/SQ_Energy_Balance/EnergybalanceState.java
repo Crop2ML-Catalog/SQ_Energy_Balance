@@ -14,10 +14,10 @@ public class EnergybalanceState
     {
         if (copyAll)
         {
-            this.diffusionLimitedEvaporation = toCopy.diffusionLimitedEvaporation;
-            this.conductance = toCopy.conductance;
-            this.minCanopyTemperature = toCopy.minCanopyTemperature;
-            this.maxCanopyTemperature = toCopy.maxCanopyTemperature;
+            this.diffusionLimitedEvaporation = toCopy.getdiffusionLimitedEvaporation();
+            this.conductance = toCopy.getconductance();
+            this.minCanopyTemperature = toCopy.getminCanopyTemperature();
+            this.maxCanopyTemperature = toCopy.getmaxCanopyTemperature();
         }
     }
     public double getdiffusionLimitedEvaporation()

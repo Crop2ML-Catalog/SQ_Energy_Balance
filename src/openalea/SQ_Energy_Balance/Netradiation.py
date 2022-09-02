@@ -1,124 +1,144 @@
 # coding: utf8
-import numpy
+from copy import copy
+from array import array
 from math import *
+from typing import *
+from datetime import datetime
 
-def model_netradiation(minTair = 0.7,
-         maxTair = 7.2,
-         albedoCoefficient = 0.23,
-         stefanBoltzman = 4.903e-09,
-         elevation = 0.0,
-         solarRadiation = 3.0,
-         vaporPressure = 6.1,
-         extraSolarRadiation = 11.7):
+import numpy
+
+#%%CyML Model Begin%%
+def model_netradiation(minTair:float,
+         maxTair:float,
+         albedoCoefficient:float,
+         stefanBoltzman:float,
+         elevation:float,
+         solarRadiation:float,
+         vaporPressure:float,
+         extraSolarRadiation:float):
     """
+     - Name: NetRadiation -Version: 1.0, -Time step: 1
      - Description:
                  * Title: NetRadiation Model
-                 * Author: Pierre Martre
-                 * Reference: Modelling energy balance in the wheat crop model SiriusQuality2:
-                 Evapotranspiration and canopy and soil temperature calculations
-                 * Institution: INRA Montpellier
-                 * Abstract: It is calculated at the surface of the canopy and is givenby the difference between incoming and outgoing radiation of both short
+                 * Authors: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
+                 * Reference:  https://doi.org/10.1016/0168-1923(94)02214-5
+                 * Institution: New Zealand Institute for Crop and Food Research Ltd.,
+                 New Zealand Institute for Crop and Food Research Ltd.,
+                 New Zealand Institute for Crop and Food Research Ltd.,
+                 New Zealand Institute for Crop and Food Research Ltd.
+             
+                 * ExtendedDescription: It is calculated at the surface of the canopy and is givenby the difference between incoming and outgoing radiation of both short
                           and long wavelength radiation 
+                 * ShortDescription: It refers as difference between incoming and outgoing radiation of both short
+                 and long wavelength radiation 
      - inputs:
                  * name: minTair
-                               ** min : -30
-                               ** default : 0.7
-                               ** max : 45
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** variablecategory : auxiliary
-                               ** datatype : DOUBLE
-                               ** inputtype : variable
-                               ** unit : °C
                                ** description : minimum air temperature
-                 * name: maxTair
+                               ** variablecategory : auxiliary
+                               ** datatype : DOUBLE
                                ** min : -30
-                               ** default : 7.2
                                ** max : 45
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** variablecategory : auxiliary
-                               ** datatype : DOUBLE
-                               ** inputtype : variable
+                               ** default : 0.7
                                ** unit : °C
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                               ** inputtype : variable
+                 * name: maxTair
                                ** description : maximum air Temperature
+                               ** variablecategory : auxiliary
+                               ** datatype : DOUBLE
+                               ** min : -30
+                               ** max : 45
+                               ** default : 7.2
+                               ** unit : °C
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                               ** inputtype : variable
                  * name: albedoCoefficient
-                               ** parametercategory : constant
-                               ** min : 0
-                               ** datatype : DOUBLE
-                               ** max : 1
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** default : 0.23
-                               ** inputtype : parameter
-                               ** unit : 
                                ** description : albedo Coefficient
-                 * name: stefanBoltzman
                                ** parametercategory : constant
-                               ** min : 0
                                ** datatype : DOUBLE
+                               ** default : 0.23
+                               ** min : 0
                                ** max : 1
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** default : 4.903E-09
-                               ** inputtype : parameter
                                ** unit : 
-                               ** description : stefan Boltzman constant
-                 * name: elevation
-                               ** parametercategory : constant
-                               ** min : -500
-                               ** datatype : DOUBLE
-                               ** max : 10000
                                ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** default : 0
                                ** inputtype : parameter
-                               ** unit : m
+                 * name: stefanBoltzman
+                               ** description : stefan Boltzman constant
+                               ** parametercategory : constant
+                               ** datatype : DOUBLE
+                               ** default : 4.903E-09
+                               ** min : 0
+                               ** max : 1
+                               ** unit : 
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                               ** inputtype : parameter
+                 * name: elevation
                                ** description : elevation
+                               ** parametercategory : constant
+                               ** datatype : DOUBLE
+                               ** default : 0
+                               ** min : -500
+                               ** max : 10000
+                               ** unit : m
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                               ** inputtype : parameter
                  * name: solarRadiation
-                               ** min : 0
-                               ** default : 3
-                               ** max : 1000
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** variablecategory : auxiliary
-                               ** datatype : DOUBLE
-                               ** inputtype : variable
-                               ** unit : MJ m-2 d-1
                                ** description : solar Radiation
+                               ** variablecategory : auxiliary
+                               ** datatype : DOUBLE
+                               ** default : 3
+                               ** min : 0
+                               ** max : 1000
+                               ** unit : MJ m-2 d-1
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                               ** inputtype : variable
                  * name: vaporPressure
-                               ** min : 0
-                               ** default : 6.1
-                               ** max : 1000
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** variablecategory : auxiliary
-                               ** datatype : DOUBLE
-                               ** inputtype : variable
-                               ** unit : hPa
                                ** description : vapor Pressure
-                 * name: extraSolarRadiation
-                               ** min : 0
-                               ** default : 11.7
-                               ** max : 1000
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
                                ** variablecategory : auxiliary
                                ** datatype : DOUBLE
+                               ** default : 6.1
+                               ** min : 0
+                               ** max : 1000
+                               ** unit : hPa
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
                                ** inputtype : variable
-                               ** unit : MJ m2 d-1
+                 * name: extraSolarRadiation
                                ** description : extra Solar Radiation
+                               ** variablecategory : auxiliary
+                               ** datatype : DOUBLE
+                               ** default : 11.7
+                               ** min : 0
+                               ** max : 1000
+                               ** unit : MJ m2 d-1
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                               ** inputtype : variable
      - outputs:
                  * name: netRadiation
-                               ** min : 0
-                               ** variablecategory : auxiliary
-                               ** max : 5000
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** datatype : DOUBLE
-                               ** unit : MJ m-2 d-1
                                ** description :  net radiation 
-                 * name: netOutGoingLongWaveRadiation
-                               ** min : 0
                                ** variablecategory : auxiliary
-                               ** max : 5000
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
                                ** datatype : DOUBLE
-                               ** unit : g m-2 d-1
+                               ** min : 0
+                               ** max : 5000
+                               ** unit : MJ m-2 d-1
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                 * name: netOutGoingLongWaveRadiation
                                ** description : net OutGoing Long Wave Radiation 
+                               ** variablecategory : auxiliary
+                               ** datatype : DOUBLE
+                               ** min : 0
+                               ** max : 5000
+                               ** unit : g m-2 d-1
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
     """
 
+    netRadiation:float
+    netOutGoingLongWaveRadiation:float
+    Nsr:float
+    clearSkySolarRadiation:float
+    averageT:float
+    surfaceEmissivity:float
+    cloudCoverFactor:float
+    Nolr:float
     Nsr = (1.0 - albedoCoefficient) * solarRadiation
     clearSkySolarRadiation = (0.75 + (2 * pow(10.0, -5) * elevation)) * extraSolarRadiation
     averageT = (pow(maxTair + 273.16, 4) + pow(minTair + 273.16, 4)) / 2.0
@@ -128,3 +148,4 @@ def model_netradiation(minTair = 0.7,
     netRadiation = Nsr - Nolr
     netOutGoingLongWaveRadiation = Nolr
     return (netRadiation, netOutGoingLongWaveRadiation)
+#%%CyML Model End%%

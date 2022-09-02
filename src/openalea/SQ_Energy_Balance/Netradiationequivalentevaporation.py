@@ -1,48 +1,61 @@
 # coding: utf8
-import numpy
+from copy import copy
+from array import array
 from math import *
+from typing import *
+from datetime import datetime
 
-def model_netradiationequivalentevaporation(lambdaV = 2.454,
-         netRadiation = 1.566):
+import numpy
+
+#%%CyML Model Begin%%
+def model_netradiationequivalentevaporation(lambdaV:float,
+         netRadiation:float):
     """
+     - Name: NetRadiationEquivalentEvaporation -Version: 1.0, -Time step: 1
      - Description:
                  * Title: NetRadiationEquivalentEvaporation Model
-                 * Author: Pierre Martre
-                 * Reference: Modelling energy balance in the wheat crop model SiriusQuality2:
-                 Evapotranspiration and canopy and soil temperature calculations
-                 * Institution: INRA/LEPSE Montpellier
-                 * Abstract:  It is given by dividing net radiation by latent heat of vaporization of water 
+                 * Authors: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
+                 * Reference:  https://doi.org/10.1016/0168-1923(94)02214-5
+                 * Institution: New Zealand Institute for Crop and Food Research Ltd.,
+                 New Zealand Institute for Crop and Food Research Ltd.,
+                 New Zealand Institute for Crop and Food Research Ltd.,
+                 New Zealand Institute for Crop and Food Research Ltd.
+             
+                 * ExtendedDescription:  It is given by dividing net radiation by latent heat of vaporization of water 
+                 * ShortDescription: It is given by dividing net radiation by latent heat of vaporization of water
      - inputs:
                  * name: lambdaV
-                               ** parametercategory : constant
-                               ** min : 0
-                               ** datatype : DOUBLE
-                               ** max : 10
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** default : 2.454
-                               ** inputtype : parameter
-                               ** unit : MJ kg-1
                                ** description : latent heat of vaporization of water
-                 * name: netRadiation
-                               ** min : 0
-                               ** default : 1.566
-                               ** max : 5000
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** variablecategory : state
+                               ** parametercategory : constant
                                ** datatype : DOUBLE
-                               ** inputtype : variable
-                               ** unit : MJ m-2 d-1
+                               ** default : 2.454
+                               ** min : 0
+                               ** max : 10
+                               ** unit : MJ kg-1
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                               ** inputtype : parameter
+                 * name: netRadiation
                                ** description : net radiation
+                               ** variablecategory : auxiliary
+                               ** datatype : DOUBLE
+                               ** default : 1.566
+                               ** min : 0
+                               ** max : 5000
+                               ** unit : MJ m-2 d-1
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                               ** inputtype : variable
      - outputs:
                  * name: netRadiationEquivalentEvaporation
-                               ** min : 0
                                ** variablecategory : auxiliary
-                               ** max : 5000
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** datatype : DOUBLE
-                               ** unit : g m-2 d-1
                                ** description : net Radiation in Equivalent Evaporation 
+                               ** datatype : DOUBLE
+                               ** min : 0
+                               ** max : 5000
+                               ** unit : g m-2 d-1
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
     """
 
+    netRadiationEquivalentEvaporation:float
     netRadiationEquivalentEvaporation = netRadiation / lambdaV * 1000.0
     return netRadiationEquivalentEvaporation
+#%%CyML Model End%%

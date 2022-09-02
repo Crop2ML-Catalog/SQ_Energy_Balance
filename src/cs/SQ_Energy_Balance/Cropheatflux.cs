@@ -11,10 +11,13 @@ public class CropHeatFlux
         //- Name: CropHeatFlux -Version: 1.0, -Time step: 1
         //- Description:
     //            * Title: CropHeatFlux Model
-    //            * Author: Pierre Martre
-    //            * Reference: abModelling energy balance in the wheat crop model SiriusQuality2:
-    //            Evapotranspiration and canopy and soil temperature calculations
-    //            * Institution: INRA/LEPSE Montpellier
+    //            * Author: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
+    //            * Reference:  https://doi.org/10.1016/0168-1923(94)02214-5
+    //            * Institution: New Zealand Institute for Crop and Food Research Ltd.,
+    //            New Zealand Institute for Crop and Food Research Ltd.,
+    //            New Zealand Institute for Crop and Food Research Ltd.,
+    //            New Zealand Institute for Crop and Food Research Ltd.
+    //        
     //            * ExtendedDescription: It is calculated from net Radiation, soil heat flux and potential transpiration 
     //            * ShortDescription: It calculates the crop heat flux
     //        

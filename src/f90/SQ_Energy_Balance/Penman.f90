@@ -1,8 +1,4 @@
-MODULE Penmanmod
-    IMPLICIT NONE
-CONTAINS
-
-    SUBROUTINE model_penman(evapoTranspirationPriestlyTaylor, &
+SUBROUTINE model_penman(evapoTranspirationPriestlyTaylor, &
         hslope, &
         VPDair, &
         psychrometricConstant, &
@@ -12,27 +8,30 @@ CONTAINS
         specificHeatCapacityAir, &
         conductance, &
         evapoTranspirationPenman)
-        IMPLICIT NONE
-        REAL, INTENT(IN) :: evapoTranspirationPriestlyTaylor
-        REAL, INTENT(IN) :: hslope
-        REAL, INTENT(IN) :: VPDair
-        REAL, INTENT(IN) :: psychrometricConstant
-        REAL, INTENT(IN) :: Alpha
-        REAL, INTENT(IN) :: lambdaV
-        REAL, INTENT(IN) :: rhoDensityAir
-        REAL, INTENT(IN) :: specificHeatCapacityAir
-        REAL, INTENT(IN) :: conductance
-        REAL, INTENT(OUT) :: evapoTranspirationPenman
-        !- Name: Penman -Version: 1.0, -Time step: 1
-        !- Description:
+    IMPLICIT NONE
+    REAL, INTENT(IN) :: evapoTranspirationPriestlyTaylor
+    REAL, INTENT(IN) :: hslope
+    REAL, INTENT(IN) :: VPDair
+    REAL, INTENT(IN) :: psychrometricConstant
+    REAL, INTENT(IN) :: Alpha
+    REAL, INTENT(IN) :: lambdaV
+    REAL, INTENT(IN) :: rhoDensityAir
+    REAL, INTENT(IN) :: specificHeatCapacityAir
+    REAL, INTENT(IN) :: conductance
+    REAL, INTENT(OUT) :: evapoTranspirationPenman
+    !- Name: Penman -Version: 1.0, -Time step: 1
+    !- Description:
     !            * Title: Penman Model
-    !            * Author: Pierre Martre
-    !            * Reference: Modelling energy balance in the wheat crop model SiriusQuality2:
-    !            Evapotranspiration and canopy and soil temperature calculations
-    !            * Institution: INRA/LEPSE Montpellier
+    !            * Author: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
+    !            * Reference:  https://doi.org/10.1016/0168-1923(94)02214-5
+    !            * Institution: New Zealand Institute for Crop and Food Research Ltd.,
+    !            New Zealand Institute for Crop and Food Research Ltd.,
+    !            New Zealand Institute for Crop and Food Research Ltd.,
+    !            New Zealand Institute for Crop and Food Research Ltd.
+    !        
     !            * ExtendedDescription: It uses Penmann-Monteith method vase on the availability of wind and vapor pressure daily data
     !            * ShortDescription: It uses Penmann-Monteith method vase on the availability of wind and vapor pressure daily data
-        !- inputs:
+    !- inputs:
     !            * name: evapoTranspirationPriestlyTaylor
     !                          ** description : evapoTranspiration of Priestly Taylor 
     !                          ** variablecategory : rate
@@ -121,7 +120,7 @@ CONTAINS
     !                          ** unit : m d-1
     !                          ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
     !                          ** inputtype : variable
-        !- outputs:
+    !- outputs:
     !            * name: evapoTranspirationPenman
     !                          ** description :  evapoTranspiration of Penman Monteith
     !                          ** variablecategory : rate
@@ -130,9 +129,7 @@ CONTAINS
     !                          ** max : 5000
     !                          ** unit : g m-2 d-1
     !                          ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-        evapoTranspirationPenman = evapoTranspirationPriestlyTaylor / Alpha +  &
-                (1000.0 * (rhoDensityAir * specificHeatCapacityAir * VPDair *  &
-                conductance / (lambdaV * (hslope + psychrometricConstant))))
-    END SUBROUTINE model_penman
-
-END MODULE
+    evapoTranspirationPenman = evapoTranspirationPriestlyTaylor / Alpha +  &
+            (1000.0 * (rhoDensityAir * specificHeatCapacityAir * VPDair *  &
+            conductance / (lambdaV * (hslope + psychrometricConstant))))
+END SUBROUTINE model_penman

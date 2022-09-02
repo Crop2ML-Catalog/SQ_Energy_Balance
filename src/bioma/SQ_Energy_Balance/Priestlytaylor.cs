@@ -128,11 +128,11 @@ namespace EnergyBalance.Strategies
             _pd = new CRA.ModelLayer.MetadataTypes.PublisherData();
             _pd.Add("Creator", "Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin");
             _pd.Add("Date", "");
-            _pd.Add("Publisher", "New Zealand Institute for Crop and Food Research Ltd.,
-            New Zealand Institute for Crop and Food Research Ltd.,
-            New Zealand Institute for Crop and Food Research Ltd.,
-            New Zealand Institute for Crop and Food Research Ltd.
-        ");
+            _pd.Add("Publisher", "New Zealand Institute for Crop and Food Research Ltd.",
+            "New Zealand Institute for Crop and Food Research Ltd.",
+            "New Zealand Institute for Crop and Food Research Ltd.",
+            "New Zealand Institute for Crop and Food Research Ltd."
+        );
         }
 
         private ModellingOptionsManager _modellingOptionsManager;
@@ -268,7 +268,7 @@ namespace EnergyBalance.Strategies
 
         private void CalculateModel(EnergyBalance.DomainClass.EnergyBalanceState s, EnergyBalance.DomainClass.EnergyBalanceState s1, EnergyBalance.DomainClass.EnergyBalanceRate r, EnergyBalance.DomainClass.EnergyBalanceAuxiliary a, EnergyBalance.DomainClass.EnergyBalanceExogenous ex)
         {
-            double netRadiationEquivalentEvaporation = s.netRadiationEquivalentEvaporation;
+            double netRadiationEquivalentEvaporation = a.netRadiationEquivalentEvaporation;
             double hslope = a.hslope;
             double evapoTranspirationPriestlyTaylor;
             evapoTranspirationPriestlyTaylor = Math.Max(Alpha * hslope * netRadiationEquivalentEvaporation / (hslope + psychrometricConstant), 0.0d);

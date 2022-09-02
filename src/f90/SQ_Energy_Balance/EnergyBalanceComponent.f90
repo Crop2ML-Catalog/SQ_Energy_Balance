@@ -1,21 +1,4 @@
-MODULE Energybalancemod
-    USE Netradiationmod
-    USE Netradiationequivalentevaporationmod
-    USE Priestlytaylormod
-    USE Conductancemod
-    USE Diffusionlimitedevaporationmod
-    USE Penmanmod
-    USE Ptsoilmod
-    USE Soilevaporationmod
-    USE Evapotranspirationmod
-    USE Soilheatfluxmod
-    USE Potentialtranspirationmod
-    USE Cropheatfluxmod
-    USE Canopytemperaturemod
-    IMPLICIT NONE
-CONTAINS
-
-    SUBROUTINE model_energybalance(minTair, &
+SUBROUTINE model_energybalance(minTair, &
         maxTair, &
         albedoCoefficient, &
         stefanBoltzman, &
@@ -57,58 +40,64 @@ CONTAINS
         cropHeatFlux, &
         minCanopyTemperature, &
         maxCanopyTemperature)
-        IMPLICIT NONE
-        REAL, INTENT(IN) :: minTair
-        REAL, INTENT(IN) :: maxTair
-        REAL, INTENT(IN) :: albedoCoefficient
-        REAL, INTENT(IN) :: stefanBoltzman
-        REAL, INTENT(IN) :: elevation
-        REAL, INTENT(IN) :: solarRadiation
-        REAL, INTENT(IN) :: vaporPressure
-        REAL, INTENT(IN) :: extraSolarRadiation
-        REAL, INTENT(IN) :: lambdaV
-        REAL, INTENT(IN) :: hslope
-        REAL, INTENT(IN) :: psychrometricConstant
-        REAL, INTENT(IN) :: Alpha
-        REAL, INTENT(IN) :: vonKarman
-        REAL, INTENT(IN) :: heightWeatherMeasurements
-        REAL, INTENT(IN) :: zm
-        REAL, INTENT(IN) :: d
-        REAL, INTENT(IN) :: zh
-        REAL, INTENT(IN) :: plantHeight
-        REAL, INTENT(IN) :: wind
-        REAL, INTENT(IN) :: deficitOnTopLayers
-        REAL, INTENT(IN) :: soilDiffusionConstant
-        REAL, INTENT(IN) :: VPDair
-        REAL, INTENT(IN) :: rhoDensityAir
-        REAL, INTENT(IN) :: specificHeatCapacityAir
-        REAL, INTENT(IN) :: tau
-        REAL, INTENT(IN) :: tauAlpha
-        INTEGER, INTENT(IN) :: isWindVpDefined
-        REAL, INTENT(OUT) :: netRadiation
-        REAL, INTENT(OUT) :: netOutGoingLongWaveRadiation
-        REAL, INTENT(OUT) :: netRadiationEquivalentEvaporation
-        REAL, INTENT(OUT) :: evapoTranspirationPriestlyTaylor
-        REAL, INTENT(OUT) :: conductance
-        REAL, INTENT(OUT) :: diffusionLimitedEvaporation
-        REAL, INTENT(OUT) :: evapoTranspirationPenman
-        REAL, INTENT(OUT) :: energyLimitedEvaporation
-        REAL, INTENT(OUT) :: soilEvaporation
-        REAL, INTENT(OUT) :: evapoTranspiration
-        REAL, INTENT(OUT) :: soilHeatFlux
-        REAL, INTENT(OUT) :: potentialTranspiration
-        REAL, INTENT(OUT) :: cropHeatFlux
-        REAL, INTENT(OUT) :: minCanopyTemperature
-        REAL, INTENT(OUT) :: maxCanopyTemperature
-        !- Name: EnergyBalance -Version: 001, -Time step: 1
-        !- Description:
+    IMPLICIT NONE
+    REAL, INTENT(IN) :: minTair
+    REAL, INTENT(IN) :: maxTair
+    REAL, INTENT(IN) :: albedoCoefficient
+    REAL, INTENT(IN) :: stefanBoltzman
+    REAL, INTENT(IN) :: elevation
+    REAL, INTENT(IN) :: solarRadiation
+    REAL, INTENT(IN) :: vaporPressure
+    REAL, INTENT(IN) :: extraSolarRadiation
+    REAL, INTENT(IN) :: lambdaV
+    REAL, INTENT(IN) :: hslope
+    REAL, INTENT(IN) :: psychrometricConstant
+    REAL, INTENT(IN) :: Alpha
+    REAL, INTENT(IN) :: vonKarman
+    REAL, INTENT(IN) :: heightWeatherMeasurements
+    REAL, INTENT(IN) :: zm
+    REAL, INTENT(IN) :: d
+    REAL, INTENT(IN) :: zh
+    REAL, INTENT(IN) :: plantHeight
+    REAL, INTENT(IN) :: wind
+    REAL, INTENT(IN) :: deficitOnTopLayers
+    REAL, INTENT(IN) :: soilDiffusionConstant
+    REAL, INTENT(IN) :: VPDair
+    REAL, INTENT(IN) :: rhoDensityAir
+    REAL, INTENT(IN) :: specificHeatCapacityAir
+    REAL, INTENT(IN) :: tau
+    REAL, INTENT(IN) :: tauAlpha
+    INTEGER, INTENT(IN) :: isWindVpDefined
+    REAL, INTENT(OUT) :: netRadiation
+    REAL, INTENT(OUT) :: netOutGoingLongWaveRadiation
+    REAL, INTENT(OUT) :: netRadiationEquivalentEvaporation
+    REAL, INTENT(OUT) :: evapoTranspirationPriestlyTaylor
+    REAL, INTENT(OUT) :: conductance
+    REAL, INTENT(OUT) :: diffusionLimitedEvaporation
+    REAL, INTENT(OUT) :: evapoTranspirationPenman
+    REAL, INTENT(OUT) :: energyLimitedEvaporation
+    REAL, INTENT(OUT) :: soilEvaporation
+    REAL, INTENT(OUT) :: evapoTranspiration
+    REAL, INTENT(OUT) :: soilHeatFlux
+    REAL, INTENT(OUT) :: potentialTranspiration
+    REAL, INTENT(OUT) :: cropHeatFlux
+    REAL, INTENT(OUT) :: minCanopyTemperature
+    REAL, INTENT(OUT) :: maxCanopyTemperature
+    !- Name: EnergyBalance -Version: 001, -Time step: 1
+    !- Description:
     !            * Title: EnergyBalance
-    !            * Author: Pierre MARTRE
-    !            * Reference: Modelling energy balance in the wheat crop model SiriusQuality2: Evapotranspiration and canopy and soil temperature calculations
-    !            * Institution: INRA/LEPSE
-    !            * ExtendedDescription: see documentation at http://www1.clermont.inra.fr/siriusquality/?page_id=547
+    !            * Author: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
+    !            * Reference: https://doi.org/10.1016/0168-1923(94)02214-5
+    !            * Institution: New Zealand Institute for Crop and Food Research Ltd.,
+    !            New Zealand Institute for Crop and Food Research Ltd.,
+    !            New Zealand Institute for Crop and Food Research Ltd.,
+    !            New Zealand Institute for Crop and Food Research Ltd.
+    !    
+    !            * ExtendedDescription: Modelling energy balance in the wheat crop model SiriusQuality2: Evapotranspiration and canopy and soil temperature calculations
+    !                        see documentation at http://www1.clermont.inra.fr/siriusquality/?page_id=547
+    !    
     !            * ShortDescription: This component calculates the canopy temperature and energy balance
-        !- inputs:
+    !- inputs:
     !            * name: minTair
     !                          ** description : minimum air temperature
     !                          ** variablecategory : auxiliary
@@ -377,7 +366,7 @@ CONTAINS
     !                          ** unit : 
     !                          ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
     !                          ** inputtype : parameter
-        !- outputs:
+    !- outputs:
     !            * name: netRadiation
     !                          ** description :  net radiation 
     !                          ** variablecategory : auxiliary
@@ -498,36 +487,34 @@ CONTAINS
     !                          ** max : 45
     !                          ** unit : degC
     !                          ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-        call model_netradiation(minTair, maxTair, albedoCoefficient,  &
-                stefanBoltzman, elevation, solarRadiation, vaporPressure,  &
-                extraSolarRadiation,netRadiation,netOutGoingLongWaveRadiation)
-        call model_conductance(vonKarman, heightWeatherMeasurements, zm, zh,  &
-                d, plantHeight, wind,conductance)
-        call model_diffusionlimitedevaporation(deficitOnTopLayers,  &
-                soilDiffusionConstant,diffusionLimitedEvaporation)
-        call model_netradiationequivalentevaporation(lambdaV,  &
-                netRadiation,netRadiationEquivalentEvaporation)
-        call model_priestlytaylor(netRadiationEquivalentEvaporation, hslope,  &
-                psychrometricConstant, Alpha,evapoTranspirationPriestlyTaylor)
-        call model_ptsoil(evapoTranspirationPriestlyTaylor, Alpha, tau,  &
-                tauAlpha,energyLimitedEvaporation)
-        call model_penman(evapoTranspirationPriestlyTaylor, hslope, VPDair,  &
-                psychrometricConstant, Alpha, lambdaV, rhoDensityAir,  &
-                specificHeatCapacityAir, conductance,evapoTranspirationPenman)
-        call model_soilevaporation(diffusionLimitedEvaporation,  &
-                energyLimitedEvaporation,soilEvaporation)
-        call model_evapotranspiration(isWindVpDefined,  &
-                evapoTranspirationPriestlyTaylor,  &
-                evapoTranspirationPenman,evapoTranspiration)
-        call model_soilheatflux(netRadiationEquivalentEvaporation, tau,  &
-                soilEvaporation,soilHeatFlux)
-        call model_potentialtranspiration(evapoTranspiration,  &
-                tau,potentialTranspiration)
-        call model_cropheatflux(netRadiationEquivalentEvaporation,  &
-                soilHeatFlux, potentialTranspiration,cropHeatFlux)
-        call model_canopytemperature(minTair, maxTair, cropHeatFlux,  &
-                conductance, lambdaV, rhoDensityAir,  &
-                specificHeatCapacityAir,minCanopyTemperature,maxCanopyTemperature)
-    END SUBROUTINE model_energybalance
-
-END MODULE
+    call model_netradiation(minTair, maxTair, albedoCoefficient,  &
+            stefanBoltzman, elevation, solarRadiation, vaporPressure,  &
+            extraSolarRadiation,netRadiation,netOutGoingLongWaveRadiation)
+    call model_conductance(vonKarman, heightWeatherMeasurements, zm, zh,  &
+            d, plantHeight, wind,conductance)
+    call model_diffusionlimitedevaporation(deficitOnTopLayers,  &
+            soilDiffusionConstant,diffusionLimitedEvaporation)
+    call model_netradiationequivalentevaporation(lambdaV,  &
+            netRadiation,netRadiationEquivalentEvaporation)
+    call model_priestlytaylor(netRadiationEquivalentEvaporation, hslope,  &
+            psychrometricConstant, Alpha,evapoTranspirationPriestlyTaylor)
+    call model_ptsoil(evapoTranspirationPriestlyTaylor, Alpha, tau,  &
+            tauAlpha,energyLimitedEvaporation)
+    call model_penman(evapoTranspirationPriestlyTaylor, hslope, VPDair,  &
+            psychrometricConstant, Alpha, lambdaV, rhoDensityAir,  &
+            specificHeatCapacityAir, conductance,evapoTranspirationPenman)
+    call model_soilevaporation(diffusionLimitedEvaporation,  &
+            energyLimitedEvaporation,soilEvaporation)
+    call model_evapotranspiration(isWindVpDefined,  &
+            evapoTranspirationPriestlyTaylor,  &
+            evapoTranspirationPenman,evapoTranspiration)
+    call model_soilheatflux(netRadiationEquivalentEvaporation, tau,  &
+            soilEvaporation,soilHeatFlux)
+    call model_potentialtranspiration(evapoTranspiration,  &
+            tau,potentialTranspiration)
+    call model_cropheatflux(netRadiationEquivalentEvaporation,  &
+            soilHeatFlux, potentialTranspiration,cropHeatFlux)
+    call model_canopytemperature(minTair, maxTair, cropHeatFlux,  &
+            conductance, lambdaV, rhoDensityAir,  &
+            specificHeatCapacityAir,minCanopyTemperature,maxCanopyTemperature)
+END SUBROUTINE model_energybalance

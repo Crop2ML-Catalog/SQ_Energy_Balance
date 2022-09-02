@@ -2,20 +2,24 @@
 from copy import copy
 from array import array
 from math import *
+from typing import *
 
 import numpy
-from math import *
 
-def model_potentialtranspiration(evapoTranspiration = 830.958,
-         tau = 0.9983):
+#%%CyML Model Begin%%
+def model_potentialtranspiration(evapoTranspiration:float,
+         tau:float):
     """
      - Name: PotentialTranspiration -Version: 1.0, -Time step: 1
      - Description:
                  * Title: PotentialTranspiration Model
-                 * Author: Pierre Martre
-                 * Reference: Modelling energy balance in the wheat crop model SiriusQuality2:
-                 Evapotranspiration and canopy and soil temperature calculations
-                 * Institution: INRA/LEPSE Montpellier
+                 * Authors: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
+                 * Reference:  https://doi.org/10.1016/0168-1923(94)02214-5
+                 * Institution: New Zealand Institute for Crop and Food Research Ltd.,
+                 New Zealand Institute for Crop and Food Research Ltd.,
+                 New Zealand Institute for Crop and Food Research Ltd.,
+                 New Zealand Institute for Crop and Food Research Ltd.
+             
                  * ExtendedDescription: SiriusQuality2 uses availability of water from the soil reservoir as a method to restrict
                          transpiration as soil moisture is depleted 
                  * ShortDescription: It uses the availability of water from the soil reservoir as a method to restrict
@@ -52,6 +56,7 @@ def model_potentialtranspiration(evapoTranspiration = 830.958,
                                ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
     """
 
-    potentialTranspiration = None
+    potentialTranspiration:float
     potentialTranspiration = evapoTranspiration * (1.0 - tau)
     return potentialTranspiration
+#%%CyML Model End%%

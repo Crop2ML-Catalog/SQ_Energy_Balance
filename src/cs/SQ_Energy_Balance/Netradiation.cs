@@ -28,10 +28,13 @@ public class NetRadiation
         //- Name: NetRadiation -Version: 1.0, -Time step: 1
         //- Description:
     //            * Title: NetRadiation Model
-    //            * Author: Pierre Martre
-    //            * Reference: Modelling energy balance in the wheat crop model SiriusQuality2:
-    //            Evapotranspiration and canopy and soil temperature calculations
-    //            * Institution: INRA Montpellier
+    //            * Author: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
+    //            * Reference:  https://doi.org/10.1016/0168-1923(94)02214-5
+    //            * Institution: New Zealand Institute for Crop and Food Research Ltd.,
+    //            New Zealand Institute for Crop and Food Research Ltd.,
+    //            New Zealand Institute for Crop and Food Research Ltd.,
+    //            New Zealand Institute for Crop and Food Research Ltd.
+    //        
     //            * ExtendedDescription: It is calculated at the surface of the canopy and is givenby the difference between incoming and outgoing radiation of both short
     //                     and long wavelength radiation 
     //            * ShortDescription: It refers as difference between incoming and outgoing radiation of both short

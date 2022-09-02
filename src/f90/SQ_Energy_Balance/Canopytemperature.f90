@@ -1,8 +1,4 @@
-MODULE Canopytemperaturemod
-    IMPLICIT NONE
-CONTAINS
-
-    SUBROUTINE model_canopytemperature(minTair, &
+SUBROUTINE model_canopytemperature(minTair, &
         maxTair, &
         cropHeatFlux, &
         conductance, &
@@ -11,26 +7,29 @@ CONTAINS
         specificHeatCapacityAir, &
         minCanopyTemperature, &
         maxCanopyTemperature)
-        IMPLICIT NONE
-        REAL, INTENT(IN) :: minTair
-        REAL, INTENT(IN) :: maxTair
-        REAL, INTENT(IN) :: cropHeatFlux
-        REAL, INTENT(IN) :: conductance
-        REAL, INTENT(IN) :: lambdaV
-        REAL, INTENT(IN) :: rhoDensityAir
-        REAL, INTENT(IN) :: specificHeatCapacityAir
-        REAL, INTENT(OUT) :: minCanopyTemperature
-        REAL, INTENT(OUT) :: maxCanopyTemperature
-        !- Name: CanopyTemperature -Version: 1.0, -Time step: 1
-        !- Description:
+    IMPLICIT NONE
+    REAL, INTENT(IN) :: minTair
+    REAL, INTENT(IN) :: maxTair
+    REAL, INTENT(IN) :: cropHeatFlux
+    REAL, INTENT(IN) :: conductance
+    REAL, INTENT(IN) :: lambdaV
+    REAL, INTENT(IN) :: rhoDensityAir
+    REAL, INTENT(IN) :: specificHeatCapacityAir
+    REAL, INTENT(OUT) :: minCanopyTemperature
+    REAL, INTENT(OUT) :: maxCanopyTemperature
+    !- Name: CanopyTemperature -Version: 1.0, -Time step: 1
+    !- Description:
     !            * Title: CanopyTemperature Model
-    !            * Author: Pierre Martre
-    !            * Reference: Modelling energy balance in the wheat crop model SiriusQuality2:
-    !            Evapotranspiration and canopy and soil temperature calculations
-    !            * Institution: INRA/LEPSE Montpellier
+    !            * Author: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
+    !            * Reference: https://doi.org/10.1016/0168-1923(94)02214-5
+    !            * Institution: New Zealand Institute for Crop and Food Research Ltd.,
+    !            New Zealand Institute for Crop and Food Research Ltd.,
+    !            New Zealand Institute for Crop and Food Research Ltd.,
+    !            New Zealand Institute for Crop and Food Research Ltd.
+    !        
     !            * ExtendedDescription: It is calculated from the crop heat flux and the boundary layer conductance 
     !            * ShortDescription: It is calculated from the crop heat flux and the boundary layer conductance 
-        !- inputs:
+    !- inputs:
     !            * name: minTair
     !                          ** description : minimum air temperature
     !                          ** datatype : DOUBLE
@@ -97,7 +96,7 @@ CONTAINS
     !                          ** unit : MJ/kg/degC
     !                          ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
     !                          ** inputtype : parameter
-        !- outputs:
+    !- outputs:
     !            * name: minCanopyTemperature
     !                          ** description : minimal Canopy Temperature  
     !                          ** datatype : DOUBLE
@@ -114,10 +113,8 @@ CONTAINS
     !                          ** max : 45
     !                          ** unit : degC
     !                          ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-        minCanopyTemperature = minTair + (cropHeatFlux / (rhoDensityAir *  &
-                specificHeatCapacityAir * conductance / lambdaV * 1000.0))
-        maxCanopyTemperature = maxTair + (cropHeatFlux / (rhoDensityAir *  &
-                specificHeatCapacityAir * conductance / lambdaV * 1000.0))
-    END SUBROUTINE model_canopytemperature
-
-END MODULE
+    minCanopyTemperature = minTair + (cropHeatFlux / (rhoDensityAir *  &
+            specificHeatCapacityAir * conductance / lambdaV * 1000.0))
+    maxCanopyTemperature = maxTair + (cropHeatFlux / (rhoDensityAir *  &
+            specificHeatCapacityAir * conductance / lambdaV * 1000.0))
+END SUBROUTINE model_canopytemperature

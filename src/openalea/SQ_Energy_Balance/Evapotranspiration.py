@@ -1,65 +1,78 @@
 # coding: utf8
-import numpy
+from copy import copy
+from array import array
 from math import *
+from typing import *
+from datetime import datetime
 
-def model_evapotranspiration(isWindVpDefined = 1,
-         evapoTranspirationPriestlyTaylor = 449.367,
-         evapoTranspirationPenman = 830.958):
+import numpy
+
+#%%CyML Model Begin%%
+def model_evapotranspiration(isWindVpDefined:int,
+         evapoTranspirationPriestlyTaylor:float,
+         evapoTranspirationPenman:float):
     """
+     - Name: EvapoTranspiration -Version: 1.0, -Time step: 1
      - Description:
                  * Title: Evapotranspiration Model
-                 * Author: Pierre Martre
-                 * Reference: Modelling energy balance in the wheat crop model SiriusQuality2:
-                 Evapotranspiration and canopy and soil temperature calculations
-                 * Institution: INRA Montpellier
-                 * Abstract: According to the availability of wind and/or vapor pressure daily data, the
+                 * Authors: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
+                 * Reference:  https://doi.org/10.1016/0168-1923(94)02214-5
+                 * Institution: New Zealand Institute for Crop and Food Research Ltd.,
+                 New Zealand Institute for Crop and Food Research Ltd.,
+                 New Zealand Institute for Crop and Food Research Ltd.,
+                 New Zealand Institute for Crop and Food Research Ltd.
+             
+                 * ExtendedDescription: According to the availability of wind and/or vapor pressure daily data, the
                  SiriusQuality2 model calculates the evapotranspiration rate using the Penman (if wind
                  and vapor pressure data are available) (Penman 1948) or the Priestly-Taylor
                  (Priestley and Taylor 1972) method 
+                 * ShortDescription: It uses to choose evapotranspiration of Penmann or Priestly-Taylor 
      - inputs:
                  * name: isWindVpDefined
-                               ** parametercategory : constant
-                               ** min : 0
-                               ** datatype : INT
-                               ** max : 1
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** default : 1
-                               ** inputtype : parameter
-                               ** unit : 
                                ** description : if wind and vapour pressure are defined
+                               ** parametercategory : constant
+                               ** datatype : INT
+                               ** default : 1
+                               ** min : 0
+                               ** max : 1
+                               ** unit : 
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                               ** inputtype : parameter
                  * name: evapoTranspirationPriestlyTaylor
-                               ** default : 449.367
                                ** description : evapoTranspiration of Priestly Taylor 
-                               ** min : 0
-                               ** datatype : DOUBLE
-                               ** max : 10000
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
                                ** variablecategory : rate
-                               ** inputtype : variable
+                               ** default : 449.367
+                               ** datatype : DOUBLE
+                               ** min : 0
+                               ** max : 10000
                                ** unit : mm
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                               ** inputtype : variable
                  * name: evapoTranspirationPenman
-                               ** min : 0
-                               ** default : 830.958
-                               ** max : 10000
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                               ** description : evapoTranspiration of Penman 
                                ** datatype : DOUBLE
                                ** variablecategory : rate
-                               ** inputtype : variable
+                               ** default : 830.958
+                               ** min : 0
+                               ** max : 10000
                                ** unit : mm
-                               ** description : evapoTranspiration of Penman 
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                               ** inputtype : variable
      - outputs:
                  * name: evapoTranspiration
-                               ** min : 0
-                               ** variablecategory : rate
-                               ** max : 10000
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** datatype : DOUBLE
-                               ** unit : mm
                                ** description : evapoTranspiration
+                               ** variablecategory : rate
+                               ** datatype : DOUBLE
+                               ** min : 0
+                               ** max : 10000
+                               ** unit : mm
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
     """
 
+    evapoTranspiration:float
     if isWindVpDefined == 1:
         evapoTranspiration = evapoTranspirationPenman
     else:
         evapoTranspiration = evapoTranspirationPriestlyTaylor
     return evapoTranspiration
+#%%CyML Model End%%

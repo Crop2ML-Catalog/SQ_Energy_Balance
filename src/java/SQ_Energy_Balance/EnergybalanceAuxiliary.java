@@ -26,21 +26,21 @@ public class EnergybalanceAuxiliary
     {
         if (copyAll)
         {
-            this.minTair = toCopy.minTair;
-            this.maxTair = toCopy.maxTair;
-            this.solarRadiation = toCopy.solarRadiation;
-            this.vaporPressure = toCopy.vaporPressure;
-            this.extraSolarRadiation = toCopy.extraSolarRadiation;
-            this.hslope = toCopy.hslope;
-            this.plantHeight = toCopy.plantHeight;
-            this.wind = toCopy.wind;
-            this.deficitOnTopLayers = toCopy.deficitOnTopLayers;
-            this.VPDair = toCopy.VPDair;
-            this.netRadiation = toCopy.netRadiation;
-            this.netOutGoingLongWaveRadiation = toCopy.netOutGoingLongWaveRadiation;
-            this.netRadiationEquivalentEvaporation = toCopy.netRadiationEquivalentEvaporation;
-            this.energyLimitedEvaporation = toCopy.energyLimitedEvaporation;
-            this.soilEvaporation = toCopy.soilEvaporation;
+            this.minTair = toCopy.getminTair();
+            this.maxTair = toCopy.getmaxTair();
+            this.solarRadiation = toCopy.getsolarRadiation();
+            this.vaporPressure = toCopy.getvaporPressure();
+            this.extraSolarRadiation = toCopy.getextraSolarRadiation();
+            this.hslope = toCopy.gethslope();
+            this.plantHeight = toCopy.getplantHeight();
+            this.wind = toCopy.getwind();
+            this.deficitOnTopLayers = toCopy.getdeficitOnTopLayers();
+            this.VPDair = toCopy.getVPDair();
+            this.netRadiation = toCopy.getnetRadiation();
+            this.netOutGoingLongWaveRadiation = toCopy.getnetOutGoingLongWaveRadiation();
+            this.netRadiationEquivalentEvaporation = toCopy.getnetRadiationEquivalentEvaporation();
+            this.energyLimitedEvaporation = toCopy.getenergyLimitedEvaporation();
+            this.soilEvaporation = toCopy.getsoilEvaporation();
         }
     }
     public double getminTair()

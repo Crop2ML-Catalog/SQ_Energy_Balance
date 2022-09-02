@@ -109,11 +109,7 @@ namespace SiriusQualityEnergyBalance.Strategies
             _pd = new CRA.ModelLayer.MetadataTypes.PublisherData();
             _pd.Add("Creator", "Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin");
             _pd.Add("Date", "");
-            _pd.Add("Publisher", "New Zealand Institute for Crop and Food Research Ltd.,
-            New Zealand Institute for Crop and Food Research Ltd.,
-            New Zealand Institute for Crop and Food Research Ltd.,
-            New Zealand Institute for Crop and Food Research Ltd.
-        ");
+            _pd.Add("Publisher", "New Zealand Institute for Crop and Food Research Ltd., New Zealand Institute for Crop and Food Research Ltd., New Zealand Institute for Crop and Food Research Ltd., New Zealand Institute for Crop and Food Research Ltd. "); 
         }
 
         private ModellingOptionsManager _modellingOptionsManager;

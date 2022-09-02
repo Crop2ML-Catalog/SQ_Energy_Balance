@@ -2,26 +2,30 @@
 from copy import copy
 from array import array
 from math import *
+from typing import *
 
 import numpy
-from math import *
 
-def model_conductance(vonKarman = 0.42,
-         heightWeatherMeasurements = 2.0,
-         zm = 0.13,
-         zh = 0.013,
-         d = 0.67,
-         plantHeight = 0.0,
-         wind = 124000.0):
+#%%CyML Model Begin%%
+def model_conductance(vonKarman:float,
+         heightWeatherMeasurements:float,
+         zm:float,
+         zh:float,
+         d:float,
+         plantHeight:float,
+         wind:float):
     """
      - Name: Conductance -Version: 1.0, -Time step: 1
      - Description:
                  * Title: Conductance Model
-                 * Author: Pierre Martre
-                 * Reference: Modelling energy balance in the wheat crop model SiriusQuality2:
-                 Evapotranspiration and canopy and soil temperature calculations
+                 * Authors: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
+                 * Reference:  https://doi.org/10.1016/0168-1923(94)02214-5
              
-                 * Institution: INRA/LEPSE Montpellier
+                 * Institution: New Zealand Institute for Crop and Food Research Ltd.,
+                 New Zealand Institute for Crop and Food Research Ltd.,
+                 New Zealand Institute for Crop and Food Research Ltd.,
+                 New Zealand Institute for Crop and Food Research Ltd.
+             
                  * ExtendedDescription: The boundary layer conductance is expressed as the wind speed profile above the
                  canopy and the canopy structure. The approach does not take into account buoyancy
                  effects. 
@@ -112,8 +116,9 @@ def model_conductance(vonKarman = 0.42,
                                ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
     """
 
-    conductance = None
-    h = None
+    conductance:float
+    h:float
     h = max(10.0, plantHeight) / 100.0
     conductance = wind * pow(vonKarman, 2) / (log((heightWeatherMeasurements - (d * h)) / (zm * h)) * log((heightWeatherMeasurements - (d * h)) / (zh * h)))
     return conductance
+#%%CyML Model End%%

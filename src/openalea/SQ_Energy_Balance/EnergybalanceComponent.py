@@ -1,463 +1,486 @@
 # coding: utf8
-from datetime import datetime
+from copy import copy
+from array import array
 from math import *
-from Netradiation import model_netradiation
-from Netradiationequivalentevaporation import model_netradiationequivalentevaporation
-from Priestlytaylor import model_priestlytaylor
-from Conductance import model_conductance
-from Diffusionlimitedevaporation import model_diffusionlimitedevaporation
-from Penman import model_penman
-from Ptsoil import model_ptsoil
-from Soilevaporation import model_soilevaporation
-from Evapotranspiration import model_evapotranspiration
-from Soilheatflux import model_soilheatflux
-from Potentialtranspiration import model_potentialtranspiration
-from Cropheatflux import model_cropheatflux
-from Canopytemperature import model_canopytemperature
+from typing import *
+from datetime import datetime
 
-def model_energybalance(minTair = 0.7,
-         maxTair = 7.2,
-         albedoCoefficient = 0.23,
-         stefanBoltzman = 4.903e-09,
-         elevation = 0.0,
-         solarRadiation = 3.0,
-         vaporPressure = 6.1,
-         extraSolarRadiation = 11.7,
-         lambdaV = 2.454,
-         hslope = 0.584,
-         psychrometricConstant = 0.66,
-         Alpha = 1.5,
-         vonKarman = 0.42,
-         heightWeatherMeasurements = 2.0,
-         zm = 0.13,
-         d = 0.67,
-         zh = 0.013,
-         plantHeight = 0.0,
-         wind = 124000.0,
-         deficitOnTopLayers = 5341.0,
-         soilDiffusionConstant = 4.2,
-         VPDair = 2.19,
-         rhoDensityAir = 1.225,
-         specificHeatCapacityAir = 0.00101,
-         tau = 0.9983,
-         tauAlpha = 0.3,
-         isWindVpDefined = 1):
+from SQ_Energy_Balance.Netradiation import model_netradiation
+from SQ_Energy_Balance.Netradiationequivalentevaporation import model_netradiationequivalentevaporation
+from SQ_Energy_Balance.Priestlytaylor import model_priestlytaylor
+from SQ_Energy_Balance.Conductance import model_conductance
+from SQ_Energy_Balance.Diffusionlimitedevaporation import model_diffusionlimitedevaporation
+from SQ_Energy_Balance.Penman import model_penman
+from SQ_Energy_Balance.Ptsoil import model_ptsoil
+from SQ_Energy_Balance.Soilevaporation import model_soilevaporation
+from SQ_Energy_Balance.Evapotranspiration import model_evapotranspiration
+from SQ_Energy_Balance.Soilheatflux import model_soilheatflux
+from SQ_Energy_Balance.Potentialtranspiration import model_potentialtranspiration
+from SQ_Energy_Balance.Cropheatflux import model_cropheatflux
+from SQ_Energy_Balance.Canopytemperature import model_canopytemperature
+
+#%%CyML Model Begin%%
+def model_energybalance(minTair:float,
+         maxTair:float,
+         albedoCoefficient:float,
+         stefanBoltzman:float,
+         elevation:float,
+         solarRadiation:float,
+         vaporPressure:float,
+         extraSolarRadiation:float,
+         lambdaV:float,
+         hslope:float,
+         psychrometricConstant:float,
+         Alpha:float,
+         vonKarman:float,
+         heightWeatherMeasurements:float,
+         zm:float,
+         d:float,
+         zh:float,
+         plantHeight:float,
+         wind:float,
+         deficitOnTopLayers:float,
+         soilDiffusionConstant:float,
+         VPDair:float,
+         rhoDensityAir:float,
+         specificHeatCapacityAir:float,
+         tau:float,
+         tauAlpha:float,
+         isWindVpDefined:int):
     """
+     - Name: EnergyBalance -Version: 001, -Time step: 1
      - Description:
                  * Title: EnergyBalance
-                 * Author: Pierre MARTRE
-                 * Reference: Modelling energy balance in the wheat crop model SiriusQuality2: Evapotranspiration and canopy and soil temperature calculations
-                 * Institution: INRA/LEPSE
-                 * Abstract: see documentation at http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                 * Authors: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
+                 * Reference: https://doi.org/10.1016/0168-1923(94)02214-5
+                 * Institution: New Zealand Institute for Crop and Food Research Ltd.,
+                 New Zealand Institute for Crop and Food Research Ltd.,
+                 New Zealand Institute for Crop and Food Research Ltd.,
+                 New Zealand Institute for Crop and Food Research Ltd.
+         
+                 * ExtendedDescription: Modelling energy balance in the wheat crop model SiriusQuality2: Evapotranspiration and canopy and soil temperature calculations
+                             see documentation at http://www1.clermont.inra.fr/siriusquality/?page_id=547
+         
+                 * ShortDescription: This component calculates the canopy temperature and energy balance
      - inputs:
                  * name: minTair
-                               ** min : -30
-                               ** default : 0.7
-                               ** max : 45
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** variablecategory : auxiliary
-                               ** datatype : DOUBLE
-                               ** inputtype : variable
-                               ** unit : °C
                                ** description : minimum air temperature
-                 * name: maxTair
+                               ** variablecategory : auxiliary
+                               ** datatype : DOUBLE
                                ** min : -30
-                               ** default : 7.2
                                ** max : 45
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** variablecategory : auxiliary
-                               ** datatype : DOUBLE
-                               ** inputtype : variable
+                               ** default : 0.7
                                ** unit : °C
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                               ** inputtype : variable
+                 * name: maxTair
                                ** description : maximum air Temperature
+                               ** variablecategory : auxiliary
+                               ** datatype : DOUBLE
+                               ** min : -30
+                               ** max : 45
+                               ** default : 7.2
+                               ** unit : °C
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                               ** inputtype : variable
                  * name: albedoCoefficient
-                               ** parametercategory : constant
-                               ** min : 0
-                               ** datatype : DOUBLE
-                               ** max : 1
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** default : 0.23
-                               ** inputtype : parameter
-                               ** unit : 
                                ** description : albedo Coefficient
+                               ** parametercategory : constant
+                               ** datatype : DOUBLE
+                               ** default : 0.23
+                               ** min : 0
+                               ** max : 1
+                               ** unit : 
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                               ** inputtype : parameter
                  * name: stefanBoltzman
-                               ** parametercategory : constant
-                               ** min : 0
-                               ** datatype : DOUBLE
-                               ** max : 1
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** default : 4.903E-09
-                               ** inputtype : parameter
-                               ** unit : 
                                ** description : stefan Boltzman constant
+                               ** parametercategory : constant
+                               ** datatype : DOUBLE
+                               ** default : 4.903E-09
+                               ** min : 0
+                               ** max : 1
+                               ** unit : 
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                               ** inputtype : parameter
                  * name: elevation
-                               ** parametercategory : constant
-                               ** min : -500
-                               ** datatype : DOUBLE
-                               ** max : 10000
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** default : 0
-                               ** inputtype : parameter
-                               ** unit : m
                                ** description : elevation
-                 * name: solarRadiation
-                               ** min : 0
-                               ** default : 3
-                               ** max : 1000
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** variablecategory : auxiliary
-                               ** datatype : DOUBLE
-                               ** inputtype : variable
-                               ** unit : MJ m-2 d-1
-                               ** description : solar Radiation
-                 * name: vaporPressure
-                               ** min : 0
-                               ** default : 6.1
-                               ** max : 1000
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** variablecategory : auxiliary
-                               ** datatype : DOUBLE
-                               ** inputtype : variable
-                               ** unit : hPa
-                               ** description : vapor Pressure
-                 * name: extraSolarRadiation
-                               ** min : 0
-                               ** default : 11.7
-                               ** max : 1000
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** variablecategory : auxiliary
-                               ** datatype : DOUBLE
-                               ** inputtype : variable
-                               ** unit : MJ m2 d-1
-                               ** description : extra Solar Radiation
-                 * name: lambdaV
                                ** parametercategory : constant
-                               ** min : 0
                                ** datatype : DOUBLE
-                               ** max : 10
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** default : 2.454
-                               ** inputtype : parameter
-                               ** unit : MJ kg-1
-                               ** description : latent heat of vaporization of water
-                 * name: hslope
-                               ** min : 0
-                               ** default : 0.584
-                               ** max : 1000
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** variablecategory : auxiliary
-                               ** datatype : DOUBLE
-                               ** inputtype : variable
-                               ** unit : hPa °C-1
-                               ** description : the slope of saturated vapor pressure temperature curve at a given temperature 
-                 * name: psychrometricConstant
-                               ** parametercategory : constant
-                               ** min : 0
-                               ** datatype : DOUBLE
-                               ** max : 1
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** default : 0.66
-                               ** inputtype : parameter
-                               ** unit : 
-                               ** description : psychrometric constant
-                 * name: Alpha
-                               ** parametercategory : constant
-                               ** min : 0
-                               ** datatype : DOUBLE
-                               ** max : 100
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** default : 1.5
-                               ** inputtype : parameter
-                               ** unit : 
-                               ** description : Priestley-Taylor evapotranspiration proportionality constant
-                 * name: vonKarman
-                               ** parametercategory : constant
-                               ** min : 0
-                               ** datatype : DOUBLE
-                               ** max : 1
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** default : 0.42
-                               ** inputtype : parameter
-                               ** unit : dimensionless
-                               ** description : von Karman constant
-                 * name: heightWeatherMeasurements
-                               ** parametercategory : soil
-                               ** min : 0
-                               ** datatype : DOUBLE
-                               ** max : 10
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** default : 2
-                               ** inputtype : parameter
-                               ** unit : m
-                               ** description : reference height of wind and humidity measurements
-                 * name: zm
-                               ** parametercategory : constant
-                               ** min : 0
-                               ** datatype : DOUBLE
-                               ** max : 1
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** default : 0.13
-                               ** inputtype : parameter
-                               ** unit : m
-                               ** description : roughness length governing momentum transfer, FAO
-                 * name: d
-                               ** parametercategory : constant
-                               ** min : 0
-                               ** datatype : DOUBLE
-                               ** max : 1
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547rl
-                               ** default : 0.67
-                               ** inputtype : parameter
-                               ** unit : dimensionless
-                               ** description : corresponding to 2/3. This is multiplied to the crop heigth for calculating the zero plane displacement height, FAO
-                 * name: zh
-                               ** parametercategory : constant
-                               ** min : 0
-                               ** datatype : DOUBLE
-                               ** max : 1
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** default : 0.013
-                               ** inputtype : parameter
-                               ** unit : m
-                               ** description : roughness length governing transfer of heat and vapour, FAO
-                 * name: plantHeight
-                               ** min : 0
-                               ** datatype : DOUBLE
-                               ** max : 1000
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
                                ** default : 0
-                               ** variablecategory : auxiliary
-                               ** inputtype : variable
-                               ** unit : mm
-                               ** description : plant Height
-                 * name: wind
-                               ** min : 0
-                               ** default : 124000
-                               ** max : 1000000
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** variablecategory : auxiliary
-                               ** datatype : DOUBLE
-                               ** inputtype : variable
-                               ** unit : m/d
-                               ** description : wind
-                 * name: deficitOnTopLayers
-                               ** min : 0
-                               ** default : 5341
+                               ** min : -500
                                ** max : 10000
+                               ** unit : m
                                ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                               ** inputtype : parameter
+                 * name: solarRadiation
+                               ** description : solar Radiation
                                ** variablecategory : auxiliary
                                ** datatype : DOUBLE
-                               ** inputtype : variable
-                               ** unit : g m-2 d-1
-                               ** description : deficit On TopLayers
-                 * name: soilDiffusionConstant
-                               ** parametercategory : soil
+                               ** default : 3
                                ** min : 0
-                               ** datatype : DOUBLE
-                               ** max : 10
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** default : 4.2
-                               ** inputtype : parameter
-                               ** unit : 
-                               ** description : soil Diffusion Constant
-                 * name: VPDair
-                               ** min : 0
-                               ** default : 2.19
                                ** max : 1000
+                               ** unit : MJ m-2 d-1
                                ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                               ** inputtype : variable
+                 * name: vaporPressure
+                               ** description : vapor Pressure
                                ** variablecategory : auxiliary
                                ** datatype : DOUBLE
-                               ** inputtype : variable
+                               ** default : 6.1
+                               ** min : 0
+                               ** max : 1000
                                ** unit : hPa
-                               ** description :  vapour pressure density
-                 * name: rhoDensityAir
-                               ** parametercategory : constant
-                               ** datatype : DOUBLE
                                ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** default : 1.225
-                               ** inputtype : parameter
-                               ** unit : 
-                               ** description : Density of air
-                 * name: specificHeatCapacityAir
-                               ** parametercategory : constant
-                               ** min : 0
+                               ** inputtype : variable
+                 * name: extraSolarRadiation
+                               ** description : extra Solar Radiation
+                               ** variablecategory : auxiliary
                                ** datatype : DOUBLE
+                               ** default : 11.7
+                               ** min : 0
+                               ** max : 1000
+                               ** unit : MJ m2 d-1
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                               ** inputtype : variable
+                 * name: lambdaV
+                               ** description : latent heat of vaporization of water
+                               ** parametercategory : constant
+                               ** datatype : DOUBLE
+                               ** default : 2.454
+                               ** min : 0
+                               ** max : 10
+                               ** unit : MJ kg-1
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                               ** inputtype : parameter
+                 * name: hslope
+                               ** description : the slope of saturated vapor pressure temperature curve at a given temperature 
+                               ** variablecategory : auxiliary
+                               ** datatype : DOUBLE
+                               ** default : 0.584
+                               ** min : 0
+                               ** max : 1000
+                               ** unit : hPa °C-1
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                               ** inputtype : variable
+                 * name: psychrometricConstant
+                               ** description : psychrometric constant
+                               ** parametercategory : constant
+                               ** datatype : DOUBLE
+                               ** default : 0.66
+                               ** min : 0
                                ** max : 1
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** default : 0.00101
-                               ** inputtype : parameter
                                ** unit : 
-                               ** description : Specific heat capacity of dry air
-                 * name: tau
-                               ** parametercategory : species
-                               ** min : 0
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                               ** inputtype : parameter
+                 * name: Alpha
+                               ** description : Priestley-Taylor evapotranspiration proportionality constant
+                               ** parametercategory : constant
                                ** datatype : DOUBLE
+                               ** default : 1.5
+                               ** min : 0
                                ** max : 100
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** default : 0.9983
-                               ** inputtype : parameter
                                ** unit : 
-                               ** description : plant cover factor
-                 * name: tauAlpha
-                               ** parametercategory : soil
-                               ** min : 0
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                               ** inputtype : parameter
+                 * name: vonKarman
+                               ** description : von Karman constant
                                ** datatype : DOUBLE
-                               ** max : 1
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** default : 0.3
-                               ** inputtype : parameter
-                               ** unit : 
-                               ** description : Fraction of the total net radiation exchanged at the soil surface when AlpaE = 1
-                 * name: isWindVpDefined
-                               ** parametercategory : constant
                                ** min : 0
-                               ** datatype : INT
                                ** max : 1
+                               ** default : 0.42
+                               ** unit : dimensionless
                                ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** default : 1
                                ** inputtype : parameter
+                               ** parametercategory : constant
+                 * name: heightWeatherMeasurements
+                               ** description : reference height of wind and humidity measurements
+                               ** parametercategory : soil
+                               ** datatype : DOUBLE
+                               ** min : 0
+                               ** max : 10
+                               ** default : 2
+                               ** unit : m
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                               ** inputtype : parameter
+                 * name: zm
+                               ** description : roughness length governing momentum transfer, FAO
+                               ** parametercategory : constant
+                               ** inputtype : parameter
+                               ** datatype : DOUBLE
+                               ** min : 0
+                               ** max : 1
+                               ** default : 0.13
+                               ** unit : m
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                 * name: d
+                               ** description : corresponding to 2/3. This is multiplied to the crop heigth for calculating the zero plane displacement height, FAO
+                               ** inputtype : parameter
+                               ** parametercategory : constant
+                               ** datatype : DOUBLE
+                               ** default : 0.67
+                               ** min : 0
+                               ** max : 1
+                               ** unit : dimensionless
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547rl
+                 * name: zh
+                               ** description : roughness length governing transfer of heat and vapour, FAO
+                               ** parametercategory : constant
+                               ** inputtype : parameter
+                               ** datatype : DOUBLE
+                               ** min : 0
+                               ** max : 1
+                               ** default : 0.013
+                               ** unit : m
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                 * name: plantHeight
+                               ** description : plant Height
+                               ** datatype : DOUBLE
+                               ** default : 0
+                               ** min : 0
+                               ** max : 1000
+                               ** unit : mm
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                               ** inputtype : variable
+                               ** variablecategory : auxiliary
+                 * name: wind
+                               ** description : wind
+                               ** variablecategory : auxiliary
+                               ** datatype : DOUBLE
+                               ** default : 124000
+                               ** min : 0
+                               ** max : 1000000
+                               ** unit : m/d
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                               ** inputtype : variable
+                 * name: deficitOnTopLayers
+                               ** description : deficit On TopLayers
+                               ** variablecategory : auxiliary
+                               ** datatype : DOUBLE
+                               ** default : 5341
+                               ** min : 0
+                               ** max : 10000
+                               ** unit : g m-2 d-1
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                               ** inputtype : variable
+                 * name: soilDiffusionConstant
+                               ** description : soil Diffusion Constant
+                               ** parametercategory : soil
+                               ** datatype : DOUBLE
+                               ** default : 4.2
+                               ** min : 0
+                               ** max : 10
                                ** unit : 
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                               ** inputtype : parameter
+                 * name: VPDair
+                               ** description :  vapour pressure density
+                               ** variablecategory : auxiliary
+                               ** datatype : DOUBLE
+                               ** default : 2.19
+                               ** min : 0
+                               ** max : 1000
+                               ** unit : hPa
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                               ** inputtype : variable
+                 * name: rhoDensityAir
+                               ** description : Density of air
+                               ** parametercategory : constant
+                               ** datatype : DOUBLE
+                               ** default : 1.225
+                               ** unit : 
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                               ** inputtype : parameter
+                 * name: specificHeatCapacityAir
+                               ** description : Specific heat capacity of dry air
+                               ** parametercategory : constant
+                               ** datatype : DOUBLE
+                               ** default : 0.00101
+                               ** min : 0
+                               ** max : 1
+                               ** unit : 
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                               ** inputtype : parameter
+                 * name: tau
+                               ** description : plant cover factor
+                               ** parametercategory : species
+                               ** datatype : DOUBLE
+                               ** default : 0.9983
+                               ** min : 0
+                               ** max : 100
+                               ** unit : 
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                               ** inputtype : parameter
+                 * name: tauAlpha
+                               ** description : Fraction of the total net radiation exchanged at the soil surface when AlpaE = 1
+                               ** parametercategory : soil
+                               ** datatype : DOUBLE
+                               ** default : 0.3
+                               ** min : 0
+                               ** max : 1
+                               ** unit : 
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                               ** inputtype : parameter
+                 * name: isWindVpDefined
                                ** description : if wind and vapour pressure are defined
+                               ** parametercategory : constant
+                               ** datatype : INT
+                               ** default : 1
+                               ** min : 0
+                               ** max : 1
+                               ** unit : 
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                               ** inputtype : parameter
      - outputs:
                  * name: netRadiation
-                               ** min : 0
-                               ** variablecategory : auxiliary
-                               ** max : 5000
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** datatype : DOUBLE
-                               ** unit : MJ m-2 d-1
                                ** description :  net radiation 
+                               ** variablecategory : auxiliary
+                               ** datatype : DOUBLE
+                               ** min : 0
+                               ** max : 5000
+                               ** unit : MJ m-2 d-1
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
                  * name: netOutGoingLongWaveRadiation
-                               ** min : 0
-                               ** variablecategory : auxiliary
-                               ** max : 5000
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** datatype : DOUBLE
-                               ** unit : g m-2 d-1
                                ** description : net OutGoing Long Wave Radiation 
+                               ** variablecategory : auxiliary
+                               ** datatype : DOUBLE
+                               ** min : 0
+                               ** max : 5000
+                               ** unit : g m-2 d-1
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
                  * name: netRadiationEquivalentEvaporation
-                               ** min : 0
                                ** variablecategory : auxiliary
-                               ** max : 5000
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** datatype : DOUBLE
-                               ** unit : g m-2 d-1
                                ** description : net Radiation in Equivalent Evaporation 
+                               ** datatype : DOUBLE
+                               ** min : 0
+                               ** max : 5000
+                               ** unit : g m-2 d-1
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
                  * name: evapoTranspirationPriestlyTaylor
-                               ** min : 0
-                               ** variablecategory : rate
-                               ** max : 10000
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** datatype : DOUBLE
-                               ** unit : g m-2 d-1
                                ** description : evapoTranspiration of Priestly Taylor 
+                               ** variablecategory : rate
+                               ** datatype : DOUBLE
+                               ** min : 0
+                               ** max : 10000
+                               ** unit : g m-2 d-1
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
                  * name: diffusionLimitedEvaporation
-                               ** min : 0
-                               ** variablecategory : state
-                               ** max : 5000
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** datatype : DOUBLE
-                               ** unit : g m-2 d-1
                                ** description : the evaporation from the diffusion limited soil 
+                               ** variablecategory : state
+                               ** datatype : DOUBLE
+                               ** min : 0
+                               ** max : 5000
+                               ** unit : g m-2 d-1
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
                  * name: energyLimitedEvaporation
-                               ** min : 0
-                               ** variablecategory : auxiliary
-                               ** max : 5000
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** datatype : DOUBLE
-                               ** unit : g m-2 d-1
                                ** description : energy Limited Evaporation 
-                 * name: conductance
-                               ** min : 0
-                               ** variablecategory : state
-                               ** max : 10000
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** datatype : DOUBLE
-                               ** unit : m/d
-                               ** description : the boundary layer conductance
-                 * name: evapoTranspirationPenman
-                               ** min : 0
-                               ** variablecategory : rate
-                               ** max : 5000
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** datatype : DOUBLE
-                               ** unit : g m-2 d-1
-                               ** description :  evapoTranspiration of Penman Monteith
-                 * name: soilEvaporation
-                               ** min : 0
                                ** variablecategory : auxiliary
+                               ** datatype : DOUBLE
+                               ** min : 0
                                ** max : 5000
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** datatype : DOUBLE
                                ** unit : g m-2 d-1
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                 * name: conductance
+                               ** description : the boundary layer conductance
+                               ** variablecategory : state
+                               ** datatype : DOUBLE
+                               ** min : 0
+                               ** max : 10000
+                               ** unit : m/d
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                 * name: evapoTranspirationPenman
+                               ** description :  evapoTranspiration of Penman Monteith
+                               ** variablecategory : rate
+                               ** datatype : DOUBLE
+                               ** min : 0
+                               ** max : 5000
+                               ** unit : g m-2 d-1
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                 * name: soilEvaporation
                                ** description : soil Evaporation
+                               ** variablecategory : auxiliary
+                               ** datatype : DOUBLE
+                               ** min : 0
+                               ** max : 5000
+                               ** unit : g m-2 d-1
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
                  * name: evapoTranspiration
-                               ** min : 0
-                               ** variablecategory : rate
-                               ** max : 10000
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** datatype : DOUBLE
-                               ** unit : mm
                                ** description : evapoTranspiration
+                               ** variablecategory : rate
+                               ** datatype : DOUBLE
+                               ** min : 0
+                               ** max : 10000
+                               ** unit : mm
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
                  * name: potentialTranspiration
-                               ** min : 0
-                               ** variablecategory : rate
-                               ** max : 10000
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** datatype : DOUBLE
-                               ** unit : g m-2 d-1
                                ** description : potential Transpiration 
+                               ** variablecategory : rate
+                               ** datatype : DOUBLE
+                               ** min : 0
+                               ** max : 10000
+                               ** unit : g m-2 d-1
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
                  * name: soilHeatFlux
-                               ** min : 0
-                               ** variablecategory : rate
-                               ** max : 10000
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** datatype : DOUBLE
-                               ** unit : g m-2 d-1
                                ** description : soil Heat Flux 
-                 * name: cropHeatFlux
-                               ** min : 0
                                ** variablecategory : rate
+                               ** datatype : DOUBLE
+                               ** min : 0
                                ** max : 10000
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** datatype : DOUBLE
                                ** unit : g m-2 d-1
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                 * name: cropHeatFlux
                                ** description :  crop Heat Flux
+                               ** variablecategory : rate
+                               ** datatype : DOUBLE
+                               ** min : 0
+                               ** max : 10000
+                               ** unit : g m-2 d-1
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
                  * name: minCanopyTemperature
-                               ** min : -30
-                               ** datatype : DOUBLE
-                               ** max : 45
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** variablecategory : state
-                               ** unit : degC
                                ** description : minimal Canopy Temperature  
-                 * name: maxCanopyTemperature
-                               ** min : -30
                                ** datatype : DOUBLE
-                               ** max : 45
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
                                ** variablecategory : state
+                               ** min : -30
+                               ** max : 45
                                ** unit : degC
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                 * name: maxCanopyTemperature
                                ** description : maximal Canopy Temperature 
+                               ** datatype : DOUBLE
+                               ** variablecategory : state
+                               ** min : -30
+                               ** max : 45
+                               ** unit : degC
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
     """
 
-    diffusionLimitedEvaporation = 6605.505
-    energyLimitedEvaporation = 448.24
-    cropHeatFlux = 447.912
-    conductance = 598.685
-    evapoTranspiration = 830.958
-    netRadiationEquivalentEvaporation = 638.142
+    netRadiation:float
+    netOutGoingLongWaveRadiation:float
+    netRadiationEquivalentEvaporation:float
+    evapoTranspirationPriestlyTaylor:float
+    conductance:float
+    diffusionLimitedEvaporation:float
+    evapoTranspirationPenman:float
+    energyLimitedEvaporation:float
+    soilEvaporation:float
+    evapoTranspiration:float
+    soilHeatFlux:float
+    potentialTranspiration:float
+    cropHeatFlux:float
+    minCanopyTemperature:float
+    maxCanopyTemperature:float
     (netRadiation, netOutGoingLongWaveRadiation) = model_netradiation(minTair, maxTair, albedoCoefficient, stefanBoltzman, elevation, solarRadiation, vaporPressure, extraSolarRadiation)
+    conductance = model_conductance(vonKarman, heightWeatherMeasurements, zm, zh, d, plantHeight, wind)
+    diffusionLimitedEvaporation = model_diffusionlimitedevaporation(deficitOnTopLayers, soilDiffusionConstant)
     netRadiationEquivalentEvaporation = model_netradiationequivalentevaporation(lambdaV, netRadiation)
     evapoTranspirationPriestlyTaylor = model_priestlytaylor(netRadiationEquivalentEvaporation, hslope, psychrometricConstant, Alpha)
     energyLimitedEvaporation = model_ptsoil(evapoTranspirationPriestlyTaylor, Alpha, tau, tauAlpha)
-    diffusionLimitedEvaporation = model_diffusionlimitedevaporation(deficitOnTopLayers, soilDiffusionConstant)
-    soilEvaporation = model_soilevaporation(diffusionLimitedEvaporation, energyLimitedEvaporation)
-    soilHeatFlux = model_soilheatflux(netRadiationEquivalentEvaporation, tau, soilEvaporation)
-    conductance = model_conductance(vonKarman, heightWeatherMeasurements, zm, zh, d, plantHeight, wind)
     evapoTranspirationPenman = model_penman(evapoTranspirationPriestlyTaylor, hslope, VPDair, psychrometricConstant, Alpha, lambdaV, rhoDensityAir, specificHeatCapacityAir, conductance)
+    soilEvaporation = model_soilevaporation(diffusionLimitedEvaporation, energyLimitedEvaporation)
     evapoTranspiration = model_evapotranspiration(isWindVpDefined, evapoTranspirationPriestlyTaylor, evapoTranspirationPenman)
+    soilHeatFlux = model_soilheatflux(netRadiationEquivalentEvaporation, tau, soilEvaporation)
     potentialTranspiration = model_potentialtranspiration(evapoTranspiration, tau)
     cropHeatFlux = model_cropheatflux(netRadiationEquivalentEvaporation, soilHeatFlux, potentialTranspiration)
     (minCanopyTemperature, maxCanopyTemperature) = model_canopytemperature(minTair, maxTair, cropHeatFlux, conductance, lambdaV, rhoDensityAir, specificHeatCapacityAir)
     return (netRadiation, netOutGoingLongWaveRadiation, netRadiationEquivalentEvaporation, evapoTranspirationPriestlyTaylor, diffusionLimitedEvaporation, energyLimitedEvaporation, conductance, evapoTranspirationPenman, soilEvaporation, evapoTranspiration, potentialTranspiration, soilHeatFlux, cropHeatFlux, minCanopyTemperature, maxCanopyTemperature)
+#%%CyML Model End%%

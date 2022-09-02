@@ -2,58 +2,51 @@
 from copy import copy
 from array import array
 from math import *
+from typing import *
 
-from datetime import datetime
-from math import *
-from SQ_Energy_Balance.Netradiation import model_netradiation
-from SQ_Energy_Balance.Netradiationequivalentevaporation import model_netradiationequivalentevaporation
-from SQ_Energy_Balance.Priestlytaylor import model_priestlytaylor
-from SQ_Energy_Balance.Conductance import model_conductance
-from SQ_Energy_Balance.Diffusionlimitedevaporation import model_diffusionlimitedevaporation
-from SQ_Energy_Balance.Penman import model_penman
-from SQ_Energy_Balance.Ptsoil import model_ptsoil
-from SQ_Energy_Balance.Soilevaporation import model_soilevaporation
-from SQ_Energy_Balance.Evapotranspiration import model_evapotranspiration
-from SQ_Energy_Balance.Soilheatflux import model_soilheatflux
-from SQ_Energy_Balance.Potentialtranspiration import model_potentialtranspiration
-from SQ_Energy_Balance.Cropheatflux import model_cropheatflux
-from SQ_Energy_Balance.Canopytemperature import model_canopytemperature
 
-def model_energybalance(minTair = 0.7,
-         maxTair = 7.2,
-         albedoCoefficient = 0.23,
-         stefanBoltzman = 4.903e-09,
-         elevation = 0.0,
-         solarRadiation = 3.0,
-         vaporPressure = 6.1,
-         extraSolarRadiation = 11.7,
-         lambdaV = 2.454,
-         hslope = 0.584,
-         psychrometricConstant = 0.66,
-         Alpha = 1.5,
-         vonKarman = 0.42,
-         heightWeatherMeasurements = 2.0,
-         zm = 0.13,
-         d = 0.67,
-         zh = 0.013,
-         plantHeight = 0.0,
-         wind = 124000.0,
-         deficitOnTopLayers = 5341.0,
-         soilDiffusionConstant = 4.2,
-         VPDair = 2.19,
-         rhoDensityAir = 1.225,
-         specificHeatCapacityAir = 0.00101,
-         tau = 0.9983,
-         tauAlpha = 0.3,
-         isWindVpDefined = 1):
+#%%CyML Model Begin%%
+def model_energybalance(minTair:float,
+         maxTair:float,
+         albedoCoefficient:float,
+         stefanBoltzman:float,
+         elevation:float,
+         solarRadiation:float,
+         vaporPressure:float,
+         extraSolarRadiation:float,
+         lambdaV:float,
+         hslope:float,
+         psychrometricConstant:float,
+         Alpha:float,
+         vonKarman:float,
+         heightWeatherMeasurements:float,
+         zm:float,
+         d:float,
+         zh:float,
+         plantHeight:float,
+         wind:float,
+         deficitOnTopLayers:float,
+         soilDiffusionConstant:float,
+         VPDair:float,
+         rhoDensityAir:float,
+         specificHeatCapacityAir:float,
+         tau:float,
+         tauAlpha:float,
+         isWindVpDefined:int):
     """
      - Name: EnergyBalance -Version: 001, -Time step: 1
      - Description:
                  * Title: EnergyBalance
-                 * Author: Pierre MARTRE
-                 * Reference: Modelling energy balance in the wheat crop model SiriusQuality2: Evapotranspiration and canopy and soil temperature calculations
-                 * Institution: INRA/LEPSE
-                 * ExtendedDescription: see documentation at http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                 * Authors: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
+                 * Reference: https://doi.org/10.1016/0168-1923(94)02214-5
+                 * Institution: New Zealand Institute for Crop and Food Research Ltd.,
+                 New Zealand Institute for Crop and Food Research Ltd.,
+                 New Zealand Institute for Crop and Food Research Ltd.,
+                 New Zealand Institute for Crop and Food Research Ltd.
+         
+                 * ExtendedDescription: Modelling energy balance in the wheat crop model SiriusQuality2: Evapotranspiration and canopy and soil temperature calculations
+                             see documentation at http://www1.clermont.inra.fr/siriusquality/?page_id=547
+         
                  * ShortDescription: This component calculates the canopy temperature and energy balance
      - inputs:
                  * name: minTair
@@ -447,21 +440,21 @@ def model_energybalance(minTair = 0.7,
                                ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
     """
 
-    netRadiation = None
-    netOutGoingLongWaveRadiation = None
-    netRadiationEquivalentEvaporation = None
-    evapoTranspirationPriestlyTaylor = None
-    conductance = None
-    diffusionLimitedEvaporation = None
-    evapoTranspirationPenman = None
-    energyLimitedEvaporation = None
-    soilEvaporation = None
-    evapoTranspiration = None
-    soilHeatFlux = None
-    potentialTranspiration = None
-    cropHeatFlux = None
-    minCanopyTemperature = None
-    maxCanopyTemperature = None
+    netRadiation:float
+    netOutGoingLongWaveRadiation:float
+    netRadiationEquivalentEvaporation:float
+    evapoTranspirationPriestlyTaylor:float
+    conductance:float
+    diffusionLimitedEvaporation:float
+    evapoTranspirationPenman:float
+    energyLimitedEvaporation:float
+    soilEvaporation:float
+    evapoTranspiration:float
+    soilHeatFlux:float
+    potentialTranspiration:float
+    cropHeatFlux:float
+    minCanopyTemperature:float
+    maxCanopyTemperature:float
     (netRadiation, netOutGoingLongWaveRadiation) = model_netradiation(minTair, maxTair, albedoCoefficient, stefanBoltzman, elevation, solarRadiation, vaporPressure, extraSolarRadiation)
     conductance = model_conductance(vonKarman, heightWeatherMeasurements, zm, zh, d, plantHeight, wind)
     diffusionLimitedEvaporation = model_diffusionlimitedevaporation(deficitOnTopLayers, soilDiffusionConstant)
@@ -476,3 +469,4 @@ def model_energybalance(minTair = 0.7,
     cropHeatFlux = model_cropheatflux(netRadiationEquivalentEvaporation, soilHeatFlux, potentialTranspiration)
     (minCanopyTemperature, maxCanopyTemperature) = model_canopytemperature(minTair, maxTair, cropHeatFlux, conductance, lambdaV, rhoDensityAir, specificHeatCapacityAir)
     return (netRadiation, netOutGoingLongWaveRadiation, netRadiationEquivalentEvaporation, evapoTranspirationPriestlyTaylor, diffusionLimitedEvaporation, energyLimitedEvaporation, conductance, evapoTranspirationPenman, soilEvaporation, evapoTranspiration, potentialTranspiration, soilHeatFlux, cropHeatFlux, minCanopyTemperature, maxCanopyTemperature)
+#%%CyML Model End%%

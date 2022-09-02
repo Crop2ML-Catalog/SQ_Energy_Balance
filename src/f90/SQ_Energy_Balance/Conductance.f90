@@ -1,8 +1,4 @@
-MODULE Conductancemod
-    IMPLICIT NONE
-CONTAINS
-
-    SUBROUTINE model_conductance(vonKarman, &
+SUBROUTINE model_conductance(vonKarman, &
         heightWeatherMeasurements, &
         zm, &
         zh, &
@@ -10,24 +6,27 @@ CONTAINS
         plantHeight, &
         wind, &
         conductance)
-        IMPLICIT NONE
-        REAL, INTENT(IN) :: vonKarman
-        REAL, INTENT(IN) :: heightWeatherMeasurements
-        REAL, INTENT(IN) :: zm
-        REAL, INTENT(IN) :: zh
-        REAL, INTENT(IN) :: d
-        REAL, INTENT(IN) :: plantHeight
-        REAL, INTENT(IN) :: wind
-        REAL, INTENT(OUT) :: conductance
-        REAL:: h
-        !- Name: Conductance -Version: 1.0, -Time step: 1
-        !- Description:
+    IMPLICIT NONE
+    REAL, INTENT(IN) :: vonKarman
+    REAL, INTENT(IN) :: heightWeatherMeasurements
+    REAL, INTENT(IN) :: zm
+    REAL, INTENT(IN) :: zh
+    REAL, INTENT(IN) :: d
+    REAL, INTENT(IN) :: plantHeight
+    REAL, INTENT(IN) :: wind
+    REAL, INTENT(OUT) :: conductance
+    REAL:: h
+    !- Name: Conductance -Version: 1.0, -Time step: 1
+    !- Description:
     !            * Title: Conductance Model
-    !            * Author: Pierre Martre
-    !            * Reference: Modelling energy balance in the wheat crop model SiriusQuality2:
-    !            Evapotranspiration and canopy and soil temperature calculations
+    !            * Author: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
+    !            * Reference:  https://doi.org/10.1016/0168-1923(94)02214-5
     !        
-    !            * Institution: INRA/LEPSE Montpellier
+    !            * Institution: New Zealand Institute for Crop and Food Research Ltd.,
+    !            New Zealand Institute for Crop and Food Research Ltd.,
+    !            New Zealand Institute for Crop and Food Research Ltd.,
+    !            New Zealand Institute for Crop and Food Research Ltd.
+    !        
     !            * ExtendedDescription: The boundary layer conductance is expressed as the wind speed profile above the
     !            canopy and the canopy structure. The approach does not take into account buoyancy
     !            effects. 
@@ -36,7 +35,7 @@ CONTAINS
     !            canopy and the canopy structure. The approach does not take into account buoyancy
     !            effects.
     !        
-        !- inputs:
+    !- inputs:
     !            * name: vonKarman
     !                          ** description : von Karman constant
     !                          ** datatype : DOUBLE
@@ -107,7 +106,7 @@ CONTAINS
     !                          ** unit : m/d
     !                          ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
     !                          ** inputtype : variable
-        !- outputs:
+    !- outputs:
     !            * name: conductance
     !                          ** description : the boundary layer conductance
     !                          ** variablecategory : state
@@ -116,10 +115,8 @@ CONTAINS
     !                          ** max : 10000
     !                          ** unit : m/d
     !                          ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-        h = MAX(10.0, plantHeight) / 100.0
-        conductance = wind *  (vonKarman ** 2) /  &
-                (LOG((heightWeatherMeasurements - (d * h)) / (zm * h)) *  &
-                LOG((heightWeatherMeasurements - (d * h)) / (zh * h)))
-    END SUBROUTINE model_conductance
-
-END MODULE
+    h = MAX(10.0, plantHeight) / 100.0
+    conductance = wind *  (vonKarman ** 2) /  &
+            (LOG((heightWeatherMeasurements - (d * h)) / (zm * h)) *  &
+            LOG((heightWeatherMeasurements - (d * h)) / (zh * h)))
+END SUBROUTINE model_conductance

@@ -2,25 +2,29 @@
 from copy import copy
 from array import array
 from math import *
+from typing import *
 
 import numpy
-from math import *
 
-def model_canopytemperature(minTair = 0.7,
-         maxTair = 7.2,
-         cropHeatFlux = 447.912,
-         conductance = 598.685,
-         lambdaV = 2.454,
-         rhoDensityAir = 1.225,
-         specificHeatCapacityAir = 0.00101):
+#%%CyML Model Begin%%
+def model_canopytemperature(minTair:float,
+         maxTair:float,
+         cropHeatFlux:float,
+         conductance:float,
+         lambdaV:float,
+         rhoDensityAir:float,
+         specificHeatCapacityAir:float):
     """
      - Name: CanopyTemperature -Version: 1.0, -Time step: 1
      - Description:
                  * Title: CanopyTemperature Model
-                 * Author: Pierre Martre
-                 * Reference: Modelling energy balance in the wheat crop model SiriusQuality2:
-                 Evapotranspiration and canopy and soil temperature calculations
-                 * Institution: INRA/LEPSE Montpellier
+                 * Authors: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
+                 * Reference: https://doi.org/10.1016/0168-1923(94)02214-5
+                 * Institution: New Zealand Institute for Crop and Food Research Ltd.,
+                 New Zealand Institute for Crop and Food Research Ltd.,
+                 New Zealand Institute for Crop and Food Research Ltd.,
+                 New Zealand Institute for Crop and Food Research Ltd.
+             
                  * ExtendedDescription: It is calculated from the crop heat flux and the boundary layer conductance 
                  * ShortDescription: It is calculated from the crop heat flux and the boundary layer conductance 
      - inputs:
@@ -109,8 +113,9 @@ def model_canopytemperature(minTair = 0.7,
                                ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
     """
 
-    minCanopyTemperature = None
-    maxCanopyTemperature = None
+    minCanopyTemperature:float
+    maxCanopyTemperature:float
     minCanopyTemperature = minTair + (cropHeatFlux / (rhoDensityAir * specificHeatCapacityAir * conductance / lambdaV * 1000.0))
     maxCanopyTemperature = maxTair + (cropHeatFlux / (rhoDensityAir * specificHeatCapacityAir * conductance / lambdaV * 1000.0))
     return (minCanopyTemperature, maxCanopyTemperature)
+#%%CyML Model End%%

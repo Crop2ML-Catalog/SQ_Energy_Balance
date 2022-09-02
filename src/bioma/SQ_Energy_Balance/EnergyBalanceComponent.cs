@@ -941,19 +941,19 @@ namespace EnergyBalance.Strategies
 
         private void EstimateOfAssociatedClasses(EnergyBalance.DomainClass.EnergyBalanceState s,EnergyBalance.DomainClass.EnergyBalanceState s1,EnergyBalance.DomainClass.EnergyBalanceRate r,EnergyBalance.DomainClass.EnergyBalanceAuxiliary a,EnergyBalance.DomainClass.EnergyBalanceExogenous ex)
         {
-            _netradiation.Estimate(s,s1, r, a, ex);
-            _conductance.Estimate(s,s1, r, a, ex);
-            _diffusionlimitedevaporation.Estimate(s,s1, r, a, ex);
-            _netradiationequivalentevaporation.Estimate(s,s1, r, a, ex);
-            _priestlytaylor.Estimate(s,s1, r, a, ex);
-            _ptsoil.Estimate(s,s1, r, a, ex);
-            _penman.Estimate(s,s1, r, a, ex);
-            _soilevaporation.Estimate(s,s1, r, a, ex);
-            _evapotranspiration.Estimate(s,s1, r, a, ex);
-            _soilheatflux.Estimate(s,s1, r, a, ex);
-            _potentialtranspiration.Estimate(s,s1, r, a, ex);
-            _cropheatflux.Estimate(s,s1, r, a, ex);
-            _canopytemperature.Estimate(s,s1, r, a, ex);
+            _NetRadiation.Estimate(s,s1, r, a, ex);
+            _Conductance.Estimate(s,s1, r, a, ex);
+            _DiffusionLimitedEvaporation.Estimate(s,s1, r, a, ex);
+            _NetRadiationEquivalentEvaporation.Estimate(s,s1, r, a, ex);
+            _PriestlyTaylor.Estimate(s,s1, r, a, ex);
+            _PtSoil.Estimate(s,s1, r, a, ex);
+            _Penman.Estimate(s,s1, r, a, ex);
+            _SoilEvaporation.Estimate(s,s1, r, a, ex);
+            _EvapoTranspiration.Estimate(s,s1, r, a, ex);
+            _SoilHeatFlux.Estimate(s,s1, r, a, ex);
+            _PotentialTranspiration.Estimate(s,s1, r, a, ex);
+            _CropHeatFlux.Estimate(s,s1, r, a, ex);
+            _CanopyTemperature.Estimate(s,s1, r, a, ex);
         }
 
         public EnergyBalanceComponent(EnergyBalanceComponent toCopy): this() // copy constructor 

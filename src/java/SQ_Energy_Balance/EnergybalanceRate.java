@@ -17,12 +17,12 @@ public class EnergybalanceRate
     {
         if (copyAll)
         {
-            this.evapoTranspirationPriestlyTaylor = toCopy.evapoTranspirationPriestlyTaylor;
-            this.evapoTranspirationPenman = toCopy.evapoTranspirationPenman;
-            this.evapoTranspiration = toCopy.evapoTranspiration;
-            this.potentialTranspiration = toCopy.potentialTranspiration;
-            this.soilHeatFlux = toCopy.soilHeatFlux;
-            this.cropHeatFlux = toCopy.cropHeatFlux;
+            this.evapoTranspirationPriestlyTaylor = toCopy.getevapoTranspirationPriestlyTaylor();
+            this.evapoTranspirationPenman = toCopy.getevapoTranspirationPenman();
+            this.evapoTranspiration = toCopy.getevapoTranspiration();
+            this.potentialTranspiration = toCopy.getpotentialTranspiration();
+            this.soilHeatFlux = toCopy.getsoilHeatFlux();
+            this.cropHeatFlux = toCopy.getcropHeatFlux();
         }
     }
     public double getevapoTranspirationPriestlyTaylor()

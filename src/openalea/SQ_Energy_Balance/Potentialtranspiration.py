@@ -1,49 +1,63 @@
 # coding: utf8
-import numpy
+from copy import copy
+from array import array
 from math import *
+from typing import *
+from datetime import datetime
 
-def model_potentialtranspiration(evapoTranspiration = 830.958,
-         tau = 0.9983):
+import numpy
+
+#%%CyML Model Begin%%
+def model_potentialtranspiration(evapoTranspiration:float,
+         tau:float):
     """
+     - Name: PotentialTranspiration -Version: 1.0, -Time step: 1
      - Description:
                  * Title: PotentialTranspiration Model
-                 * Author: Pierre Martre
-                 * Reference: Modelling energy balance in the wheat crop model SiriusQuality2:
-                 Evapotranspiration and canopy and soil temperature calculations
-                 * Institution: INRA/LEPSE Montpellier
-                 * Abstract: SiriusQuality2 uses availability of water from the soil reservoir as a method to restrict
+                 * Authors: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
+                 * Reference:  https://doi.org/10.1016/0168-1923(94)02214-5
+                 * Institution: New Zealand Institute for Crop and Food Research Ltd.,
+                 New Zealand Institute for Crop and Food Research Ltd.,
+                 New Zealand Institute for Crop and Food Research Ltd.,
+                 New Zealand Institute for Crop and Food Research Ltd.
+             
+                 * ExtendedDescription: SiriusQuality2 uses availability of water from the soil reservoir as a method to restrict
                          transpiration as soil moisture is depleted 
+                 * ShortDescription: It uses the availability of water from the soil reservoir as a method to restrict
+                 transpiration as soil moisture is depleted
      - inputs:
                  * name: evapoTranspiration
-                               ** min : 0
-                               ** default : 830.958
-                               ** max : 10000
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                               ** description : evapoTranspiration
                                ** variablecategory : rate
                                ** datatype : DOUBLE
-                               ** inputtype : variable
-                               ** unit : mm
-                               ** description : evapoTranspiration
-                 * name: tau
-                               ** parametercategory : species
+                               ** default : 830.958
                                ** min : 0
-                               ** datatype : DOUBLE
-                               ** max : 1
+                               ** max : 10000
+                               ** unit : mm
                                ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** default : 0.9983
-                               ** inputtype : parameter
-                               ** unit : 
+                               ** inputtype : variable
+                 * name: tau
                                ** description : plant cover factor
+                               ** parametercategory : species
+                               ** datatype : DOUBLE
+                               ** default : 0.9983
+                               ** min : 0
+                               ** max : 1
+                               ** unit : 
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                               ** inputtype : parameter
      - outputs:
                  * name: potentialTranspiration
-                               ** min : 0
-                               ** variablecategory : rate
-                               ** max : 10000
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** datatype : DOUBLE
-                               ** unit : g m-2 d-1
                                ** description : potential Transpiration 
+                               ** variablecategory : rate
+                               ** datatype : DOUBLE
+                               ** min : 0
+                               ** max : 10000
+                               ** unit : g m-2 d-1
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
     """
 
+    potentialTranspiration:float
     potentialTranspiration = evapoTranspiration * (1.0 - tau)
     return potentialTranspiration
+#%%CyML Model End%%

@@ -1,70 +1,83 @@
 # coding: utf8
-import numpy
+from copy import copy
+from array import array
 from math import *
+from typing import *
+from datetime import datetime
 
-def model_priestlytaylor(netRadiationEquivalentEvaporation = 638.142,
-         hslope = 0.584,
-         psychrometricConstant = 0.66,
-         Alpha = 1.5):
+import numpy
+
+#%%CyML Model Begin%%
+def model_priestlytaylor(netRadiationEquivalentEvaporation:float,
+         hslope:float,
+         psychrometricConstant:float,
+         Alpha:float):
     """
+     - Name: PriestlyTaylor -Version: 1.0, -Time step: 1
      - Description:
                  * Title: evapoTranspirationPriestlyTaylor  Model
-                 * Author: Pierre Martre
-                 * Reference: Modelling energy balance in the wheat crop model SiriusQuality2:
-                 Evapotranspiration and canopy and soil temperature calculations
-                 * Institution: INRA Montpellier
-                 * Abstract: Calculate Energy Balance 
+                 * Authors: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
+                 * Reference:  https://doi.org/10.1016/0168-1923(94)02214-5
+                 * Institution: New Zealand Institute for Crop and Food Research Ltd.,
+                 New Zealand Institute for Crop and Food Research Ltd.,
+                 New Zealand Institute for Crop and Food Research Ltd.,
+                 New Zealand Institute for Crop and Food Research Ltd.
+             
+                 * ExtendedDescription: Calculate Energy Balance 
+                 * ShortDescription: It uses Priestly-Taylor method
      - inputs:
                  * name: netRadiationEquivalentEvaporation
-                               ** min : 0
-                               ** default : 638.142
-                               ** max : 5000
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** variablecategory : state
-                               ** datatype : DOUBLE
-                               ** inputtype : variable
-                               ** unit : g m-2 d-1
                                ** description : net Radiation in Equivalent Evaporation
-                 * name: hslope
-                               ** min : 0
-                               ** default : 0.584
-                               ** max : 1000
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
                                ** variablecategory : auxiliary
                                ** datatype : DOUBLE
+                               ** default : 638.142
+                               ** min : 0
+                               ** max : 5000
+                               ** unit : g m-2 d-1
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
                                ** inputtype : variable
-                               ** unit : hPa °C-1
+                 * name: hslope
                                ** description : the slope of saturated vapor pressure temperature curve at a given temperature 
+                               ** variablecategory : auxiliary
+                               ** datatype : DOUBLE
+                               ** default : 0.584
+                               ** min : 0
+                               ** max : 1000
+                               ** unit : hPa °C-1
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                               ** inputtype : variable
                  * name: psychrometricConstant
-                               ** parametercategory : constant
-                               ** min : 0
-                               ** datatype : DOUBLE
-                               ** max : 1
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** default : 0.66
-                               ** inputtype : parameter
-                               ** unit : 
                                ** description : psychrometric constant
-                 * name: Alpha
                                ** parametercategory : constant
-                               ** min : 0
                                ** datatype : DOUBLE
-                               ** max : 100
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** default : 1.5
-                               ** inputtype : parameter
+                               ** default : 0.66
+                               ** min : 0
+                               ** max : 1
                                ** unit : 
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                               ** inputtype : parameter
+                 * name: Alpha
                                ** description : Priestley-Taylor evapotranspiration proportionality constant
+                               ** parametercategory : constant
+                               ** datatype : DOUBLE
+                               ** default : 1.5
+                               ** min : 0
+                               ** max : 100
+                               ** unit : 
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                               ** inputtype : parameter
      - outputs:
                  * name: evapoTranspirationPriestlyTaylor
-                               ** min : 0
-                               ** variablecategory : rate
-                               ** max : 10000
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** datatype : DOUBLE
-                               ** unit : g m-2 d-1
                                ** description : evapoTranspiration of Priestly Taylor 
+                               ** variablecategory : rate
+                               ** datatype : DOUBLE
+                               ** min : 0
+                               ** max : 10000
+                               ** unit : g m-2 d-1
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
     """
 
+    evapoTranspirationPriestlyTaylor:float
     evapoTranspirationPriestlyTaylor = max(Alpha * hslope * netRadiationEquivalentEvaporation / (hslope + psychrometricConstant), 0.0)
     return evapoTranspirationPriestlyTaylor
+#%%CyML Model End%%

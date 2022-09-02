@@ -38,16 +38,16 @@ namespace SiriusQualityEnergyBalance.Strategies
             //Inputs
             List<PropertyDescription> _inputs0_0 = new List<PropertyDescription>();
             PropertyDescription pd1 = new PropertyDescription();
-            pd1.DomainClassType = typeof(SiriusQualityEnergyBalance.DomainClass.EnergyBalanceState);
+            pd1.DomainClassType = typeof(SiriusQualityEnergyBalance.DomainClass.EnergyBalanceAuxiliary);
             pd1.PropertyName = "netRadiationEquivalentEvaporation";
-            pd1.PropertyType = (SiriusQualityEnergyBalance.DomainClass.EnergyBalanceStateVarInfo.netRadiationEquivalentEvaporation).ValueType.TypeForCurrentValue;
-            pd1.PropertyVarInfo =(SiriusQualityEnergyBalance.DomainClass.EnergyBalanceStateVarInfo.netRadiationEquivalentEvaporation);
+            pd1.PropertyType = (SiriusQualityEnergyBalance.DomainClass.EnergyBalanceAuxiliaryVarInfo.netRadiationEquivalentEvaporation).ValueType.TypeForCurrentValue;
+            pd1.PropertyVarInfo =(SiriusQualityEnergyBalance.DomainClass.EnergyBalanceAuxiliaryVarInfo.netRadiationEquivalentEvaporation);
             _inputs0_0.Add(pd1);
             PropertyDescription pd2 = new PropertyDescription();
-            pd2.DomainClassType = typeof(SiriusQualityEnergyBalance.DomainClass.EnergyBalanceState);
+            pd2.DomainClassType = typeof(SiriusQualityEnergyBalance.DomainClass.EnergyBalanceAuxiliary);
             pd2.PropertyName = "soilEvaporation";
-            pd2.PropertyType = (SiriusQualityEnergyBalance.DomainClass.EnergyBalanceStateVarInfo.soilEvaporation).ValueType.TypeForCurrentValue;
-            pd2.PropertyVarInfo =(SiriusQualityEnergyBalance.DomainClass.EnergyBalanceStateVarInfo.soilEvaporation);
+            pd2.PropertyType = (SiriusQualityEnergyBalance.DomainClass.EnergyBalanceAuxiliaryVarInfo.soilEvaporation).ValueType.TypeForCurrentValue;
+            pd2.PropertyVarInfo =(SiriusQualityEnergyBalance.DomainClass.EnergyBalanceAuxiliaryVarInfo.soilEvaporation);
             _inputs0_0.Add(pd2);
             mo0_0.Inputs=_inputs0_0;
 
@@ -115,11 +115,7 @@ namespace SiriusQualityEnergyBalance.Strategies
             _pd = new CRA.ModelLayer.MetadataTypes.PublisherData();
             _pd.Add("Creator", "Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin");
             _pd.Add("Date", "");
-            _pd.Add("Publisher", "New Zealand Institute for Crop and Food Research Ltd.,
-            New Zealand Institute for Crop and Food Research Ltd.,
-            New Zealand Institute for Crop and Food Research Ltd.,
-            New Zealand Institute for Crop and Food Research Ltd.
-        ");
+            _pd.Add("Publisher", "New Zealand Institute for Crop and Food Research Ltd., New Zealand Institute for Crop and Food Research Ltd., New Zealand Institute for Crop and Food Research Ltd., New Zealand Institute for Crop and Food Research Ltd. "); 
         }
 
         private ModellingOptionsManager _modellingOptionsManager;
@@ -195,14 +191,14 @@ namespace SiriusQualityEnergyBalance.Strategies
             try
             {
                 //Set current values of the inputs to the static VarInfo representing the inputs properties of the domain classes
-                SiriusQualityEnergyBalance.DomainClass.EnergyBalanceStateVarInfo.netRadiationEquivalentEvaporation.CurrentValue=s.netRadiationEquivalentEvaporation;
-                SiriusQualityEnergyBalance.DomainClass.EnergyBalanceStateVarInfo.soilEvaporation.CurrentValue=s.soilEvaporation;
+                SiriusQualityEnergyBalance.DomainClass.EnergyBalanceAuxiliaryVarInfo.netRadiationEquivalentEvaporation.CurrentValue=a.netRadiationEquivalentEvaporation;
+                SiriusQualityEnergyBalance.DomainClass.EnergyBalanceAuxiliaryVarInfo.soilEvaporation.CurrentValue=a.soilEvaporation;
                 ConditionsCollection prc = new ConditionsCollection();
                 Preconditions pre = new Preconditions(); 
-                RangeBasedCondition r1 = new RangeBasedCondition(SiriusQualityEnergyBalance.DomainClass.EnergyBalanceStateVarInfo.netRadiationEquivalentEvaporation);
-                if(r1.ApplicableVarInfoValueTypes.Contains( SiriusQualityEnergyBalance.DomainClass.EnergyBalanceStateVarInfo.netRadiationEquivalentEvaporation.ValueType)){prc.AddCondition(r1);}
-                RangeBasedCondition r2 = new RangeBasedCondition(SiriusQualityEnergyBalance.DomainClass.EnergyBalanceStateVarInfo.soilEvaporation);
-                if(r2.ApplicableVarInfoValueTypes.Contains( SiriusQualityEnergyBalance.DomainClass.EnergyBalanceStateVarInfo.soilEvaporation.ValueType)){prc.AddCondition(r2);}
+                RangeBasedCondition r1 = new RangeBasedCondition(SiriusQualityEnergyBalance.DomainClass.EnergyBalanceAuxiliaryVarInfo.netRadiationEquivalentEvaporation);
+                if(r1.ApplicableVarInfoValueTypes.Contains( SiriusQualityEnergyBalance.DomainClass.EnergyBalanceAuxiliaryVarInfo.netRadiationEquivalentEvaporation.ValueType)){prc.AddCondition(r1);}
+                RangeBasedCondition r2 = new RangeBasedCondition(SiriusQualityEnergyBalance.DomainClass.EnergyBalanceAuxiliaryVarInfo.soilEvaporation);
+                if(r2.ApplicableVarInfoValueTypes.Contains( SiriusQualityEnergyBalance.DomainClass.EnergyBalanceAuxiliaryVarInfo.soilEvaporation.ValueType)){prc.AddCondition(r2);}
                 prc.AddCondition(new RangeBasedCondition(_modellingOptionsManager.GetParameterByName("tau")));
                 string preConditionsResult = pre.VerifyPreconditions(prc, callID); if (!string.IsNullOrEmpty(preConditionsResult)) { pre.TestsOut(preConditionsResult, true, "PreConditions errors in strategy " + this.GetType().Name); } return preConditionsResult;
             }
@@ -228,8 +224,8 @@ namespace SiriusQualityEnergyBalance.Strategies
 
         private void CalculateModel(SiriusQualityEnergyBalance.DomainClass.EnergyBalanceState s, SiriusQualityEnergyBalance.DomainClass.EnergyBalanceState s1, SiriusQualityEnergyBalance.DomainClass.EnergyBalanceRate r, SiriusQualityEnergyBalance.DomainClass.EnergyBalanceAuxiliary a, SiriusQualityEnergyBalance.DomainClass.EnergyBalanceExogenous ex)
         {
-            double netRadiationEquivalentEvaporation = s.netRadiationEquivalentEvaporation;
-            double soilEvaporation = s.soilEvaporation;
+            double netRadiationEquivalentEvaporation = a.netRadiationEquivalentEvaporation;
+            double soilEvaporation = a.soilEvaporation;
             double soilHeatFlux;
             soilHeatFlux = tau * netRadiationEquivalentEvaporation - soilEvaporation;
             r.soilHeatFlux = soilHeatFlux;

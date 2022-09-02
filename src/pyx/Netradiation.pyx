@@ -1,19 +1,18 @@
 import numpy 
 from math import *
-def model_netradiation(float minTair=0.7,
-                       float maxTair=7.2,
-                       float albedoCoefficient=0.23,
-                       float stefanBoltzman=4.903e-09,
-                       float elevation=0.0,
-                       float solarRadiation=3.0,
-                       float vaporPressure=6.1,
-                       float extraSolarRadiation=11.7):
+def model_netradiation(float minTair,
+                       float maxTair,
+                       float albedoCoefficient,
+                       float stefanBoltzman,
+                       float elevation,
+                       float solarRadiation,
+                       float vaporPressure,
+                       float extraSolarRadiation):
     """
 
     NetRadiation Model
     Author: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
-    Reference: Modelling energy balance in the wheat crop model SiriusQuality2:
-            Evapotranspiration and canopy and soil temperature calculations
+    Reference:  https://doi.org/10.1016/0168-1923(94)02214-5
     Institution: New Zealand Institute for Crop and Food Research Ltd.,
             New Zealand Institute for Crop and Food Research Ltd.,
             New Zealand Institute for Crop and Food Research Ltd.,
@@ -37,3 +36,5 @@ def model_netradiation(float minTair=0.7,
     netRadiation= Nsr - Nolr
     netOutGoingLongWaveRadiation = Nolr
     return  netRadiation, netOutGoingLongWaveRadiation
+
+

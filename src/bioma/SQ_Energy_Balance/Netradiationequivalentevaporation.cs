@@ -38,10 +38,10 @@ namespace EnergyBalance.Strategies
             //Inputs
             List<PropertyDescription> _inputs0_0 = new List<PropertyDescription>();
             PropertyDescription pd1 = new PropertyDescription();
-            pd1.DomainClassType = typeof(EnergyBalance.DomainClass.EnergyBalanceState);
+            pd1.DomainClassType = typeof(EnergyBalance.DomainClass.EnergyBalanceAuxiliary);
             pd1.PropertyName = "netRadiation";
-            pd1.PropertyType = (EnergyBalance.DomainClass.EnergyBalanceStateVarInfo.netRadiation).ValueType.TypeForCurrentValue;
-            pd1.PropertyVarInfo =(EnergyBalance.DomainClass.EnergyBalanceStateVarInfo.netRadiation);
+            pd1.PropertyType = (EnergyBalance.DomainClass.EnergyBalanceAuxiliaryVarInfo.netRadiation).ValueType.TypeForCurrentValue;
+            pd1.PropertyVarInfo =(EnergyBalance.DomainClass.EnergyBalanceAuxiliaryVarInfo.netRadiation);
             _inputs0_0.Add(pd1);
             mo0_0.Inputs=_inputs0_0;
 
@@ -109,11 +109,11 @@ namespace EnergyBalance.Strategies
             _pd = new CRA.ModelLayer.MetadataTypes.PublisherData();
             _pd.Add("Creator", "Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin");
             _pd.Add("Date", "");
-            _pd.Add("Publisher", "New Zealand Institute for Crop and Food Research Ltd.,
-            New Zealand Institute for Crop and Food Research Ltd.,
-            New Zealand Institute for Crop and Food Research Ltd.,
-            New Zealand Institute for Crop and Food Research Ltd.
-        ");
+            _pd.Add("Publisher", "New Zealand Institute for Crop and Food Research Ltd.",
+            "New Zealand Institute for Crop and Food Research Ltd.",
+            "New Zealand Institute for Crop and Food Research Ltd.",
+            "New Zealand Institute for Crop and Food Research Ltd."
+        );
         }
 
         private ModellingOptionsManager _modellingOptionsManager;
@@ -219,7 +219,7 @@ namespace EnergyBalance.Strategies
 
         private void CalculateModel(EnergyBalance.DomainClass.EnergyBalanceState s, EnergyBalance.DomainClass.EnergyBalanceState s1, EnergyBalance.DomainClass.EnergyBalanceRate r, EnergyBalance.DomainClass.EnergyBalanceAuxiliary a, EnergyBalance.DomainClass.EnergyBalanceExogenous ex)
         {
-            double netRadiation = s.netRadiation;
+            double netRadiation = a.netRadiation;
             double netRadiationEquivalentEvaporation;
             netRadiationEquivalentEvaporation = netRadiation / lambdaV * 1000.0d;
             a.netRadiationEquivalentEvaporation= netRadiationEquivalentEvaporation;

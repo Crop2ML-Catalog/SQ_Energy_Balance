@@ -2,21 +2,25 @@
 from copy import copy
 from array import array
 from math import *
+from typing import *
 
 import numpy
-from math import *
 
-def model_cropheatflux(netRadiationEquivalentEvaporation = 638.142,
-         soilHeatFlux = 188.817,
-         potentialTranspiration = 1.413):
+#%%CyML Model Begin%%
+def model_cropheatflux(netRadiationEquivalentEvaporation:float,
+         soilHeatFlux:float,
+         potentialTranspiration:float):
     """
      - Name: CropHeatFlux -Version: 1.0, -Time step: 1
      - Description:
                  * Title: CropHeatFlux Model
-                 * Author: Pierre Martre
-                 * Reference: abModelling energy balance in the wheat crop model SiriusQuality2:
-                 Evapotranspiration and canopy and soil temperature calculations
-                 * Institution: INRA/LEPSE Montpellier
+                 * Authors: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
+                 * Reference:  https://doi.org/10.1016/0168-1923(94)02214-5
+                 * Institution: New Zealand Institute for Crop and Food Research Ltd.,
+                 New Zealand Institute for Crop and Food Research Ltd.,
+                 New Zealand Institute for Crop and Food Research Ltd.,
+                 New Zealand Institute for Crop and Food Research Ltd.
+             
                  * ExtendedDescription: It is calculated from net Radiation, soil heat flux and potential transpiration 
                  * ShortDescription: It calculates the crop heat flux
              
@@ -62,6 +66,7 @@ def model_cropheatflux(netRadiationEquivalentEvaporation = 638.142,
                                ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
     """
 
-    cropHeatFlux = None
+    cropHeatFlux:float
     cropHeatFlux = netRadiationEquivalentEvaporation - soilHeatFlux - potentialTranspiration
     return cropHeatFlux
+#%%CyML Model End%%

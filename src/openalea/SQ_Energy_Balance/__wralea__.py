@@ -1,5 +1,5 @@
 
-# This file has been generated at Fri Nov 13 21:32:27 2020
+# This file has been generated at Mon Jul 11 14:43:48 2022
 
 from openalea.core import *
 
@@ -7,28 +7,73 @@ from openalea.core import *
 __name__ = 'EnergyBalance'
 
 __editable__ = True
-__description__ = 'CropML Model library.'
-__license__ = 'CECILL-C'
-__url__ = 'http://pycropml.rtfd.org'
-__alias__ = []
 __version__ = '0.0.1'
+__license__ = 'CECILL-C'
 __authors__ = 'OpenAlea Consortium'
 __institutes__ = 'INRA/CIRAD'
+__description__ = 'CropML Model library.'
+__url__ = 'http://pycropml.rtfd.org'
 __icon__ = ''
+__alias__ = []
 
 
-__all__ = ['Potentialtranspiration_model_potentialtranspiration', 'Diffusionlimitedevaporation_model_diffusionlimitedevaporation', '_132750472', 'Cropheatflux_model_cropheatflux', 'Ptsoil_model_ptsoil', 'Netradiation_model_netradiation', 'Priestlytaylor_model_priestlytaylor', 'Canopytemperature_model_canopytemperature', 'Evapotranspiration_model_evapotranspiration', 'Soilevaporation_model_soilevaporation', 'Penman_model_penman', 'Soilheatflux_model_soilheatflux', 'Netradiationequivalentevaporation_model_netradiationequivalentevaporation', 'Conductance_model_conductance']
+__all__ = ['Netradiation_model_netradiation', 'Netradiationequivalentevaporation_model_netradiationequivalentevaporation', 'Priestlytaylor_model_priestlytaylor', 'Conductance_model_conductance', 'Diffusionlimitedevaporation_model_diffusionlimitedevaporation', 'Penman_model_penman', 'Ptsoil_model_ptsoil', 'Soilevaporation_model_soilevaporation', 'Evapotranspiration_model_evapotranspiration', 'Soilheatflux_model_soilheatflux', 'Potentialtranspiration_model_potentialtranspiration', 'Cropheatflux_model_cropheatflux', 'Canopytemperature_model_canopytemperature', '_2353010505096']
 
 
 
-Potentialtranspiration_model_potentialtranspiration = Factory(name='PotentialTranspiration',
+Netradiation_model_netradiation = Factory(name='NetRadiation',
                 authors='OpenAlea Consortium (wralea authors)',
-                description='SiriusQuality2 uses availability of water from the soil reservoir as a method to restrict\n                    transpiration as soil moisture is depleted ',
+                description='It is calculated at the surface of the canopy and is givenby the difference between incoming and outgoing radiation of both short\n                     and long wavelength radiation ',
                 category='Unclassified',
-                nodemodule='Potentialtranspiration',
-                nodeclass='model_potentialtranspiration',
-                inputs=[{'interface': IFloat(min=0, max=10000, step=1.000000), 'name': 'evapoTranspiration', 'value': 830.958}, {'interface': IFloat(min=0, max=1, step=1.000000), 'name': 'tau', 'value': 0.9983}],
-                outputs=[{'interface': IFloat(min=0, max=10000, step=1.000000), 'name': 'potentialTranspiration'}],
+                nodemodule='Netradiation',
+                nodeclass='model_netradiation',
+                inputs=[{'name': 'minTair', 'interface': IFloat(min=-30, max=45, step=1.000000), 'value': 0.7}, {'name': 'maxTair', 'interface': IFloat(min=-30, max=45, step=1.000000), 'value': 7.2}, {'name': 'albedoCoefficient', 'interface': IFloat(min=0, max=1, step=1.000000), 'value': 0.23}, {'name': 'stefanBoltzman', 'interface': IFloat(min=0, max=1, step=1.000000), 'value': 4.903e-09}, {'name': 'elevation', 'interface': IFloat(min=-500, max=10000, step=1.000000), 'value': 0}, {'name': 'solarRadiation', 'interface': IFloat(min=0, max=1000, step=1.000000), 'value': 3}, {'name': 'vaporPressure', 'interface': IFloat(min=0, max=1000, step=1.000000), 'value': 6.1}, {'name': 'extraSolarRadiation', 'interface': IFloat(min=0, max=1000, step=1.000000), 'value': 11.7}],
+                outputs=[{'name': 'netRadiation', 'interface': IFloat(min=0, max=5000, step=1.000000)}, {'name': 'netOutGoingLongWaveRadiation', 'interface': IFloat(min=0, max=5000, step=1.000000)}],
+                widgetmodule=None,
+                widgetclass=None,
+               )
+
+
+
+
+Netradiationequivalentevaporation_model_netradiationequivalentevaporation = Factory(name='NetRadiationEquivalentEvaporation',
+                authors='OpenAlea Consortium (wralea authors)',
+                description=' It is given by dividing net radiation by latent heat of vaporization of water ',
+                category='Unclassified',
+                nodemodule='Netradiationequivalentevaporation',
+                nodeclass='model_netradiationequivalentevaporation',
+                inputs=[{'name': 'lambdaV', 'interface': IFloat(min=0, max=10, step=1.000000), 'value': 2.454}, {'name': 'netRadiation', 'interface': IFloat(min=0, max=5000, step=1.000000), 'value': 1.566}],
+                outputs=[{'name': 'netRadiationEquivalentEvaporation', 'interface': IFloat(min=0, max=5000, step=1.000000)}],
+                widgetmodule=None,
+                widgetclass=None,
+               )
+
+
+
+
+Priestlytaylor_model_priestlytaylor = Factory(name='PriestlyTaylor',
+                authors='OpenAlea Consortium (wralea authors)',
+                description='Calculate Energy Balance ',
+                category='Unclassified',
+                nodemodule='Priestlytaylor',
+                nodeclass='model_priestlytaylor',
+                inputs=[{'name': 'netRadiationEquivalentEvaporation', 'interface': IFloat(min=0, max=5000, step=1.000000), 'value': 638.142}, {'name': 'hslope', 'interface': IFloat(min=0, max=1000, step=1.000000), 'value': 0.584}, {'name': 'psychrometricConstant', 'interface': IFloat(min=0, max=1, step=1.000000), 'value': 0.66}, {'name': 'Alpha', 'interface': IFloat(min=0, max=100, step=1.000000), 'value': 1.5}],
+                outputs=[{'name': 'evapoTranspirationPriestlyTaylor', 'interface': IFloat(min=0, max=10000, step=1.000000)}],
+                widgetmodule=None,
+                widgetclass=None,
+               )
+
+
+
+
+Conductance_model_conductance = Factory(name='Conductance',
+                authors='OpenAlea Consortium (wralea authors)',
+                description='The boundary layer conductance is expressed as the wind speed profile above the\n            canopy and the canopy structure. The approach does not take into account buoyancy\n            effects. \n        ',
+                category='Unclassified',
+                nodemodule='Conductance',
+                nodeclass='model_conductance',
+                inputs=[{'name': 'vonKarman', 'interface': IFloat(min=0, max=1, step=1.000000), 'value': 0.42}, {'name': 'heightWeatherMeasurements', 'interface': IFloat(min=0, max=10, step=1.000000), 'value': 2}, {'name': 'zm', 'interface': IFloat(min=0, max=1, step=1.000000), 'value': 0.13}, {'name': 'zh', 'interface': IFloat(min=0, max=1, step=1.000000), 'value': 0.013}, {'name': 'd', 'interface': IFloat(min=0, max=1, step=1.000000), 'value': 0.67}, {'name': 'plantHeight', 'interface': IFloat(min=0, max=1000, step=1.000000), 'value': 0}, {'name': 'wind', 'interface': IFloat(min=0, max=1000000, step=1.000000), 'value': 124000}],
+                outputs=[{'name': 'conductance', 'interface': IFloat(min=0, max=10000, step=1.000000)}],
                 widgetmodule=None,
                 widgetclass=None,
                )
@@ -42,8 +87,8 @@ Diffusionlimitedevaporation_model_diffusionlimitedevaporation = Factory(name='Di
                 category='Unclassified',
                 nodemodule='Diffusionlimitedevaporation',
                 nodeclass='model_diffusionlimitedevaporation',
-                inputs=[{'interface': IFloat(min=0, max=10000, step=1.000000), 'name': 'deficitOnTopLayers', 'value': 5341}, {'interface': IFloat(min=0, max=10, step=1.000000), 'name': 'soilDiffusionConstant', 'value': 4.2}],
-                outputs=[{'interface': IFloat(min=0, max=5000, step=1.000000), 'name': 'diffusionLimitedEvaporation'}],
+                inputs=[{'name': 'deficitOnTopLayers', 'interface': IFloat(min=0, max=10000, step=1.000000), 'value': 5341}, {'name': 'soilDiffusionConstant', 'interface': IFloat(min=0, max=10, step=1.000000), 'value': 4.2}],
+                outputs=[{'name': 'diffusionLimitedEvaporation', 'interface': IFloat(min=0, max=5000, step=1.000000)}],
                 widgetmodule=None,
                 widgetclass=None,
                )
@@ -51,8 +96,147 @@ Diffusionlimitedevaporation_model_diffusionlimitedevaporation = Factory(name='Di
 
 
 
-_132750472 = CompositeNodeFactory(name='EnergyBalance_wf',
-                             description='\n\n\n    EnergyBalance\n    Author: Pierre MARTRE\n    Reference: Modelling energy balance in the wheat crop model SiriusQuality2: Evapotranspiration and canopy and soil temperature calculations\n    Institution: INRA/LEPSE\n    Abstract: see documentation at http://www1.clermont.inra.fr/siriusquality/?page_id=547\n',
+Penman_model_penman = Factory(name='Penman',
+                authors='OpenAlea Consortium (wralea authors)',
+                description='It uses Penmann-Monteith method vase on the availability of wind and vapor pressure daily data',
+                category='Unclassified',
+                nodemodule='Penman',
+                nodeclass='model_penman',
+                inputs=[{'name': 'evapoTranspirationPriestlyTaylor', 'interface': IFloat(min=0, max=10000, step=1.000000), 'value': 449.367}, {'name': 'hslope', 'interface': IFloat(min=0, max=1000, step=1.000000), 'value': 0.584}, {'name': 'VPDair', 'interface': IFloat(min=0, max=1000, step=1.000000), 'value': 2.19}, {'name': 'psychrometricConstant', 'interface': IFloat(min=0, max=1, step=1.000000), 'value': 0.66}, {'name': 'Alpha', 'interface': IFloat(min=0, max=100, step=1.000000), 'value': 1.5}, {'name': 'lambdaV', 'interface': IFloat(min=0, max=10, step=1.000000), 'value': 2.454}, {'name': 'rhoDensityAir', 'interface': IFloat, 'value': 1.225}, {'name': 'specificHeatCapacityAir', 'interface': IFloat(min=0, max=1, step=1.000000), 'value': 0.00101}, {'name': 'conductance', 'interface': IFloat(min=0, max=10000, step=1.000000), 'value': 598.685}],
+                outputs=[{'name': 'evapoTranspirationPenman', 'interface': IFloat(min=0, max=5000, step=1.000000)}],
+                widgetmodule=None,
+                widgetclass=None,
+               )
+
+
+
+
+Ptsoil_model_ptsoil = Factory(name='PtSoil',
+                authors='OpenAlea Consortium (wralea authors)',
+                description='Evaporation from the soil in the energy-limited stage ',
+                category='Unclassified',
+                nodemodule='Ptsoil',
+                nodeclass='model_ptsoil',
+                inputs=[{'name': 'evapoTranspirationPriestlyTaylor', 'interface': IFloat(min=0, max=1000, step=1.000000), 'value': 120}, {'name': 'Alpha', 'interface': IFloat(min=0, max=100, step=1.000000), 'value': 1.5}, {'name': 'tau', 'interface': IFloat(min=0, max=100, step=1.000000), 'value': 0.9983}, {'name': 'tauAlpha', 'interface': IFloat(min=0, max=1, step=1.000000), 'value': 0.3}],
+                outputs=[{'name': 'energyLimitedEvaporation', 'interface': IFloat(min=0, max=5000, step=1.000000)}],
+                widgetmodule=None,
+                widgetclass=None,
+               )
+
+
+
+
+Soilevaporation_model_soilevaporation = Factory(name='SoilEvaporation',
+                authors='OpenAlea Consortium (wralea authors)',
+                description='Starting from a soil at field capacity, soil evaporation  is assumed to\n                be energy limited during the first phase of evaporation and diffusion limited thereafter.\n                Hence, the soil evaporation model considers these two processes taking the minimum between\n                the energy limited evaporation (PtSoil) and the diffused limited\n                evaporation ',
+                category='Unclassified',
+                nodemodule='Soilevaporation',
+                nodeclass='model_soilevaporation',
+                inputs=[{'name': 'diffusionLimitedEvaporation', 'interface': IFloat(min=0, max=10000, step=1.000000), 'value': 6605.505}, {'name': 'energyLimitedEvaporation', 'interface': IFloat(min=0, max=1000, step=1.000000), 'value': 448.24}],
+                outputs=[{'name': 'soilEvaporation', 'interface': IFloat(min=0, max=5000, step=1.000000)}],
+                widgetmodule=None,
+                widgetclass=None,
+               )
+
+
+
+
+Evapotranspiration_model_evapotranspiration = Factory(name='EvapoTranspiration',
+                authors='OpenAlea Consortium (wralea authors)',
+                description='According to the availability of wind and/or vapor pressure daily data, the\n            SiriusQuality2 model calculates the evapotranspiration rate using the Penman (if wind\n            and vapor pressure data are available) (Penman 1948) or the Priestly-Taylor\n            (Priestley and Taylor 1972) method ',
+                category='Unclassified',
+                nodemodule='Evapotranspiration',
+                nodeclass='model_evapotranspiration',
+                inputs=[{'name': 'isWindVpDefined', 'interface': IInt(min=0, max=1, step=1), 'value': 1}, {'name': 'evapoTranspirationPriestlyTaylor', 'interface': IFloat(min=0, max=10000, step=1.000000), 'value': 449.367}, {'name': 'evapoTranspirationPenman', 'interface': IFloat(min=0, max=10000, step=1.000000), 'value': 830.958}],
+                outputs=[{'name': 'evapoTranspiration', 'interface': IFloat(min=0, max=10000, step=1.000000)}],
+                widgetmodule=None,
+                widgetclass=None,
+               )
+
+
+
+
+Soilheatflux_model_soilheatflux = Factory(name='SoilHeatFlux',
+                authors='OpenAlea Consortium (wralea authors)',
+                description='The available energy in the soil ',
+                category='Unclassified',
+                nodemodule='Soilheatflux',
+                nodeclass='model_soilheatflux',
+                inputs=[{'name': 'netRadiationEquivalentEvaporation', 'interface': IFloat(min=0, max=5000, step=1.000000), 'value': 638.142}, {'name': 'tau', 'interface': IFloat(min=0, max=100, step=1.000000), 'value': 0.9983}, {'name': 'soilEvaporation', 'interface': IFloat(min=0, max=10000, step=1.000000), 'value': 448.24}],
+                outputs=[{'name': 'soilHeatFlux', 'interface': IFloat(min=0, max=10000, step=1.000000)}],
+                widgetmodule=None,
+                widgetclass=None,
+               )
+
+
+
+
+Potentialtranspiration_model_potentialtranspiration = Factory(name='PotentialTranspiration',
+                authors='OpenAlea Consortium (wralea authors)',
+                description='SiriusQuality2 uses availability of water from the soil reservoir as a method to restrict\n                    transpiration as soil moisture is depleted ',
+                category='Unclassified',
+                nodemodule='Potentialtranspiration',
+                nodeclass='model_potentialtranspiration',
+                inputs=[{'name': 'evapoTranspiration', 'interface': IFloat(min=0, max=10000, step=1.000000), 'value': 830.958}, {'name': 'tau', 'interface': IFloat(min=0, max=1, step=1.000000), 'value': 0.9983}],
+                outputs=[{'name': 'potentialTranspiration', 'interface': IFloat(min=0, max=10000, step=1.000000)}],
+                widgetmodule=None,
+                widgetclass=None,
+               )
+
+
+
+
+Cropheatflux_model_cropheatflux = Factory(name='CropHeatFlux',
+                authors='OpenAlea Consortium (wralea authors)',
+                description='It is calculated from net Radiation, soil heat flux and potential transpiration ',
+                category='Unclassified',
+                nodemodule='Cropheatflux',
+                nodeclass='model_cropheatflux',
+                inputs=[{'name': 'netRadiationEquivalentEvaporation', 'interface': IFloat(min=0, max=10000, step=1.000000), 'value': 638.142}, {'name': 'soilHeatFlux', 'interface': IFloat(min=0, max=1000, step=1.000000), 'value': 188.817}, {'name': 'potentialTranspiration', 'interface': IFloat(min=0, max=1000, step=1.000000), 'value': 1.413}],
+                outputs=[{'name': 'cropHeatFlux', 'interface': IFloat(min=0, max=10000, step=1.000000)}],
+                widgetmodule=None,
+                widgetclass=None,
+               )
+
+
+
+
+Canopytemperature_model_canopytemperature = Factory(name='CanopyTemperature',
+                authors='OpenAlea Consortium (wralea authors)',
+                description='It is calculated from the crop heat flux and the boundary layer conductance ',
+                category='Unclassified',
+                nodemodule='Canopytemperature',
+                nodeclass='model_canopytemperature',
+                inputs=[{'name': 'minTair', 'interface': IFloat(min=-30, max=45, step=1.000000), 'value': 0.7}, {'name': 'maxTair', 'interface': IFloat(min=-30, max=45, step=1.000000), 'value': 7.2}, {'name': 'cropHeatFlux', 'interface': IFloat(min=0, max=10000, step=1.000000), 'value': 447.912}, {'name': 'conductance', 'interface': IFloat(min=0, max=10000, step=1.000000), 'value': 598.685}, {'name': 'lambdaV', 'interface': IFloat(min=0, max=10, step=1.000000), 'value': 2.454}, {'name': 'rhoDensityAir', 'interface': IFloat, 'value': 1.225}, {'name': 'specificHeatCapacityAir', 'interface': IFloat, 'value': 0.00101}],
+                outputs=[{'name': 'minCanopyTemperature', 'interface': IFloat(min=-30, max=45, step=1.000000)}, {'name': 'maxCanopyTemperature', 'interface': IFloat(min=-30, max=45, step=1.000000)}],
+                widgetmodule=None,
+                widgetclass=None,
+               )
+
+
+
+
+_2353010505096 = CompositeNodeFactory(name='EnergyBalance_wf',
+                             description=('\n'
+ '\n'
+ '    EnergyBalance\n'
+ '    -Version: 001  -Time step: 1\n'
+ '    Authors: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. '
+ 'Martin\n'
+ '    Reference: https://doi.org/10.1016/0168-1923(94)02214-5\n'
+ '    Institution: New Zealand Institute for Crop and Food Research Ltd.,\n'
+ '            New Zealand Institute for Crop and Food Research Ltd.,\n'
+ '            New Zealand Institute for Crop and Food Research Ltd.,\n'
+ '            New Zealand Institute for Crop and Food Research Ltd.\n'
+ '    \n'
+ '    ExtendedDescription: Modelling energy balance in the wheat crop model '
+ 'SiriusQuality2: Evapotranspiration and canopy and soil temperature '
+ 'calculations\n'
+ '                        see documentation at '
+ 'http://www1.clermont.inra.fr/siriusquality/?page_id=547\n'
+ '    \n'
+ '    ShortDescription: This component calculates the canopy temperature and '
+ 'energy balance\n'),
                              category='',
                              doc='',
                              inputs=[  {  'interface': IFloat(min=-30, max=45, step=1.000000),
@@ -105,8 +289,7 @@ _132750472 = CompositeNodeFactory(name='EnergyBalance_wf',
    {  'interface': IFloat(min=0, max=1, step=1.000000),
       'name': 'zh',
       'value': 0.013},
-   {  'interface': IFloat(min=0, max=1000, step=1.000000),
-      'name': 'plantHeight'},
+   {'interface': IFloat(min=0, max=1000, step=1.000000), 'name': 'plantHeight'},
    {  'interface': IFloat(min=0, max=1000000, step=1.000000),
       'name': 'wind',
       'value': 124000},
@@ -119,7 +302,7 @@ _132750472 = CompositeNodeFactory(name='EnergyBalance_wf',
    {  'interface': IFloat(min=0, max=1000, step=1.000000),
       'name': 'VPDair',
       'value': 2.19},
-   {  'interface': IFloat, 'name': 'rhoDensityAir', 'value': 1.225},
+   {'interface': IFloat, 'name': 'rhoDensityAir', 'value': 1.225},
    {  'interface': IFloat(min=0, max=1, step=1.000000),
       'name': 'specificHeatCapacityAir',
       'value': 0.00101},
@@ -175,84 +358,84 @@ _132750472 = CompositeNodeFactory(name='EnergyBalance_wf',
    12: ('EnergyBalance', 'PotentialTranspiration'),
    13: ('EnergyBalance', 'CropHeatFlux'),
    14: ('EnergyBalance', 'CanopyTemperature')},
-                             elt_connections={  40265128L: ('__in__', 20, 6, 1),
-   40265152L: ('__in__', 19, 6, 0),
-   40265176L: ('__in__', 18, 5, 6),
-   40265200L: ('__in__', 17, 5, 5),
-   40265224L: ('__in__', 16, 5, 3),
-   40265248L: ('__in__', 15, 5, 4),
-   40265272L: ('__in__', 14, 5, 2),
-   40265296L: ('__in__', 13, 5, 1),
-   40265320L: ('__in__', 12, 5, 0),
-   40265344L: ('__in__', 11, 4, 3),
-   40265368L: ('__in__', 10, 4, 2),
-   40265392L: ('__in__', 9, 4, 1),
-   40265416L: ('__in__', 8, 3, 0),
-   40265440L: ('__in__', 7, 2, 7),
-   40265464L: ('__in__', 6, 2, 6),
-   40265488L: ('__in__', 5, 2, 5),
-   40265512L: ('__in__', 4, 2, 4),
-   40265536L: ('__in__', 3, 2, 3),
-   40265560L: ('__in__', 2, 2, 2),
-   40265584L: ('__in__', 1, 2, 1),
-   40265608L: ('__in__', 0, 2, 0),
-   40265632L: (14, 1, '__out__', 14),
-   40265656L: (14, 0, '__out__', 13),
-   40265680L: (13, 0, '__out__', 12),
-   40265704L: (11, 0, '__out__', 11),
-   40265728L: (12, 0, '__out__', 10),
-   40265752L: (10, 0, '__out__', 9),
-   40265776L: (9, 0, '__out__', 8),
-   40265800L: (7, 0, '__out__', 7),
-   40265824L: (5, 0, '__out__', 6),
-   40265848L: (8, 0, '__out__', 5),
-   40265872L: (6, 0, '__out__', 4),
-   40265896L: (4, 0, '__out__', 3),
-   40265920L: (3, 0, '__out__', 2),
-   40265944L: (2, 1, '__out__', 1),
-   40265968L: (2, 0, '__out__', 0),
-   40266280L: (13, 0, 14, 2),
-   40266304L: (11, 0, 13, 1),
-   40266328L: (12, 0, 13, 2),
-   40266352L: (10, 0, 12, 0),
-   40266376L: (9, 0, 11, 2),
-   40266400L: (7, 0, 10, 2),
-   40266424L: (5, 0, 14, 3),
-   40266448L: (5, 0, 7, 8),
-   40266472L: (8, 0, 9, 1),
-   40266496L: (6, 0, 9, 0),
-   40266520L: (4, 0, 10, 1),
-   40266544L: (4, 0, 7, 0),
-   40266568L: (4, 0, 8, 0),
-   40266592L: (3, 0, 13, 0),
-   40266616L: (3, 0, 11, 0),
-   40266640L: (3, 0, 4, 0),
-   40266664L: (2, 0, 3, 1),
-   40266688L: ('__in__', 23, 14, 6),
-   40266712L: ('__in__', 22, 14, 5),
-   40266736L: ('__in__', 8, 14, 4),
-   40266760L: ('__in__', 1, 14, 1),
-   40266784L: ('__in__', 0, 14, 0),
-   40266808L: ('__in__', 24, 12, 1),
-   40266832L: ('__in__', 24, 11, 1),
-   40266856L: ('__in__', 26, 10, 0),
-   40266880L: ('__in__', 25, 8, 3),
-   40266904L: ('__in__', 24, 8, 2),
-   40266928L: ('__in__', 11, 8, 1),
-   40266952L: ('__in__', 23, 7, 7),
-   40266976L: ('__in__', 22, 7, 6),
-   40267000L: ('__in__', 8, 7, 5),
-   40267024L: ('__in__', 11, 7, 4),
-   40267048L: ('__in__', 10, 7, 3),
-   40267072L: ('__in__', 21, 7, 2),
-   40267096L: ('__in__', 9, 7, 1)},
+                             elt_connections={  140714593591664: (2, 0, '__out__', 0),
+   140714593591696: (2, 1, '__out__', 1),
+   140714593591728: (3, 0, '__out__', 2),
+   140714593591760: (4, 0, '__out__', 3),
+   140714593591792: (6, 0, '__out__', 4),
+   140714593591824: (8, 0, '__out__', 5),
+   140714593591856: (5, 0, '__out__', 6),
+   140714593591888: (7, 0, '__out__', 7),
+   140714593591920: (9, 0, '__out__', 8),
+   140714593591952: (10, 0, '__out__', 9),
+   140714593591984: (12, 0, '__out__', 10),
+   140714593592016: (11, 0, '__out__', 11),
+   140714593592048: (13, 0, '__out__', 12),
+   140714593592080: (14, 0, '__out__', 13),
+   140714593592112: (14, 1, '__out__', 14),
+   140714593592144: ('__in__', 0, 2, 0),
+   140714593592176: ('__in__', 1, 2, 1),
+   140714593592208: ('__in__', 2, 2, 2),
+   140714593592240: ('__in__', 3, 2, 3),
+   140714593592272: ('__in__', 4, 2, 4),
+   140714593592304: ('__in__', 5, 2, 5),
+   140714593592336: ('__in__', 6, 2, 6),
+   140714593592368: ('__in__', 7, 2, 7),
+   140714593592400: ('__in__', 8, 3, 0),
+   140714593592432: ('__in__', 9, 4, 1),
+   140714593592464: ('__in__', 10, 4, 2),
+   140714593592496: ('__in__', 11, 4, 3),
+   140714593592528: ('__in__', 12, 5, 0),
+   140714593592560: ('__in__', 13, 5, 1),
+   140714593592592: ('__in__', 14, 5, 2),
+   140714593592624: ('__in__', 15, 5, 4),
+   140714593592656: ('__in__', 16, 5, 3),
+   140714593592688: ('__in__', 17, 5, 5),
+   140714593592720: ('__in__', 18, 5, 6),
+   140714593592752: ('__in__', 19, 6, 0),
+   140714593592784: ('__in__', 20, 6, 1),
+   140714593592816: ('__in__', 9, 7, 1),
+   140714593592848: ('__in__', 21, 7, 2),
+   140714593592880: ('__in__', 10, 7, 3),
+   140714593592912: ('__in__', 11, 7, 4),
+   140714593592944: ('__in__', 8, 7, 5),
+   140714593592976: ('__in__', 22, 7, 6),
+   140714593593008: ('__in__', 23, 7, 7),
+   140714593593040: ('__in__', 11, 8, 1),
+   140714593593072: ('__in__', 24, 8, 2),
+   140714593593104: ('__in__', 25, 8, 3),
+   140714593593136: ('__in__', 26, 10, 0),
+   140714593593168: ('__in__', 24, 11, 1),
+   140714593593200: ('__in__', 24, 12, 1),
+   140714593593232: ('__in__', 0, 14, 0),
+   140714593593264: ('__in__', 1, 14, 1),
+   140714593593296: ('__in__', 8, 14, 4),
+   140714593593328: ('__in__', 22, 14, 5),
+   140714593593360: ('__in__', 23, 14, 6),
+   140714593593392: (2, 0, 3, 1),
+   140714593593424: (3, 0, 4, 0),
+   140714593593456: (3, 0, 11, 0),
+   140714593593488: (3, 0, 13, 0),
+   140714593593520: (4, 0, 8, 0),
+   140714593593552: (4, 0, 7, 0),
+   140714593593584: (4, 0, 10, 1),
+   140714593593616: (6, 0, 9, 0),
+   140714593593648: (8, 0, 9, 1),
+   140714593593680: (5, 0, 7, 8),
+   140714593593712: (5, 0, 14, 3),
+   140714593593744: (7, 0, 10, 2),
+   140714593593776: (9, 0, 11, 2),
+   140714593593808: (10, 0, 12, 0),
+   140714593593840: (12, 0, 13, 2),
+   140714593593872: (11, 0, 13, 1),
+   140714593593904: (13, 0, 14, 2)},
                              elt_data={  2: {  'block': False,
          'caption': 'NetRadiation',
          'delay': 0,
          'hide': True,
          'id': 2,
          'lazy': True,
-         'port_hide_changed': set([]),
+         'port_hide_changed': set(),
          'posx': 0,
          'posy': 0,
          'priority': 0,
@@ -265,7 +448,7 @@ _132750472 = CompositeNodeFactory(name='EnergyBalance_wf',
          'hide': True,
          'id': 3,
          'lazy': True,
-         'port_hide_changed': set([]),
+         'port_hide_changed': set(),
          'posx': 0,
          'posy': 0,
          'priority': 0,
@@ -278,7 +461,7 @@ _132750472 = CompositeNodeFactory(name='EnergyBalance_wf',
          'hide': True,
          'id': 4,
          'lazy': True,
-         'port_hide_changed': set([]),
+         'port_hide_changed': set(),
          'posx': 0,
          'posy': 0,
          'priority': 0,
@@ -291,7 +474,7 @@ _132750472 = CompositeNodeFactory(name='EnergyBalance_wf',
          'hide': True,
          'id': 5,
          'lazy': True,
-         'port_hide_changed': set([]),
+         'port_hide_changed': set(),
          'posx': 0,
          'posy': 0,
          'priority': 0,
@@ -304,7 +487,7 @@ _132750472 = CompositeNodeFactory(name='EnergyBalance_wf',
          'hide': True,
          'id': 6,
          'lazy': True,
-         'port_hide_changed': set([]),
+         'port_hide_changed': set(),
          'posx': 0,
          'posy': 0,
          'priority': 0,
@@ -317,7 +500,7 @@ _132750472 = CompositeNodeFactory(name='EnergyBalance_wf',
          'hide': True,
          'id': 7,
          'lazy': True,
-         'port_hide_changed': set([]),
+         'port_hide_changed': set(),
          'posx': 0,
          'posy': 0,
          'priority': 0,
@@ -330,7 +513,7 @@ _132750472 = CompositeNodeFactory(name='EnergyBalance_wf',
          'hide': True,
          'id': 8,
          'lazy': True,
-         'port_hide_changed': set([]),
+         'port_hide_changed': set(),
          'posx': 0,
          'posy': 0,
          'priority': 0,
@@ -343,7 +526,7 @@ _132750472 = CompositeNodeFactory(name='EnergyBalance_wf',
          'hide': True,
          'id': 9,
          'lazy': True,
-         'port_hide_changed': set([]),
+         'port_hide_changed': set(),
          'posx': 0,
          'posy': 0,
          'priority': 0,
@@ -356,7 +539,7 @@ _132750472 = CompositeNodeFactory(name='EnergyBalance_wf',
           'hide': True,
           'id': 10,
           'lazy': True,
-          'port_hide_changed': set([]),
+          'port_hide_changed': set(),
           'posx': 0,
           'posy': 0,
           'priority': 0,
@@ -369,7 +552,7 @@ _132750472 = CompositeNodeFactory(name='EnergyBalance_wf',
           'hide': True,
           'id': 11,
           'lazy': True,
-          'port_hide_changed': set([]),
+          'port_hide_changed': set(),
           'posx': 0,
           'posy': 0,
           'priority': 0,
@@ -382,7 +565,7 @@ _132750472 = CompositeNodeFactory(name='EnergyBalance_wf',
           'hide': True,
           'id': 12,
           'lazy': True,
-          'port_hide_changed': set([]),
+          'port_hide_changed': set(),
           'posx': 0,
           'posy': 0,
           'priority': 0,
@@ -395,7 +578,7 @@ _132750472 = CompositeNodeFactory(name='EnergyBalance_wf',
           'hide': True,
           'id': 13,
           'lazy': True,
-          'port_hide_changed': set([]),
+          'port_hide_changed': set(),
           'posx': 0,
           'posy': 0,
           'priority': 0,
@@ -408,7 +591,7 @@ _132750472 = CompositeNodeFactory(name='EnergyBalance_wf',
           'hide': True,
           'id': 14,
           'lazy': True,
-          'port_hide_changed': set([]),
+          'port_hide_changed': set(),
           'posx': 0,
           'posy': 0,
           'priority': 0,
@@ -421,7 +604,7 @@ _132750472 = CompositeNodeFactory(name='EnergyBalance_wf',
                 'hide': True,
                 'id': 0,
                 'lazy': True,
-                'port_hide_changed': set([]),
+                'port_hide_changed': set(),
                 'posx': 0,
                 'posy': 0,
                 'priority': 0,
@@ -434,7 +617,7 @@ _132750472 = CompositeNodeFactory(name='EnergyBalance_wf',
                  'hide': True,
                  'id': 1,
                  'lazy': True,
-                 'port_hide_changed': set([]),
+                 'port_hide_changed': set(),
                  'posx': 0,
                  'posy': 0,
                  'priority': 0,
@@ -474,171 +657,6 @@ _132750472 = CompositeNodeFactory(name='EnergyBalance_wf',
                              lazy=True,
                              eval_algo=None,
                              )
-
-
-
-
-Cropheatflux_model_cropheatflux = Factory(name='CropHeatFlux',
-                authors='OpenAlea Consortium (wralea authors)',
-                description='It is calculated from net Radiation, soil heat flux and potential transpiration ',
-                category='Unclassified',
-                nodemodule='Cropheatflux',
-                nodeclass='model_cropheatflux',
-                inputs=[{'interface': IFloat(min=0, max=10000, step=1.000000), 'name': 'netRadiationEquivalentEvaporation', 'value': 638.142}, {'interface': IFloat(min=0, max=1000, step=1.000000), 'name': 'soilHeatFlux', 'value': 188.817}, {'interface': IFloat(min=0, max=1000, step=1.000000), 'name': 'potentialTranspiration', 'value': 1.413}],
-                outputs=[{'interface': IFloat(min=0, max=10000, step=1.000000), 'name': 'cropHeatFlux'}],
-                widgetmodule=None,
-                widgetclass=None,
-               )
-
-
-
-
-Ptsoil_model_ptsoil = Factory(name='PtSoil',
-                authors='OpenAlea Consortium (wralea authors)',
-                description='Evaporation from the soil in the energy-limited stage ',
-                category='Unclassified',
-                nodemodule='Ptsoil',
-                nodeclass='model_ptsoil',
-                inputs=[{'interface': IFloat(min=0, max=1000, step=1.000000), 'name': 'evapoTranspirationPriestlyTaylor', 'value': 120}, {'interface': IFloat(min=0, max=100, step=1.000000), 'name': 'Alpha', 'value': 1.5}, {'interface': IFloat(min=0, max=100, step=1.000000), 'name': 'tau', 'value': 0.9983}, {'interface': IFloat(min=0, max=1, step=1.000000), 'name': 'tauAlpha', 'value': 0.3}],
-                outputs=[{'interface': IFloat(min=0, max=5000, step=1.000000), 'name': 'energyLimitedEvaporation'}],
-                widgetmodule=None,
-                widgetclass=None,
-               )
-
-
-
-
-Netradiation_model_netradiation = Factory(name='NetRadiation',
-                authors='OpenAlea Consortium (wralea authors)',
-                description='It is calculated at the surface of the canopy and is givenby the difference between incoming and outgoing radiation of both short\n                     and long wavelength radiation ',
-                category='Unclassified',
-                nodemodule='Netradiation',
-                nodeclass='model_netradiation',
-                inputs=[{'interface': IFloat(min=-30, max=45, step=1.000000), 'name': 'minTair', 'value': 0.7}, {'interface': IFloat(min=-30, max=45, step=1.000000), 'name': 'maxTair', 'value': 7.2}, {'interface': IFloat(min=0, max=1, step=1.000000), 'name': 'albedoCoefficient', 'value': 0.23}, {'interface': IFloat(min=0, max=1, step=1.000000), 'name': 'stefanBoltzman', 'value': 4.903e-09}, {'interface': IFloat(min=-500, max=10000, step=1.000000), 'name': 'elevation', 'value': 0}, {'interface': IFloat(min=0, max=1000, step=1.000000), 'name': 'solarRadiation', 'value': 3}, {'interface': IFloat(min=0, max=1000, step=1.000000), 'name': 'vaporPressure', 'value': 6.1}, {'interface': IFloat(min=0, max=1000, step=1.000000), 'name': 'extraSolarRadiation', 'value': 11.7}],
-                outputs=[{'interface': IFloat(min=0, max=5000, step=1.000000), 'name': 'netRadiation'}, {'interface': IFloat(min=0, max=5000, step=1.000000), 'name': 'netOutGoingLongWaveRadiation'}],
-                widgetmodule=None,
-                widgetclass=None,
-               )
-
-
-
-
-Priestlytaylor_model_priestlytaylor = Factory(name='PriestlyTaylor',
-                authors='OpenAlea Consortium (wralea authors)',
-                description='Calculate Energy Balance ',
-                category='Unclassified',
-                nodemodule='Priestlytaylor',
-                nodeclass='model_priestlytaylor',
-                inputs=[{'interface': IFloat(min=0, max=5000, step=1.000000), 'name': 'netRadiationEquivalentEvaporation', 'value': 638.142}, {'interface': IFloat(min=0, max=1000, step=1.000000), 'name': 'hslope', 'value': 0.584}, {'interface': IFloat(min=0, max=1, step=1.000000), 'name': 'psychrometricConstant', 'value': 0.66}, {'interface': IFloat(min=0, max=100, step=1.000000), 'name': 'Alpha', 'value': 1.5}],
-                outputs=[{'interface': IFloat(min=0, max=10000, step=1.000000), 'name': 'evapoTranspirationPriestlyTaylor'}],
-                widgetmodule=None,
-                widgetclass=None,
-               )
-
-
-
-
-Canopytemperature_model_canopytemperature = Factory(name='CanopyTemperature',
-                authors='OpenAlea Consortium (wralea authors)',
-                description='It is calculated from the crop heat flux and the boundary layer conductance ',
-                category='Unclassified',
-                nodemodule='Canopytemperature',
-                nodeclass='model_canopytemperature',
-                inputs=[{'interface': IFloat(min=-30, max=45, step=1.000000), 'name': 'minTair', 'value': 0.7}, {'interface': IFloat(min=-30, max=45, step=1.000000), 'name': 'maxTair', 'value': 7.2}, {'interface': IFloat(min=0, max=10000, step=1.000000), 'name': 'cropHeatFlux', 'value': 447.912}, {'interface': IFloat(min=0, max=10000, step=1.000000), 'name': 'conductance', 'value': 598.685}, {'interface': IFloat(min=0, max=10, step=1.000000), 'name': 'lambdaV', 'value': 2.454}, {'interface': IFloat, 'name': 'rhoDensityAir', 'value': 1.225}, {'interface': IFloat, 'name': 'specificHeatCapacityAir', 'value': 0.00101}],
-                outputs=[{'interface': IFloat(min=-30, max=45, step=1.000000), 'name': 'minCanopyTemperature'}, {'interface': IFloat(min=-30, max=45, step=1.000000), 'name': 'maxCanopyTemperature'}],
-                widgetmodule=None,
-                widgetclass=None,
-               )
-
-
-
-
-Evapotranspiration_model_evapotranspiration = Factory(name='EvapoTranspiration',
-                authors='OpenAlea Consortium (wralea authors)',
-                description='According to the availability of wind and/or vapor pressure daily data, the\n            SiriusQuality2 model calculates the evapotranspiration rate using the Penman (if wind\n            and vapor pressure data are available) (Penman 1948) or the Priestly-Taylor\n            (Priestley and Taylor 1972) method ',
-                category='Unclassified',
-                nodemodule='Evapotranspiration',
-                nodeclass='model_evapotranspiration',
-                inputs=[{'interface': IInt(min=0, max=1, step=1), 'name': 'isWindVpDefined', 'value': 1}, {'interface': IFloat(min=0, max=10000, step=1.000000), 'name': 'evapoTranspirationPriestlyTaylor', 'value': 449.367}, {'interface': IFloat(min=0, max=10000, step=1.000000), 'name': 'evapoTranspirationPenman', 'value': 830.958}],
-                outputs=[{'interface': IFloat(min=0, max=10000, step=1.000000), 'name': 'evapoTranspiration'}],
-                widgetmodule=None,
-                widgetclass=None,
-               )
-
-
-
-
-Soilevaporation_model_soilevaporation = Factory(name='SoilEvaporation',
-                authors='OpenAlea Consortium (wralea authors)',
-                description='Starting from a soil at field capacity, soil evaporation  is assumed to\n                be energy limited during the first phase of evaporation and diffusion limited thereafter.\n                Hence, the soil evaporation model considers these two processes taking the minimum between\n                the energy limited evaporation (PtSoil) and the diffused limited\n                evaporation ',
-                category='Unclassified',
-                nodemodule='Soilevaporation',
-                nodeclass='model_soilevaporation',
-                inputs=[{'interface': IFloat(min=0, max=10000, step=1.000000), 'name': 'diffusionLimitedEvaporation', 'value': 6605.505}, {'interface': IFloat(min=0, max=1000, step=1.000000), 'name': 'energyLimitedEvaporation', 'value': 448.24}],
-                outputs=[{'interface': IFloat(min=0, max=5000, step=1.000000), 'name': 'soilEvaporation'}],
-                widgetmodule=None,
-                widgetclass=None,
-               )
-
-
-
-
-Penman_model_penman = Factory(name='Penman',
-                authors='OpenAlea Consortium (wralea authors)',
-                description='This method is used when wind and vapor pressure daily data are available\n        ',
-                category='Unclassified',
-                nodemodule='Penman',
-                nodeclass='model_penman',
-                inputs=[{'interface': IFloat(min=0, max=10000, step=1.000000), 'name': 'evapoTranspirationPriestlyTaylor', 'value': 449.367}, {'interface': IFloat(min=0, max=1000, step=1.000000), 'name': 'hslope', 'value': 0.584}, {'interface': IFloat(min=0, max=1000, step=1.000000), 'name': 'VPDair', 'value': 2.19}, {'interface': IFloat(min=0, max=1, step=1.000000), 'name': 'psychrometricConstant', 'value': 0.66}, {'interface': IFloat(min=0, max=100, step=1.000000), 'name': 'Alpha', 'value': 1.5}, {'interface': IFloat(min=0, max=10, step=1.000000), 'name': 'lambdaV', 'value': 2.454}, {'interface': IFloat, 'name': 'rhoDensityAir', 'value': 1.225}, {'interface': IFloat(min=0, max=1, step=1.000000), 'name': 'specificHeatCapacityAir', 'value': 0.00101}, {'interface': IFloat(min=0, max=10000, step=1.000000), 'name': 'conductance', 'value': 598.685}],
-                outputs=[{'interface': IFloat(min=0, max=5000, step=1.000000), 'name': 'evapoTranspirationPenman'}],
-                widgetmodule=None,
-                widgetclass=None,
-               )
-
-
-
-
-Soilheatflux_model_soilheatflux = Factory(name='SoilHeatFlux',
-                authors='OpenAlea Consortium (wralea authors)',
-                description='The available energy in the soil ',
-                category='Unclassified',
-                nodemodule='Soilheatflux',
-                nodeclass='model_soilheatflux',
-                inputs=[{'interface': IFloat(min=0, max=5000, step=1.000000), 'name': 'netRadiationEquivalentEvaporation', 'value': 638.142}, {'interface': IFloat(min=0, max=100, step=1.000000), 'name': 'tau', 'value': 0.9983}, {'interface': IFloat(min=0, max=10000, step=1.000000), 'name': 'soilEvaporation', 'value': 448.24}],
-                outputs=[{'interface': IFloat(min=0, max=10000, step=1.000000), 'name': 'soilHeatFlux'}],
-                widgetmodule=None,
-                widgetclass=None,
-               )
-
-
-
-
-Netradiationequivalentevaporation_model_netradiationequivalentevaporation = Factory(name='NetRadiationEquivalentEvaporation',
-                authors='OpenAlea Consortium (wralea authors)',
-                description=' It is given by dividing net radiation by latent heat of vaporization of water ',
-                category='Unclassified',
-                nodemodule='Netradiationequivalentevaporation',
-                nodeclass='model_netradiationequivalentevaporation',
-                inputs=[{'interface': IFloat(min=0, max=10, step=1.000000), 'name': 'lambdaV', 'value': 2.454}, {'interface': IFloat(min=0, max=5000, step=1.000000), 'name': 'netRadiation', 'value': 1.566}],
-                outputs=[{'interface': IFloat(min=0, max=5000, step=1.000000), 'name': 'netRadiationEquivalentEvaporation'}],
-                widgetmodule=None,
-                widgetclass=None,
-               )
-
-
-
-
-Conductance_model_conductance = Factory(name='Conductance',
-                authors='OpenAlea Consortium (wralea authors)',
-                description='The boundary layer conductance is expressed as the wind speed profile above the\n            canopy and the canopy structure. The approach does not take into account buoyancy\n            effects. \n        ',
-                category='Unclassified',
-                nodemodule='Conductance',
-                nodeclass='model_conductance',
-                inputs=[{'interface': IFloat(min=0, max=1, step=1.000000), 'name': 'vonKarman', 'value': 0.42}, {'interface': IFloat(min=0, max=10, step=1.000000), 'name': 'heightWeatherMeasurements', 'value': 2}, {'interface': IFloat(min=0, max=1, step=1.000000), 'name': 'zm', 'value': 0.13}, {'interface': IFloat(min=0, max=1, step=1.000000), 'name': 'zh', 'value': 0.013}, {'interface': IFloat(min=0, max=1, step=1.000000), 'name': 'd', 'value': 0.67}, {'interface': IFloat(min=0, max=1000, step=1.000000), 'name': 'plantHeight', 'value': 0}, {'interface': IFloat(min=0, max=1000000, step=1.000000), 'name': 'wind', 'value': 124000}],
-                outputs=[{'interface': IFloat(min=0, max=10000, step=1.000000), 'name': 'conductance'}],
-                widgetmodule=None,
-                widgetclass=None,
-               )
 
 
 

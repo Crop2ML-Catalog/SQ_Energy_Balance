@@ -1,14 +1,13 @@
 import numpy 
 from math import *
-def model_cropheatflux(float netRadiationEquivalentEvaporation=638.142,
-                       float soilHeatFlux=188.817,
-                       float potentialTranspiration=1.413):
+def model_cropheatflux(float netRadiationEquivalentEvaporation,
+                       float soilHeatFlux,
+                       float potentialTranspiration):
     """
 
     CropHeatFlux Model
     Author: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
-    Reference: abModelling energy balance in the wheat crop model SiriusQuality2:
-            Evapotranspiration and canopy and soil temperature calculations
+    Reference:  https://doi.org/10.1016/0168-1923(94)02214-5
     Institution: New Zealand Institute for Crop and Food Research Ltd.,
             New Zealand Institute for Crop and Food Research Ltd.,
             New Zealand Institute for Crop and Food Research Ltd.,
@@ -22,3 +21,5 @@ def model_cropheatflux(float netRadiationEquivalentEvaporation=638.142,
     cdef float cropHeatFlux
     cropHeatFlux = netRadiationEquivalentEvaporation - soilHeatFlux - potentialTranspiration
     return  cropHeatFlux
+
+

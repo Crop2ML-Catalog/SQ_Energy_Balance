@@ -1,13 +1,12 @@
 import numpy 
 from math import *
-def model_potentialtranspiration(float evapoTranspiration=830.958,
-                                 float tau=0.9983):
+def model_potentialtranspiration(float evapoTranspiration,
+                                 float tau):
     """
 
     PotentialTranspiration Model
     Author: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
-    Reference: Modelling energy balance in the wheat crop model SiriusQuality2:
-            Evapotranspiration and canopy and soil temperature calculations
+    Reference:  https://doi.org/10.1016/0168-1923(94)02214-5
     Institution: New Zealand Institute for Crop and Food Research Ltd.,
             New Zealand Institute for Crop and Food Research Ltd.,
             New Zealand Institute for Crop and Food Research Ltd.,
@@ -22,3 +21,5 @@ def model_potentialtranspiration(float evapoTranspiration=830.958,
     cdef float potentialTranspiration
     potentialTranspiration= evapoTranspiration * (1.0 - tau)
     return  potentialTranspiration
+
+

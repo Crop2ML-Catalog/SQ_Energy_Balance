@@ -2,28 +2,32 @@
 from copy import copy
 from array import array
 from math import *
+from typing import *
 
 import numpy
-from math import *
 
-def model_priestlytaylor(netRadiationEquivalentEvaporation = 638.142,
-         hslope = 0.584,
-         psychrometricConstant = 0.66,
-         Alpha = 1.5):
+#%%CyML Model Begin%%
+def model_priestlytaylor(netRadiationEquivalentEvaporation:float,
+         hslope:float,
+         psychrometricConstant:float,
+         Alpha:float):
     """
      - Name: PriestlyTaylor -Version: 1.0, -Time step: 1
      - Description:
                  * Title: evapoTranspirationPriestlyTaylor  Model
-                 * Author: Pierre Martre
-                 * Reference: Modelling energy balance in the wheat crop model SiriusQuality2:
-                 Evapotranspiration and canopy and soil temperature calculations
-                 * Institution: INRA Montpellier
+                 * Authors: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
+                 * Reference:  https://doi.org/10.1016/0168-1923(94)02214-5
+                 * Institution: New Zealand Institute for Crop and Food Research Ltd.,
+                 New Zealand Institute for Crop and Food Research Ltd.,
+                 New Zealand Institute for Crop and Food Research Ltd.,
+                 New Zealand Institute for Crop and Food Research Ltd.
+             
                  * ExtendedDescription: Calculate Energy Balance 
                  * ShortDescription: It uses Priestly-Taylor method
      - inputs:
                  * name: netRadiationEquivalentEvaporation
                                ** description : net Radiation in Equivalent Evaporation
-                               ** variablecategory : state
+                               ** variablecategory : auxiliary
                                ** datatype : DOUBLE
                                ** default : 638.142
                                ** min : 0
@@ -72,6 +76,7 @@ def model_priestlytaylor(netRadiationEquivalentEvaporation = 638.142,
                                ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
     """
 
-    evapoTranspirationPriestlyTaylor = None
+    evapoTranspirationPriestlyTaylor:float
     evapoTranspirationPriestlyTaylor = max(Alpha * hslope * netRadiationEquivalentEvaporation / (hslope + psychrometricConstant), 0.0)
     return evapoTranspirationPriestlyTaylor
+#%%CyML Model End%%

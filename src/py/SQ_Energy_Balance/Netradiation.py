@@ -2,26 +2,30 @@
 from copy import copy
 from array import array
 from math import *
+from typing import *
 
 import numpy
-from math import *
 
-def model_netradiation(minTair = 0.7,
-         maxTair = 7.2,
-         albedoCoefficient = 0.23,
-         stefanBoltzman = 4.903e-09,
-         elevation = 0.0,
-         solarRadiation = 3.0,
-         vaporPressure = 6.1,
-         extraSolarRadiation = 11.7):
+#%%CyML Model Begin%%
+def model_netradiation(minTair:float,
+         maxTair:float,
+         albedoCoefficient:float,
+         stefanBoltzman:float,
+         elevation:float,
+         solarRadiation:float,
+         vaporPressure:float,
+         extraSolarRadiation:float):
     """
      - Name: NetRadiation -Version: 1.0, -Time step: 1
      - Description:
                  * Title: NetRadiation Model
-                 * Author: Pierre Martre
-                 * Reference: Modelling energy balance in the wheat crop model SiriusQuality2:
-                 Evapotranspiration and canopy and soil temperature calculations
-                 * Institution: INRA Montpellier
+                 * Authors: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
+                 * Reference:  https://doi.org/10.1016/0168-1923(94)02214-5
+                 * Institution: New Zealand Institute for Crop and Food Research Ltd.,
+                 New Zealand Institute for Crop and Food Research Ltd.,
+                 New Zealand Institute for Crop and Food Research Ltd.,
+                 New Zealand Institute for Crop and Food Research Ltd.
+             
                  * ExtendedDescription: It is calculated at the surface of the canopy and is givenby the difference between incoming and outgoing radiation of both short
                           and long wavelength radiation 
                  * ShortDescription: It refers as difference between incoming and outgoing radiation of both short
@@ -126,14 +130,14 @@ def model_netradiation(minTair = 0.7,
                                ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
     """
 
-    netRadiation = None
-    netOutGoingLongWaveRadiation = None
-    Nsr = None
-    clearSkySolarRadiation = None
-    averageT = None
-    surfaceEmissivity = None
-    cloudCoverFactor = None
-    Nolr = None
+    netRadiation:float
+    netOutGoingLongWaveRadiation:float
+    Nsr:float
+    clearSkySolarRadiation:float
+    averageT:float
+    surfaceEmissivity:float
+    cloudCoverFactor:float
+    Nolr:float
     Nsr = (1.0 - albedoCoefficient) * solarRadiation
     clearSkySolarRadiation = (0.75 + (2 * pow(10.0, -5) * elevation)) * extraSolarRadiation
     averageT = (pow(maxTair + 273.16, 4) + pow(minTair + 273.16, 4)) / 2.0
@@ -143,3 +147,4 @@ def model_netradiation(minTair = 0.7,
     netRadiation = Nsr - Nolr
     netOutGoingLongWaveRadiation = Nolr
     return (netRadiation, netOutGoingLongWaveRadiation)
+#%%CyML Model End%%

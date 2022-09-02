@@ -1,28 +1,27 @@
-MODULE Priestlytaylormod
-    IMPLICIT NONE
-CONTAINS
-
-    SUBROUTINE model_priestlytaylor(netRadiationEquivalentEvaporation, &
+SUBROUTINE model_priestlytaylor(netRadiationEquivalentEvaporation, &
         hslope, &
         psychrometricConstant, &
         Alpha, &
         evapoTranspirationPriestlyTaylor)
-        IMPLICIT NONE
-        REAL, INTENT(IN) :: netRadiationEquivalentEvaporation
-        REAL, INTENT(IN) :: hslope
-        REAL, INTENT(IN) :: psychrometricConstant
-        REAL, INTENT(IN) :: Alpha
-        REAL, INTENT(OUT) :: evapoTranspirationPriestlyTaylor
-        !- Name: PriestlyTaylor -Version: 1.0, -Time step: 1
-        !- Description:
+    IMPLICIT NONE
+    REAL, INTENT(IN) :: netRadiationEquivalentEvaporation
+    REAL, INTENT(IN) :: hslope
+    REAL, INTENT(IN) :: psychrometricConstant
+    REAL, INTENT(IN) :: Alpha
+    REAL, INTENT(OUT) :: evapoTranspirationPriestlyTaylor
+    !- Name: PriestlyTaylor -Version: 1.0, -Time step: 1
+    !- Description:
     !            * Title: evapoTranspirationPriestlyTaylor  Model
-    !            * Author: Pierre Martre
-    !            * Reference: Modelling energy balance in the wheat crop model SiriusQuality2:
-    !            Evapotranspiration and canopy and soil temperature calculations
-    !            * Institution: INRA Montpellier
+    !            * Author: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
+    !            * Reference:  https://doi.org/10.1016/0168-1923(94)02214-5
+    !            * Institution: New Zealand Institute for Crop and Food Research Ltd.,
+    !            New Zealand Institute for Crop and Food Research Ltd.,
+    !            New Zealand Institute for Crop and Food Research Ltd.,
+    !            New Zealand Institute for Crop and Food Research Ltd.
+    !        
     !            * ExtendedDescription: Calculate Energy Balance 
     !            * ShortDescription: It uses Priestly-Taylor method
-        !- inputs:
+    !- inputs:
     !            * name: netRadiationEquivalentEvaporation
     !                          ** description : net Radiation in Equivalent Evaporation
     !                          ** variablecategory : state
@@ -63,7 +62,7 @@ CONTAINS
     !                          ** unit : 
     !                          ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
     !                          ** inputtype : parameter
-        !- outputs:
+    !- outputs:
     !            * name: evapoTranspirationPriestlyTaylor
     !                          ** description : evapoTranspiration of Priestly Taylor 
     !                          ** variablecategory : rate
@@ -72,9 +71,7 @@ CONTAINS
     !                          ** max : 10000
     !                          ** unit : g m-2 d-1
     !                          ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-        evapoTranspirationPriestlyTaylor = MAX(Alpha * hslope *  &
-                netRadiationEquivalentEvaporation / (hslope + psychrometricConstant),  &
-                0.0)
-    END SUBROUTINE model_priestlytaylor
-
-END MODULE
+    evapoTranspirationPriestlyTaylor = MAX(Alpha * hslope *  &
+            netRadiationEquivalentEvaporation / (hslope + psychrometricConstant),  &
+            0.0)
+END SUBROUTINE model_priestlytaylor

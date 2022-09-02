@@ -19,23 +19,23 @@ class EnergyBalanceWrapper
         loadParameters();
     }
 
-        double albedoCoefficient = 0.23d;
-    double stefanBoltzman = 4.903e-09d;
-    double elevation = 0.0d;
-    double lambdaV = 2.454d;
-    double psychrometricConstant = 0.66d;
-    double Alpha = 1.5d;
-    double vonKarman = 0.42d;
-    double heightWeatherMeasurements = 2.0d;
-    double zm = 0.13d;
-    double d = 0.67d;
-    double zh = 0.013d;
-    double soilDiffusionConstant = 4.2d;
-    double rhoDensityAir = 1.225d;
-    double specificHeatCapacityAir = 0.00101d;
-    double tau = 0.9983d;
-    double tauAlpha = 0.3d;
-    int isWindVpDefined = 1;
+        double albedoCoefficient;
+    double stefanBoltzman;
+    double elevation;
+    double lambdaV;
+    double psychrometricConstant;
+    double Alpha;
+    double vonKarman;
+    double heightWeatherMeasurements;
+    double zm;
+    double d;
+    double zh;
+    double soilDiffusionConstant;
+    double rhoDensityAir;
+    double specificHeatCapacityAir;
+    double tau;
+    double tauAlpha;
+    int isWindVpDefined;
 
     public double diffusionLimitedEvaporation{ get { return s.diffusionLimitedEvaporation;}} 
      

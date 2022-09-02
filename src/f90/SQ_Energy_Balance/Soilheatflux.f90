@@ -1,26 +1,25 @@
-MODULE Soilheatfluxmod
-    IMPLICIT NONE
-CONTAINS
-
-    SUBROUTINE model_soilheatflux(netRadiationEquivalentEvaporation, &
+SUBROUTINE model_soilheatflux(netRadiationEquivalentEvaporation, &
         tau, &
         soilEvaporation, &
         soilHeatFlux)
-        IMPLICIT NONE
-        REAL, INTENT(IN) :: netRadiationEquivalentEvaporation
-        REAL, INTENT(IN) :: tau
-        REAL, INTENT(IN) :: soilEvaporation
-        REAL, INTENT(OUT) :: soilHeatFlux
-        !- Name: SoilHeatFlux -Version: 1.0, -Time step: 1
-        !- Description:
+    IMPLICIT NONE
+    REAL, INTENT(IN) :: netRadiationEquivalentEvaporation
+    REAL, INTENT(IN) :: tau
+    REAL, INTENT(IN) :: soilEvaporation
+    REAL, INTENT(OUT) :: soilHeatFlux
+    !- Name: SoilHeatFlux -Version: 1.0, -Time step: 1
+    !- Description:
     !            * Title: SoilHeatFlux Model
-    !            * Author: Cyrille MIDINGOYI
-    !            * Reference: Modelling energy balance in the wheat crop model SiriusQuality2:
-    !            Evapotranspiration and canopy and soil temperature calculations
-    !            * Institution: INRA/LEPSE Montpellier
+    !            * Author: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
+    !            * Reference:  https://doi.org/10.1016/0168-1923(94)02214-5
+    !            * Institution: New Zealand Institute for Crop and Food Research Ltd.,
+    !            New Zealand Institute for Crop and Food Research Ltd.,
+    !            New Zealand Institute for Crop and Food Research Ltd.,
+    !            New Zealand Institute for Crop and Food Research Ltd.
+    !        
     !            * ExtendedDescription: The available energy in the soil 
     !            * ShortDescription: The available energy in the soil
-        !- inputs:
+    !- inputs:
     !            * name: netRadiationEquivalentEvaporation
     !                          ** variablecategory : state
     !                          ** description : net Radiation Equivalent Evaporation
@@ -51,7 +50,7 @@ CONTAINS
     !                          ** unit : g m-2 d-1
     !                          ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
     !                          ** inputtype : variable
-        !- outputs:
+    !- outputs:
     !            * name: soilHeatFlux
     !                          ** description : soil Heat Flux 
     !                          ** variablecategory : rate
@@ -60,8 +59,6 @@ CONTAINS
     !                          ** max : 10000
     !                          ** unit : g m-2 d-1
     !                          ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-        soilHeatFlux = tau * netRadiationEquivalentEvaporation -  &
-                soilEvaporation
-    END SUBROUTINE model_soilheatflux
-
-END MODULE
+    soilHeatFlux = tau * netRadiationEquivalentEvaporation -  &
+            soilEvaporation
+END SUBROUTINE model_soilheatflux

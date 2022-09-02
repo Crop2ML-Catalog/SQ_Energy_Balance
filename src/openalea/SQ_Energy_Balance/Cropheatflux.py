@@ -1,59 +1,73 @@
 # coding: utf8
-import numpy
+from copy import copy
+from array import array
 from math import *
+from typing import *
+from datetime import datetime
 
-def model_cropheatflux(netRadiationEquivalentEvaporation = 638.142,
-         soilHeatFlux = 188.817,
-         potentialTranspiration = 1.413):
+import numpy
+
+#%%CyML Model Begin%%
+def model_cropheatflux(netRadiationEquivalentEvaporation:float,
+         soilHeatFlux:float,
+         potentialTranspiration:float):
     """
+     - Name: CropHeatFlux -Version: 1.0, -Time step: 1
      - Description:
                  * Title: CropHeatFlux Model
-                 * Author: Pierre Martre
-                 * Reference: abModelling energy balance in the wheat crop model SiriusQuality2:
-                 Evapotranspiration and canopy and soil temperature calculations
-                 * Institution: INRA/LEPSE Montpellier
-                 * Abstract: It is calculated from net Radiation, soil heat flux and potential transpiration 
+                 * Authors: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
+                 * Reference:  https://doi.org/10.1016/0168-1923(94)02214-5
+                 * Institution: New Zealand Institute for Crop and Food Research Ltd.,
+                 New Zealand Institute for Crop and Food Research Ltd.,
+                 New Zealand Institute for Crop and Food Research Ltd.,
+                 New Zealand Institute for Crop and Food Research Ltd.
+             
+                 * ExtendedDescription: It is calculated from net Radiation, soil heat flux and potential transpiration 
+                 * ShortDescription: It calculates the crop heat flux
+             
      - inputs:
                  * name: netRadiationEquivalentEvaporation
-                               ** min : 0
-                               ** default : 638.142
-                               ** max : 10000
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
                                ** variablecategory : auxiliary
-                               ** datatype : DOUBLE
-                               ** inputtype : variable
-                               ** unit : g m-2 d-1
                                ** description : net Radiation Equivalent Evaporation
+                               ** datatype : DOUBLE
+                               ** default : 638.142
+                               ** min : 0
+                               ** max : 10000
+                               ** unit : g m-2 d-1
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                               ** inputtype : variable
                  * name: soilHeatFlux
-                               ** min : 0
-                               ** default : 188.817
-                               ** max : 1000
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** variablecategory : rate
-                               ** datatype : DOUBLE
-                               ** inputtype : variable
-                               ** unit : g m-2 d-1
                                ** description : soil Heat Flux
-                 * name: potentialTranspiration
-                               ** min : 0
-                               ** default :  1.413
-                               ** max : 1000
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
                                ** variablecategory : rate
                                ** datatype : DOUBLE
-                               ** inputtype : variable
+                               ** default : 188.817
+                               ** min : 0
+                               ** max : 1000
                                ** unit : g m-2 d-1
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                               ** inputtype : variable
+                 * name: potentialTranspiration
                                ** description : potential Transpiration
+                               ** variablecategory : rate
+                               ** datatype : DOUBLE
+                               ** default :  1.413
+                               ** min : 0
+                               ** max : 1000
+                               ** unit : g m-2 d-1
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                               ** inputtype : variable
      - outputs:
                  * name: cropHeatFlux
-                               ** min : 0
-                               ** variablecategory : rate
-                               ** max : 10000
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** datatype : DOUBLE
-                               ** unit : g m-2 d-1
                                ** description :  crop Heat Flux
+                               ** variablecategory : rate
+                               ** datatype : DOUBLE
+                               ** min : 0
+                               ** max : 10000
+                               ** unit : g m-2 d-1
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
     """
 
+    cropHeatFlux:float
     cropHeatFlux = netRadiationEquivalentEvaporation - soilHeatFlux - potentialTranspiration
     return cropHeatFlux
+#%%CyML Model End%%

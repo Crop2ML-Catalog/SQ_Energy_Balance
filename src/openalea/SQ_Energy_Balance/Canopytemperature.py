@@ -1,108 +1,122 @@
 # coding: utf8
-import numpy
+from copy import copy
+from array import array
 from math import *
+from typing import *
+from datetime import datetime
 
-def model_canopytemperature(minTair = 0.7,
-         maxTair = 7.2,
-         cropHeatFlux = 447.912,
-         conductance = 598.685,
-         lambdaV = 2.454,
-         rhoDensityAir = 1.225,
-         specificHeatCapacityAir = 0.00101):
+import numpy
+
+#%%CyML Model Begin%%
+def model_canopytemperature(minTair:float,
+         maxTair:float,
+         cropHeatFlux:float,
+         conductance:float,
+         lambdaV:float,
+         rhoDensityAir:float,
+         specificHeatCapacityAir:float):
     """
+     - Name: CanopyTemperature -Version: 1.0, -Time step: 1
      - Description:
                  * Title: CanopyTemperature Model
-                 * Author: Pierre Martre
-                 * Reference: Modelling energy balance in the wheat crop model SiriusQuality2:
-                 Evapotranspiration and canopy and soil temperature calculations
-                 * Institution: INRA/LEPSE Montpellier
-                 * Abstract: It is calculated from the crop heat flux and the boundary layer conductance 
+                 * Authors: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
+                 * Reference: https://doi.org/10.1016/0168-1923(94)02214-5
+                 * Institution: New Zealand Institute for Crop and Food Research Ltd.,
+                 New Zealand Institute for Crop and Food Research Ltd.,
+                 New Zealand Institute for Crop and Food Research Ltd.,
+                 New Zealand Institute for Crop and Food Research Ltd.
+             
+                 * ExtendedDescription: It is calculated from the crop heat flux and the boundary layer conductance 
+                 * ShortDescription: It is calculated from the crop heat flux and the boundary layer conductance 
      - inputs:
                  * name: minTair
-                               ** min : -30
-                               ** default : 0.7
-                               ** max : 45
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** datatype : DOUBLE
-                               ** variablecategory : auxiliary
-                               ** inputtype : variable
-                               ** unit : degC
                                ** description : minimum air temperature
-                 * name: maxTair
-                               ** min : -30
-                               ** default : 7.2
-                               ** max : 45
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
                                ** datatype : DOUBLE
                                ** variablecategory : auxiliary
-                               ** inputtype : variable
+                               ** min : -30
+                               ** max : 45
+                               ** default : 0.7
                                ** unit : degC
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                               ** inputtype : variable
+                 * name: maxTair
                                ** description : maximum air Temperature
+                               ** datatype : DOUBLE
+                               ** variablecategory : auxiliary
+                               ** min : -30
+                               ** max : 45
+                               ** default : 7.2
+                               ** unit : degC
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                               ** inputtype : variable
                  * name: cropHeatFlux
-                               ** min : 0
-                               ** default : 447.912
-                               ** max : 10000
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** variablecategory : rate
-                               ** datatype : DOUBLE
-                               ** inputtype : variable
-                               ** unit : g/m**2/d
                                ** description : Crop heat flux
-                 * name: conductance
-                               ** min : 0
-                               ** default : 598.685
-                               ** max : 10000
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** variablecategory : state
-                               ** datatype : DOUBLE
+                               ** variablecategory : rate
                                ** inputtype : variable
-                               ** unit : m/d
-                               ** description : the boundary layer conductance
-                 * name: lambdaV
-                               ** parametercategory : constant
+                               ** datatype : DOUBLE
                                ** min : 0
-                               ** datatype : DOUBLE
-                               ** max : 10
+                               ** max : 10000
+                               ** default : 447.912
+                               ** unit : g/m**2/d
                                ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** default : 2.454
-                               ** inputtype : parameter
-                               ** unit : MJ/kg
+                 * name: conductance
+                               ** description : the boundary layer conductance
+                               ** variablecategory : state
+                               ** inputtype : variable
+                               ** datatype : DOUBLE
+                               ** min : 0
+                               ** max : 10000
+                               ** default : 598.685
+                               ** unit : m/d
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                 * name: lambdaV
                                ** description : latent heat of vaporization of water
+                               ** parametercategory : constant
+                               ** datatype : DOUBLE
+                               ** default : 2.454
+                               ** min : 0
+                               ** max : 10
+                               ** unit : MJ/kg
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                               ** inputtype : parameter
                  * name: rhoDensityAir
-                               ** parametercategory : constant
-                               ** datatype : DOUBLE
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** default : 1.225
-                               ** inputtype : parameter
-                               ** unit : kg/m**3
                                ** description : Density of air
-                 * name: specificHeatCapacityAir
                                ** parametercategory : constant
                                ** datatype : DOUBLE
+                               ** default : 1.225
+                               ** unit : kg/m**3
                                ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** default : 0.00101
                                ** inputtype : parameter
-                               ** unit : MJ/kg/degC
+                 * name: specificHeatCapacityAir
                                ** description : Specific heat capacity of dry air
+                               ** parametercategory : constant
+                               ** datatype : DOUBLE
+                               ** default : 0.00101
+                               ** unit : MJ/kg/degC
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                               ** inputtype : parameter
      - outputs:
                  * name: minCanopyTemperature
-                               ** min : -30
-                               ** datatype : DOUBLE
-                               ** max : 45
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-                               ** variablecategory : state
-                               ** unit : degC
                                ** description : minimal Canopy Temperature  
-                 * name: maxCanopyTemperature
-                               ** min : -30
                                ** datatype : DOUBLE
-                               ** max : 45
-                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
                                ** variablecategory : state
+                               ** min : -30
+                               ** max : 45
                                ** unit : degC
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
+                 * name: maxCanopyTemperature
                                ** description : maximal Canopy Temperature 
+                               ** datatype : DOUBLE
+                               ** variablecategory : state
+                               ** min : -30
+                               ** max : 45
+                               ** unit : degC
+                               ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
     """
 
+    minCanopyTemperature:float
+    maxCanopyTemperature:float
     minCanopyTemperature = minTair + (cropHeatFlux / (rhoDensityAir * specificHeatCapacityAir * conductance / lambdaV * 1000.0))
     maxCanopyTemperature = maxTair + (cropHeatFlux / (rhoDensityAir * specificHeatCapacityAir * conductance / lambdaV * 1000.0))
     return (minCanopyTemperature, maxCanopyTemperature)
+#%%CyML Model End%%

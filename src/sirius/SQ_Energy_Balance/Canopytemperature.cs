@@ -37,8 +37,8 @@ namespace SiriusQualityEnergyBalance.Strategies
             v2.DefaultValue = 1.225;
             v2.Description = "Density of air";
             v2.Id = 0;
-            v2.MaxValue = 1.225;
-            v2.MinValue = 1.225;
+            v2.MaxValue = -1D;
+            v2.MinValue = -1D;
             v2.Name = "rhoDensityAir";
             v2.Size = 1;
             v2.Units = "kg/m**3";
@@ -50,8 +50,8 @@ namespace SiriusQualityEnergyBalance.Strategies
             v3.DefaultValue = 0.00101;
             v3.Description = "Specific heat capacity of dry air";
             v3.Id = 0;
-            v3.MaxValue = 0.00101;
-            v3.MinValue = 0.00101;
+            v3.MaxValue = -1D;
+            v3.MinValue = -1D;
             v3.Name = "specificHeatCapacityAir";
             v3.Size = 1;
             v3.Units = "MJ/kg/degC";
@@ -157,9 +157,9 @@ namespace SiriusQualityEnergyBalance.Strategies
         private  void SetPublisherData()
         {
             _pd = new CRA.ModelLayer.MetadataTypes.PublisherData();
-            _pd.Add("Creator", "Pierre Martre");
+            _pd.Add("Creator", "Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin");
             _pd.Add("Date", "");
-            _pd.Add("Publisher", "INRA/LEPSE Montpellier");
+            _pd.Add("Publisher", "New Zealand Institute for Crop and Food Research Ltd., New Zealand Institute for Crop and Food Research Ltd., New Zealand Institute for Crop and Food Research Ltd., New Zealand Institute for Crop and Food Research Ltd. "); 
         }
 
         private ModellingOptionsManager _modellingOptionsManager;
@@ -230,16 +230,16 @@ namespace SiriusQualityEnergyBalance.Strategies
 
             rhoDensityAirVarInfo.Name = "rhoDensityAir";
             rhoDensityAirVarInfo.Description = "Density of air";
-            rhoDensityAirVarInfo.MaxValue = 1.225;
-            rhoDensityAirVarInfo.MinValue = 1.225;
+            rhoDensityAirVarInfo.MaxValue = -1D;
+            rhoDensityAirVarInfo.MinValue = -1D;
             rhoDensityAirVarInfo.DefaultValue = 1.225;
             rhoDensityAirVarInfo.Units = "kg/m**3";
             rhoDensityAirVarInfo.ValueType = VarInfoValueTypes.GetInstanceForName("Double");
 
             specificHeatCapacityAirVarInfo.Name = "specificHeatCapacityAir";
             specificHeatCapacityAirVarInfo.Description = "Specific heat capacity of dry air";
-            specificHeatCapacityAirVarInfo.MaxValue = 0.00101;
-            specificHeatCapacityAirVarInfo.MinValue = 0.00101;
+            specificHeatCapacityAirVarInfo.MaxValue = -1D;
+            specificHeatCapacityAirVarInfo.MinValue = -1D;
             specificHeatCapacityAirVarInfo.DefaultValue = 0.00101;
             specificHeatCapacityAirVarInfo.Units = "MJ/kg/degC";
             specificHeatCapacityAirVarInfo.ValueType = VarInfoValueTypes.GetInstanceForName("Double");

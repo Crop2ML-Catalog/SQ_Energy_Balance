@@ -25,16 +25,19 @@ public class Priestlytaylor
         //- Name: PriestlyTaylor -Version: 1.0, -Time step: 1
         //- Description:
     //            * Title: evapoTranspirationPriestlyTaylor  Model
-    //            * Author: Pierre Martre
-    //            * Reference: Modelling energy balance in the wheat crop model SiriusQuality2:
-    //            Evapotranspiration and canopy and soil temperature calculations
-    //            * Institution: INRA Montpellier
+    //            * Author: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
+    //            * Reference:  https://doi.org/10.1016/0168-1923(94)02214-5
+    //            * Institution: New Zealand Institute for Crop and Food Research Ltd.,
+    //            New Zealand Institute for Crop and Food Research Ltd.,
+    //            New Zealand Institute for Crop and Food Research Ltd.,
+    //            New Zealand Institute for Crop and Food Research Ltd.
+    //        
     //            * ExtendedDescription: Calculate Energy Balance 
     //            * ShortDescription: It uses Priestly-Taylor method
         //- inputs:
     //            * name: netRadiationEquivalentEvaporation
     //                          ** description : net Radiation in Equivalent Evaporation
-    //                          ** variablecategory : state
+    //                          ** variablecategory : auxiliary
     //                          ** datatype : DOUBLE
     //                          ** default : 638.142
     //                          ** min : 0
@@ -81,7 +84,7 @@ public class Priestlytaylor
     //                          ** max : 10000
     //                          ** unit : g m-2 d-1
     //                          ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-        double netRadiationEquivalentEvaporation = s.getnetRadiationEquivalentEvaporation();
+        double netRadiationEquivalentEvaporation = a.getnetRadiationEquivalentEvaporation();
         double hslope = a.gethslope();
         double evapoTranspirationPriestlyTaylor;
         evapoTranspirationPriestlyTaylor = Math.max(Alpha * hslope * netRadiationEquivalentEvaporation / (hslope + psychrometricConstant), 0.0d);

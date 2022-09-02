@@ -40,11 +40,14 @@ public class Conductance
         //- Name: Conductance -Version: 1.0, -Time step: 1
         //- Description:
     //            * Title: Conductance Model
-    //            * Author: Pierre Martre
-    //            * Reference: Modelling energy balance in the wheat crop model SiriusQuality2:
-    //            Evapotranspiration and canopy and soil temperature calculations
+    //            * Author: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
+    //            * Reference:  https://doi.org/10.1016/0168-1923(94)02214-5
     //        
-    //            * Institution: INRA/LEPSE Montpellier
+    //            * Institution: New Zealand Institute for Crop and Food Research Ltd.,
+    //            New Zealand Institute for Crop and Food Research Ltd.,
+    //            New Zealand Institute for Crop and Food Research Ltd.,
+    //            New Zealand Institute for Crop and Food Research Ltd.
+    //        
     //            * ExtendedDescription: The boundary layer conductance is expressed as the wind speed profile above the
     //            canopy and the canopy structure. The approach does not take into account buoyancy
     //            effects. 

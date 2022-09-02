@@ -1,14 +1,13 @@
 import numpy 
 from math import *
-def model_evapotranspiration(int isWindVpDefined=1,
-                             float evapoTranspirationPriestlyTaylor=449.367,
-                             float evapoTranspirationPenman=830.958):
+def model_evapotranspiration(int isWindVpDefined,
+                             float evapoTranspirationPriestlyTaylor,
+                             float evapoTranspirationPenman):
     """
 
     Evapotranspiration Model
     Author: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
-    Reference: Modelling energy balance in the wheat crop model SiriusQuality2:
-            Evapotranspiration and canopy and soil temperature calculations
+    Reference:  https://doi.org/10.1016/0168-1923(94)02214-5
     Institution: New Zealand Institute for Crop and Food Research Ltd.,
             New Zealand Institute for Crop and Food Research Ltd.,
             New Zealand Institute for Crop and Food Research Ltd.,
@@ -27,3 +26,5 @@ def model_evapotranspiration(int isWindVpDefined=1,
     else:
         evapoTranspiration = evapoTranspirationPriestlyTaylor
     return  evapoTranspiration
+
+

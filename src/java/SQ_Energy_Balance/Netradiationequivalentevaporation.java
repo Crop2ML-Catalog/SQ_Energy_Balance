@@ -18,10 +18,13 @@ public class Netradiationequivalentevaporation
         //- Name: NetRadiationEquivalentEvaporation -Version: 1.0, -Time step: 1
         //- Description:
     //            * Title: NetRadiationEquivalentEvaporation Model
-    //            * Author: Pierre Martre
-    //            * Reference: Modelling energy balance in the wheat crop model SiriusQuality2:
-    //            Evapotranspiration and canopy and soil temperature calculations
-    //            * Institution: INRA/LEPSE Montpellier
+    //            * Author: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
+    //            * Reference:  https://doi.org/10.1016/0168-1923(94)02214-5
+    //            * Institution: New Zealand Institute for Crop and Food Research Ltd.,
+    //            New Zealand Institute for Crop and Food Research Ltd.,
+    //            New Zealand Institute for Crop and Food Research Ltd.,
+    //            New Zealand Institute for Crop and Food Research Ltd.
+    //        
     //            * ExtendedDescription:  It is given by dividing net radiation by latent heat of vaporization of water 
     //            * ShortDescription: It is given by dividing net radiation by latent heat of vaporization of water
         //- inputs:
@@ -37,7 +40,7 @@ public class Netradiationequivalentevaporation
     //                          ** inputtype : parameter
     //            * name: netRadiation
     //                          ** description : net radiation
-    //                          ** variablecategory : state
+    //                          ** variablecategory : auxiliary
     //                          ** datatype : DOUBLE
     //                          ** default : 1.566
     //                          ** min : 0
@@ -54,7 +57,7 @@ public class Netradiationequivalentevaporation
     //                          ** max : 5000
     //                          ** unit : g m-2 d-1
     //                          ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-        double netRadiation = s.getnetRadiation();
+        double netRadiation = a.getnetRadiation();
         double netRadiationEquivalentEvaporation;
         netRadiationEquivalentEvaporation = netRadiation / lambdaV * 1000.0d;
         a.setnetRadiationEquivalentEvaporation(netRadiationEquivalentEvaporation);
