@@ -56,6 +56,5 @@ An example of transformation in OpenAlea
 An example of unit test in R (Penman model unit)
 ------------------------------------------------
 
-[Penman model unit Jupyter Notebook](https://github.com/username/repository/blob/main/MyNotebook.ipynb)
-
+![](doc/images/penman_botebook.png)
 
