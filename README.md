@@ -56,5 +56,5 @@ An example of transformation in OpenAlea
 An example of unit test in R (Penman model unit)
 ------------------------------------------------
 
-![](doc/images/penman_botebook.png)
+![](doc/images/penman_notebook.png)
 
