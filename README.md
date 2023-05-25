@@ -2,12 +2,12 @@
 
 
 AgriculturalModelExchangeInitiative
-==============================
+===================================
 
 Model of Energy Balance of the crop growth simulation model SiriusQuality
 
 Project Organization
-------------
+--------------------
 
 ```
 
@@ -56,5 +56,6 @@ An example of transformation in OpenAlea
 An example of unit test in R (Penman model unit)
 ------------------------------------------------
 
-![](doc/images/test_penman.PNG)
+[Penman model unit Jupyter Notebook](https://github.com/username/repository/blob/main/MyNotebook.ipynb)
+
 
