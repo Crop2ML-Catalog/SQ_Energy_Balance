@@ -49,7 +49,7 @@ Model visualization
 An example of transformation in OpenAlea
 ----------------------------------------
 
-![](doc/images/oepnaela_workflow.png)
+![](doc/images/oepnalea_workflow.png)
 
 
 
