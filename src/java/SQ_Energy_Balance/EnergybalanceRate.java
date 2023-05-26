@@ -2,18 +2,18 @@ import  java.io.*;
 import  java.util.*;
 import java.time.LocalDateTime;
 
-public class EnergybalanceRate
+public class EnergyBalanceRate
 {
-    private double evapoTranspirationPriestlyTaylor;
-    private double evapoTranspirationPenman;
-    private double evapoTranspiration;
-    private double potentialTranspiration;
-    private double soilHeatFlux;
-    private double cropHeatFlux;
+    private Double evapoTranspirationPriestlyTaylor;
+    private Double evapoTranspirationPenman;
+    private Double evapoTranspiration;
+    private Double potentialTranspiration;
+    private Double soilHeatFlux;
+    private Double cropHeatFlux;
     
-    public EnergybalanceRate() { }
+    public EnergyBalanceRate() { }
     
-    public EnergybalanceRate(EnergybalanceRate toCopy, boolean copyAll) // copy constructor 
+    public EnergyBalanceRate(EnergyBalanceRate toCopy, boolean copyAll) // copy constructor 
     {
         if (copyAll)
         {
@@ -23,42 +23,48 @@ public class EnergybalanceRate
             this.potentialTranspiration = toCopy.getpotentialTranspiration();
             this.soilHeatFlux = toCopy.getsoilHeatFlux();
             this.cropHeatFlux = toCopy.getcropHeatFlux();
+            this.evapoTranspirationPriestlyTaylor = toCopy.getevapoTranspirationPriestlyTaylor();
+            this.evapoTranspirationPenman = toCopy.getevapoTranspirationPenman();
+            this.evapoTranspiration = toCopy.getevapoTranspiration();
+            this.potentialTranspiration = toCopy.getpotentialTranspiration();
+            this.soilHeatFlux = toCopy.getsoilHeatFlux();
+            this.cropHeatFlux = toCopy.getcropHeatFlux();
         }
     }
-    public double getevapoTranspirationPriestlyTaylor()
+    public Double getevapoTranspirationPriestlyTaylor()
     { return evapoTranspirationPriestlyTaylor; }
 
-    public void setevapoTranspirationPriestlyTaylor(double _evapoTranspirationPriestlyTaylor)
+    public void setevapoTranspirationPriestlyTaylor(Double _evapoTranspirationPriestlyTaylor)
     { this.evapoTranspirationPriestlyTaylor= _evapoTranspirationPriestlyTaylor; } 
     
-    public double getevapoTranspirationPenman()
+    public Double getevapoTranspirationPenman()
     { return evapoTranspirationPenman; }
 
-    public void setevapoTranspirationPenman(double _evapoTranspirationPenman)
+    public void setevapoTranspirationPenman(Double _evapoTranspirationPenman)
     { this.evapoTranspirationPenman= _evapoTranspirationPenman; } 
     
-    public double getevapoTranspiration()
+    public Double getevapoTranspiration()
     { return evapoTranspiration; }
 
-    public void setevapoTranspiration(double _evapoTranspiration)
+    public void setevapoTranspiration(Double _evapoTranspiration)
     { this.evapoTranspiration= _evapoTranspiration; } 
     
-    public double getpotentialTranspiration()
+    public Double getpotentialTranspiration()
     { return potentialTranspiration; }
 
-    public void setpotentialTranspiration(double _potentialTranspiration)
+    public void setpotentialTranspiration(Double _potentialTranspiration)
     { this.potentialTranspiration= _potentialTranspiration; } 
     
-    public double getsoilHeatFlux()
+    public Double getsoilHeatFlux()
     { return soilHeatFlux; }
 
-    public void setsoilHeatFlux(double _soilHeatFlux)
+    public void setsoilHeatFlux(Double _soilHeatFlux)
     { this.soilHeatFlux= _soilHeatFlux; } 
     
-    public double getcropHeatFlux()
+    public Double getcropHeatFlux()
     { return cropHeatFlux; }
 
-    public void setcropHeatFlux(double _cropHeatFlux)
+    public void setcropHeatFlux(Double _cropHeatFlux)
     { this.cropHeatFlux= _cropHeatFlux; } 
     
 }

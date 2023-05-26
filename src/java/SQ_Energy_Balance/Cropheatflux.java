@@ -3,16 +3,16 @@ import  java.util.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-public class Cropheatflux
+public class CropHeatFlux
 {
     
-    public Cropheatflux() { }
-    public void  Calculate_cropheatflux(EnergybalanceState s, EnergybalanceState s1, EnergybalanceRate r, EnergybalanceAuxiliary a,  EnergybalanceExogenous ex)
+    public CropHeatFlux() { }
+    public void  Calculate_Model(EnergyBalanceState s, EnergyBalanceState s1, EnergyBalanceRate r, EnergyBalanceAuxiliary a,  EnergyBalanceExogenous ex)
     {
         //- Name: CropHeatFlux -Version: 1.0, -Time step: 1
         //- Description:
     //            * Title: CropHeatFlux Model
-    //            * Author: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
+    //            * Authors: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
     //            * Reference:  https://doi.org/10.1016/0168-1923(94)02214-5
     //            * Institution: New Zealand Institute for Crop and Food Research Ltd.,
     //            New Zealand Institute for Crop and Food Research Ltd.,
@@ -62,10 +62,10 @@ public class Cropheatflux
     //                          ** max : 10000
     //                          ** unit : g m-2 d-1
     //                          ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-        double netRadiationEquivalentEvaporation = a.getnetRadiationEquivalentEvaporation();
-        double soilHeatFlux = r.getsoilHeatFlux();
-        double potentialTranspiration = r.getpotentialTranspiration();
-        double cropHeatFlux;
+        Double netRadiationEquivalentEvaporation = a.getnetRadiationEquivalentEvaporation();
+        Double soilHeatFlux = r.getsoilHeatFlux();
+        Double potentialTranspiration = r.getpotentialTranspiration();
+        Double cropHeatFlux;
         cropHeatFlux = netRadiationEquivalentEvaporation - soilHeatFlux - potentialTranspiration;
         r.setcropHeatFlux(cropHeatFlux);
     }

@@ -1,149 +1,166 @@
-public class EnergybalanceComponent
+public class EnergyBalanceComponent
 {
     
-    public EnergybalanceComponent() { }
+    public EnergyBalanceComponent() { }
 
-    Netradiation _Netradiation = new Netradiation();
-    Netradiationequivalentevaporation _Netradiationequivalentevaporation = new Netradiationequivalentevaporation();
-    Priestlytaylor _Priestlytaylor = new Priestlytaylor();
+    NetRadiation _NetRadiation = new NetRadiation();
+    NetRadiationEquivalentEvaporation _NetRadiationEquivalentEvaporation = new NetRadiationEquivalentEvaporation();
+    PriestlyTaylor _PriestlyTaylor = new PriestlyTaylor();
     Conductance _Conductance = new Conductance();
-    Diffusionlimitedevaporation _Diffusionlimitedevaporation = new Diffusionlimitedevaporation();
+    DiffusionLimitedEvaporation _DiffusionLimitedEvaporation = new DiffusionLimitedEvaporation();
     Penman _Penman = new Penman();
-    Ptsoil _Ptsoil = new Ptsoil();
-    Soilevaporation _Soilevaporation = new Soilevaporation();
-    Evapotranspiration _Evapotranspiration = new Evapotranspiration();
-    Soilheatflux _Soilheatflux = new Soilheatflux();
-    Potentialtranspiration _Potentialtranspiration = new Potentialtranspiration();
-    Cropheatflux _Cropheatflux = new Cropheatflux();
-    Canopytemperature _Canopytemperature = new Canopytemperature();
+    PtSoil _PtSoil = new PtSoil();
+    SoilEvaporation _SoilEvaporation = new SoilEvaporation();
+    EvapoTranspiration _EvapoTranspiration = new EvapoTranspiration();
+    SoilHeatFlux _SoilHeatFlux = new SoilHeatFlux();
+    PotentialTranspiration _PotentialTranspiration = new PotentialTranspiration();
+    CropHeatFlux _CropHeatFlux = new CropHeatFlux();
+    CanopyTemperature _CanopyTemperature = new CanopyTemperature();
 
-    public double getalbedoCoefficient()
-    { return _Netradiation.getalbedoCoefficient(); }
-    public void setalbedoCoefficient(double albedoCoefficient)
-    { _Netradiation.setalbedoCoefficient(albedoCoefficient); } 
-
-    public double getstefanBoltzman()
-    { return _Netradiation.getstefanBoltzman(); }
-    public void setstefanBoltzman(double stefanBoltzman)
-    { _Netradiation.setstefanBoltzman(stefanBoltzman); } 
-
-    public double getelevation()
-    { return _Netradiation.getelevation(); }
-    public void setelevation(double elevation)
-    { _Netradiation.setelevation(elevation); } 
-
-    public double getlambdaV()
-    { return _Netradiationequivalentevaporation.getlambdaV(); }
-    public void setlambdaV(double lambdaV)
-    { _Netradiationequivalentevaporation.setlambdaV(lambdaV);
-        _Penman.setlambdaV(lambdaV);
-        _Canopytemperature.setlambdaV(lambdaV); } 
-
-    public double getpsychrometricConstant()
-    { return _Priestlytaylor.getpsychrometricConstant(); }
-    public void setpsychrometricConstant(double psychrometricConstant)
-    { _Priestlytaylor.setpsychrometricConstant(psychrometricConstant);
-        _Penman.setpsychrometricConstant(psychrometricConstant); } 
-
-    public double getAlpha()
-    { return _Priestlytaylor.getAlpha(); }
-    public void setAlpha(double Alpha)
-    { _Priestlytaylor.setAlpha(Alpha);
-        _Penman.setAlpha(Alpha);
-        _Ptsoil.setAlpha(Alpha); } 
-
-    public double getvonKarman()
-    { return _Conductance.getvonKarman(); }
-    public void setvonKarman(double vonKarman)
-    { _Conductance.setvonKarman(vonKarman); } 
-
-    public double getheightWeatherMeasurements()
-    { return _Conductance.getheightWeatherMeasurements(); }
-    public void setheightWeatherMeasurements(double heightWeatherMeasurements)
-    { _Conductance.setheightWeatherMeasurements(heightWeatherMeasurements); } 
-
-    public double getzm()
-    { return _Conductance.getzm(); }
-    public void setzm(double zm)
-    { _Conductance.setzm(zm); } 
-
-    public double getd()
-    { return _Conductance.getd(); }
-    public void setd(double d)
-    { _Conductance.setd(d); } 
-
-    public double getzh()
-    { return _Conductance.getzh(); }
-    public void setzh(double zh)
-    { _Conductance.setzh(zh); } 
-
-    public double getsoilDiffusionConstant()
-    { return _Diffusionlimitedevaporation.getsoilDiffusionConstant(); }
-    public void setsoilDiffusionConstant(double soilDiffusionConstant)
-    { _Diffusionlimitedevaporation.setsoilDiffusionConstant(soilDiffusionConstant); } 
-
-    public double getrhoDensityAir()
-    { return _Penman.getrhoDensityAir(); }
-    public void setrhoDensityAir(double rhoDensityAir)
-    { _Penman.setrhoDensityAir(rhoDensityAir);
-        _Canopytemperature.setrhoDensityAir(rhoDensityAir); } 
-
-    public double getspecificHeatCapacityAir()
-    { return _Penman.getspecificHeatCapacityAir(); }
-    public void setspecificHeatCapacityAir(double specificHeatCapacityAir)
-    { _Penman.setspecificHeatCapacityAir(specificHeatCapacityAir);
-        _Canopytemperature.setspecificHeatCapacityAir(specificHeatCapacityAir); } 
-
-    public double gettau()
-    { return _Ptsoil.gettau(); }
-    public void settau(double tau)
-    { _Ptsoil.settau(tau);
-        _Soilheatflux.settau(tau);
-        _Potentialtranspiration.settau(tau); } 
-
-    public double gettauAlpha()
-    { return _Ptsoil.gettauAlpha(); }
-    public void settauAlpha(double tauAlpha)
-    { _Ptsoil.settauAlpha(tauAlpha); } 
-
-    public int getisWindVpDefined()
-    { return _Evapotranspiration.getisWindVpDefined(); }
-    public void setisWindVpDefined(int isWindVpDefined)
-    { _Evapotranspiration.setisWindVpDefined(isWindVpDefined); } 
-    public void  Calculate_energybalance(EnergybalanceState s, EnergybalanceState s1, EnergybalanceRate r, EnergybalanceAuxiliary a, EnergybalanceExogenous ex)
-    {
-        _Netradiation.Calculate_netradiation(s, s1, r, a, ex);
-        _Conductance.Calculate_conductance(s, s1, r, a, ex);
-        _Diffusionlimitedevaporation.Calculate_diffusionlimitedevaporation(s, s1, r, a, ex);
-        _Netradiationequivalentevaporation.Calculate_netradiationequivalentevaporation(s, s1, r, a, ex);
-        _Priestlytaylor.Calculate_priestlytaylor(s, s1, r, a, ex);
-        _Ptsoil.Calculate_ptsoil(s, s1, r, a, ex);
-        _Penman.Calculate_penman(s, s1, r, a, ex);
-        _Soilevaporation.Calculate_soilevaporation(s, s1, r, a, ex);
-        _Evapotranspiration.Calculate_evapotranspiration(s, s1, r, a, ex);
-        _Soilheatflux.Calculate_soilheatflux(s, s1, r, a, ex);
-        _Potentialtranspiration.Calculate_potentialtranspiration(s, s1, r, a, ex);
-        _Cropheatflux.Calculate_cropheatflux(s, s1, r, a, ex);
-        _Canopytemperature.Calculate_canopytemperature(s, s1, r, a, ex);
+    public Double getalbedoCoefficient()
+    { return _NetRadiation.getalbedoCoefficient(); }
+    public void setalbedoCoefficient(Double _albedoCoefficient){
+    _NetRadiation.setalbedoCoefficient(_albedoCoefficient);
     }
-    private double albedoCoefficient;
-    private double stefanBoltzman;
-    private double elevation;
-    private double lambdaV;
-    private double psychrometricConstant;
-    private double Alpha;
-    private double vonKarman;
-    private double heightWeatherMeasurements;
-    private double zm;
-    private double d;
-    private double zh;
-    private double soilDiffusionConstant;
-    private double rhoDensityAir;
-    private double specificHeatCapacityAir;
-    private double tau;
-    private double tauAlpha;
-    private int isWindVpDefined;
-    public EnergybalanceComponent(EnergybalanceComponent toCopy) // copy constructor 
+
+    public Double getstefanBoltzman()
+    { return _NetRadiation.getstefanBoltzman(); }
+    public void setstefanBoltzman(Double _stefanBoltzman){
+    _NetRadiation.setstefanBoltzman(_stefanBoltzman);
+    }
+
+    public Double getelevation()
+    { return _NetRadiation.getelevation(); }
+    public void setelevation(Double _elevation){
+    _NetRadiation.setelevation(_elevation);
+    }
+
+    public Double getlambdaV()
+    { return _NetRadiationEquivalentEvaporation.getlambdaV(); }
+    public void setlambdaV(Double _lambdaV){
+    _NetRadiationEquivalentEvaporation.setlambdaV(_lambdaV);
+    _Penman.setlambdaV(_lambdaV);
+    _CanopyTemperature.setlambdaV(_lambdaV);
+    }
+
+    public Double getpsychrometricConstant()
+    { return _PriestlyTaylor.getpsychrometricConstant(); }
+    public void setpsychrometricConstant(Double _psychrometricConstant){
+    _PriestlyTaylor.setpsychrometricConstant(_psychrometricConstant);
+    _Penman.setpsychrometricConstant(_psychrometricConstant);
+    }
+
+    public Double getAlpha()
+    { return _PriestlyTaylor.getAlpha(); }
+    public void setAlpha(Double _Alpha){
+    _PriestlyTaylor.setAlpha(_Alpha);
+    _Penman.setAlpha(_Alpha);
+    _PtSoil.setAlpha(_Alpha);
+    }
+
+    public Double getvonKarman()
+    { return _Conductance.getvonKarman(); }
+    public void setvonKarman(Double _vonKarman){
+    _Conductance.setvonKarman(_vonKarman);
+    }
+
+    public Double getheightWeatherMeasurements()
+    { return _Conductance.getheightWeatherMeasurements(); }
+    public void setheightWeatherMeasurements(Double _heightWeatherMeasurements){
+    _Conductance.setheightWeatherMeasurements(_heightWeatherMeasurements);
+    }
+
+    public Double getzm()
+    { return _Conductance.getzm(); }
+    public void setzm(Double _zm){
+    _Conductance.setzm(_zm);
+    }
+
+    public Double getd()
+    { return _Conductance.getd(); }
+    public void setd(Double _d){
+    _Conductance.setd(_d);
+    }
+
+    public Double getzh()
+    { return _Conductance.getzh(); }
+    public void setzh(Double _zh){
+    _Conductance.setzh(_zh);
+    }
+
+    public Double getsoilDiffusionConstant()
+    { return _DiffusionLimitedEvaporation.getsoilDiffusionConstant(); }
+    public void setsoilDiffusionConstant(Double _soilDiffusionConstant){
+    _DiffusionLimitedEvaporation.setsoilDiffusionConstant(_soilDiffusionConstant);
+    }
+
+    public Double getrhoDensityAir()
+    { return _Penman.getrhoDensityAir(); }
+    public void setrhoDensityAir(Double _rhoDensityAir){
+    _Penman.setrhoDensityAir(_rhoDensityAir);
+    _CanopyTemperature.setrhoDensityAir(_rhoDensityAir);
+    }
+
+    public Double getspecificHeatCapacityAir()
+    { return _Penman.getspecificHeatCapacityAir(); }
+    public void setspecificHeatCapacityAir(Double _specificHeatCapacityAir){
+    _Penman.setspecificHeatCapacityAir(_specificHeatCapacityAir);
+    _CanopyTemperature.setspecificHeatCapacityAir(_specificHeatCapacityAir);
+    }
+
+    public Double gettau()
+    { return _PtSoil.gettau(); }
+    public void settau(Double _tau){
+    _PtSoil.settau(_tau);
+    _SoilHeatFlux.settau(_tau);
+    _PotentialTranspiration.settau(_tau);
+    }
+
+    public Double gettauAlpha()
+    { return _PtSoil.gettauAlpha(); }
+    public void settauAlpha(Double _tauAlpha){
+    _PtSoil.settauAlpha(_tauAlpha);
+    }
+
+    public Integer getisWindVpDefined()
+    { return _EvapoTranspiration.getisWindVpDefined(); }
+    public void setisWindVpDefined(Integer _isWindVpDefined){
+    _EvapoTranspiration.setisWindVpDefined(_isWindVpDefined);
+    }
+    public void  Calculate_Model(EnergyBalanceState s, EnergyBalanceState s1, EnergyBalanceRate r, EnergyBalanceAuxiliary a, EnergyBalanceExogenous ex)
+    {
+        _NetRadiation.Calculate_Model(s, s1, r, a, ex);
+        _Conductance.Calculate_Model(s, s1, r, a, ex);
+        _DiffusionLimitedEvaporation.Calculate_Model(s, s1, r, a, ex);
+        _NetRadiationEquivalentEvaporation.Calculate_Model(s, s1, r, a, ex);
+        _PriestlyTaylor.Calculate_Model(s, s1, r, a, ex);
+        _PtSoil.Calculate_Model(s, s1, r, a, ex);
+        _Penman.Calculate_Model(s, s1, r, a, ex);
+        _SoilEvaporation.Calculate_Model(s, s1, r, a, ex);
+        _EvapoTranspiration.Calculate_Model(s, s1, r, a, ex);
+        _SoilHeatFlux.Calculate_Model(s, s1, r, a, ex);
+        _PotentialTranspiration.Calculate_Model(s, s1, r, a, ex);
+        _CropHeatFlux.Calculate_Model(s, s1, r, a, ex);
+        _CanopyTemperature.Calculate_Model(s, s1, r, a, ex);
+    }
+    private Double albedoCoefficient;
+    private Double stefanBoltzman;
+    private Double elevation;
+    private Double lambdaV;
+    private Double psychrometricConstant;
+    private Double Alpha;
+    private Double vonKarman;
+    private Double heightWeatherMeasurements;
+    private Double zm;
+    private Double d;
+    private Double zh;
+    private Double soilDiffusionConstant;
+    private Double rhoDensityAir;
+    private Double specificHeatCapacityAir;
+    private Double tau;
+    private Double tauAlpha;
+    private Integer isWindVpDefined;
+    public EnergyBalanceComponent(EnergyBalanceComponent toCopy) // copy constructor 
     {
         this.albedoCoefficient = toCopy.getalbedoCoefficient();
         this.stefanBoltzman = toCopy.getstefanBoltzman();

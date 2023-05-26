@@ -3,36 +3,36 @@ import  java.util.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-public class Netradiation
+public class NetRadiation
 {
-    private double albedoCoefficient;
-    public double getalbedoCoefficient()
+    private Double albedoCoefficient;
+    public Double getalbedoCoefficient()
     { return albedoCoefficient; }
 
-    public void setalbedoCoefficient(double _albedoCoefficient)
+    public void setalbedoCoefficient(Double _albedoCoefficient)
     { this.albedoCoefficient= _albedoCoefficient; } 
     
-    private double stefanBoltzman;
-    public double getstefanBoltzman()
+    private Double stefanBoltzman;
+    public Double getstefanBoltzman()
     { return stefanBoltzman; }
 
-    public void setstefanBoltzman(double _stefanBoltzman)
+    public void setstefanBoltzman(Double _stefanBoltzman)
     { this.stefanBoltzman= _stefanBoltzman; } 
     
-    private double elevation;
-    public double getelevation()
+    private Double elevation;
+    public Double getelevation()
     { return elevation; }
 
-    public void setelevation(double _elevation)
+    public void setelevation(Double _elevation)
     { this.elevation= _elevation; } 
     
-    public Netradiation() { }
-    public void  Calculate_netradiation(EnergybalanceState s, EnergybalanceState s1, EnergybalanceRate r, EnergybalanceAuxiliary a,  EnergybalanceExogenous ex)
+    public NetRadiation() { }
+    public void  Calculate_Model(EnergyBalanceState s, EnergyBalanceState s1, EnergyBalanceRate r, EnergyBalanceAuxiliary a,  EnergyBalanceExogenous ex)
     {
         //- Name: NetRadiation -Version: 1.0, -Time step: 1
         //- Description:
     //            * Title: NetRadiation Model
-    //            * Author: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
+    //            * Authors: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
     //            * Reference:  https://doi.org/10.1016/0168-1923(94)02214-5
     //            * Institution: New Zealand Institute for Crop and Food Research Ltd.,
     //            New Zealand Institute for Crop and Food Research Ltd.,
@@ -141,19 +141,19 @@ public class Netradiation
     //                          ** max : 5000
     //                          ** unit : g m-2 d-1
     //                          ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-        double minTair = a.getminTair();
-        double maxTair = a.getmaxTair();
-        double solarRadiation = a.getsolarRadiation();
-        double vaporPressure = a.getvaporPressure();
-        double extraSolarRadiation = a.getextraSolarRadiation();
-        double netRadiation;
-        double netOutGoingLongWaveRadiation;
-        double Nsr;
-        double clearSkySolarRadiation;
-        double averageT;
-        double surfaceEmissivity;
-        double cloudCoverFactor;
-        double Nolr;
+        Double minTair = a.getminTair();
+        Double maxTair = a.getmaxTair();
+        Double solarRadiation = a.getsolarRadiation();
+        Double vaporPressure = a.getvaporPressure();
+        Double extraSolarRadiation = a.getextraSolarRadiation();
+        Double netRadiation;
+        Double netOutGoingLongWaveRadiation;
+        Double Nsr;
+        Double clearSkySolarRadiation;
+        Double averageT;
+        Double surfaceEmissivity;
+        Double cloudCoverFactor;
+        Double Nolr;
         Nsr = (1.0d - albedoCoefficient) * solarRadiation;
         clearSkySolarRadiation = (0.75d + (2 * Math.pow(10.0d, -5) * elevation)) * extraSolarRadiation;
         averageT = (Math.pow(maxTair + 273.16d, 4) + Math.pow(minTair + 273.16d, 4)) / 2.0d;

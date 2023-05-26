@@ -3,36 +3,36 @@ import  java.util.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-public class Ptsoil
+public class PtSoil
 {
-    private double Alpha;
-    public double getAlpha()
+    private Double Alpha;
+    public Double getAlpha()
     { return Alpha; }
 
-    public void setAlpha(double _Alpha)
+    public void setAlpha(Double _Alpha)
     { this.Alpha= _Alpha; } 
     
-    private double tau;
-    public double gettau()
+    private Double tau;
+    public Double gettau()
     { return tau; }
 
-    public void settau(double _tau)
+    public void settau(Double _tau)
     { this.tau= _tau; } 
     
-    private double tauAlpha;
-    public double gettauAlpha()
+    private Double tauAlpha;
+    public Double gettauAlpha()
     { return tauAlpha; }
 
-    public void settauAlpha(double _tauAlpha)
+    public void settauAlpha(Double _tauAlpha)
     { this.tauAlpha= _tauAlpha; } 
     
-    public Ptsoil() { }
-    public void  Calculate_ptsoil(EnergybalanceState s, EnergybalanceState s1, EnergybalanceRate r, EnergybalanceAuxiliary a,  EnergybalanceExogenous ex)
+    public PtSoil() { }
+    public void  Calculate_Model(EnergyBalanceState s, EnergyBalanceState s1, EnergyBalanceRate r, EnergyBalanceAuxiliary a,  EnergyBalanceExogenous ex)
     {
         //- Name: PtSoil -Version: 1.0, -Time step: 1
         //- Description:
     //            * Title: PtSoil EnergyLimitedEvaporation Model
-    //            * Author: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
+    //            * Authors: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
     //            * Reference: https://doi.org/10.1016/0168-1923(94)02214-5
     //            * Institution: New Zealand Institute for Crop and Food Research Ltd.,
     //            New Zealand Institute for Crop and Food Research Ltd.,
@@ -91,9 +91,9 @@ public class Ptsoil
     //                          ** max : 5000
     //                          ** unit : g m-2 d-1
     //                          ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-        double evapoTranspirationPriestlyTaylor = r.getevapoTranspirationPriestlyTaylor();
-        double energyLimitedEvaporation;
-        double AlphaE;
+        Double evapoTranspirationPriestlyTaylor = r.getevapoTranspirationPriestlyTaylor();
+        Double energyLimitedEvaporation;
+        Double AlphaE;
         if (tau < tauAlpha)
         {
             AlphaE = 1.0d;

@@ -3,22 +3,22 @@ import  java.util.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-public class Soilheatflux
+public class SoilHeatFlux
 {
-    private double tau;
-    public double gettau()
+    private Double tau;
+    public Double gettau()
     { return tau; }
 
-    public void settau(double _tau)
+    public void settau(Double _tau)
     { this.tau= _tau; } 
     
-    public Soilheatflux() { }
-    public void  Calculate_soilheatflux(EnergybalanceState s, EnergybalanceState s1, EnergybalanceRate r, EnergybalanceAuxiliary a,  EnergybalanceExogenous ex)
+    public SoilHeatFlux() { }
+    public void  Calculate_Model(EnergyBalanceState s, EnergyBalanceState s1, EnergyBalanceRate r, EnergyBalanceAuxiliary a,  EnergyBalanceExogenous ex)
     {
         //- Name: SoilHeatFlux -Version: 1.0, -Time step: 1
         //- Description:
     //            * Title: SoilHeatFlux Model
-    //            * Author: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
+    //            * Authors: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
     //            * Reference:  https://doi.org/10.1016/0168-1923(94)02214-5
     //            * Institution: New Zealand Institute for Crop and Food Research Ltd.,
     //            New Zealand Institute for Crop and Food Research Ltd.,
@@ -67,9 +67,9 @@ public class Soilheatflux
     //                          ** max : 10000
     //                          ** unit : g m-2 d-1
     //                          ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-        double netRadiationEquivalentEvaporation = a.getnetRadiationEquivalentEvaporation();
-        double soilEvaporation = a.getsoilEvaporation();
-        double soilHeatFlux;
+        Double netRadiationEquivalentEvaporation = a.getnetRadiationEquivalentEvaporation();
+        Double soilEvaporation = a.getsoilEvaporation();
+        Double soilHeatFlux;
         soilHeatFlux = tau * netRadiationEquivalentEvaporation - soilEvaporation;
         r.setsoilHeatFlux(soilHeatFlux);
     }

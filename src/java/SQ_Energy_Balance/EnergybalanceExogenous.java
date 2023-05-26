@@ -2,12 +2,12 @@ import  java.io.*;
 import  java.util.*;
 import java.time.LocalDateTime;
 
-public class EnergybalanceExogenous
+public class EnergyBalanceExogenous
 {
     
-    public EnergybalanceExogenous() { }
+    public EnergyBalanceExogenous() { }
     
-    public EnergybalanceExogenous(EnergybalanceExogenous toCopy, boolean copyAll) // copy constructor 
+    public EnergyBalanceExogenous(EnergyBalanceExogenous toCopy, boolean copyAll) // copy constructor 
     {
         if (copyAll)
         {

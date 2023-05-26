@@ -5,48 +5,48 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 public class Penman
 {
-    private double psychrometricConstant;
-    public double getpsychrometricConstant()
+    private Double psychrometricConstant;
+    public Double getpsychrometricConstant()
     { return psychrometricConstant; }
 
-    public void setpsychrometricConstant(double _psychrometricConstant)
+    public void setpsychrometricConstant(Double _psychrometricConstant)
     { this.psychrometricConstant= _psychrometricConstant; } 
     
-    private double Alpha;
-    public double getAlpha()
+    private Double Alpha;
+    public Double getAlpha()
     { return Alpha; }
 
-    public void setAlpha(double _Alpha)
+    public void setAlpha(Double _Alpha)
     { this.Alpha= _Alpha; } 
     
-    private double lambdaV;
-    public double getlambdaV()
+    private Double lambdaV;
+    public Double getlambdaV()
     { return lambdaV; }
 
-    public void setlambdaV(double _lambdaV)
+    public void setlambdaV(Double _lambdaV)
     { this.lambdaV= _lambdaV; } 
     
-    private double rhoDensityAir;
-    public double getrhoDensityAir()
+    private Double rhoDensityAir;
+    public Double getrhoDensityAir()
     { return rhoDensityAir; }
 
-    public void setrhoDensityAir(double _rhoDensityAir)
+    public void setrhoDensityAir(Double _rhoDensityAir)
     { this.rhoDensityAir= _rhoDensityAir; } 
     
-    private double specificHeatCapacityAir;
-    public double getspecificHeatCapacityAir()
+    private Double specificHeatCapacityAir;
+    public Double getspecificHeatCapacityAir()
     { return specificHeatCapacityAir; }
 
-    public void setspecificHeatCapacityAir(double _specificHeatCapacityAir)
+    public void setspecificHeatCapacityAir(Double _specificHeatCapacityAir)
     { this.specificHeatCapacityAir= _specificHeatCapacityAir; } 
     
     public Penman() { }
-    public void  Calculate_penman(EnergybalanceState s, EnergybalanceState s1, EnergybalanceRate r, EnergybalanceAuxiliary a,  EnergybalanceExogenous ex)
+    public void  Calculate_Model(EnergyBalanceState s, EnergyBalanceState s1, EnergyBalanceRate r, EnergyBalanceAuxiliary a,  EnergyBalanceExogenous ex)
     {
         //- Name: Penman -Version: 1.0, -Time step: 1
         //- Description:
     //            * Title: Penman Model
-    //            * Author: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
+    //            * Authors: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
     //            * Reference:  https://doi.org/10.1016/0168-1923(94)02214-5
     //            * Institution: New Zealand Institute for Crop and Food Research Ltd.,
     //            New Zealand Institute for Crop and Food Research Ltd.,
@@ -153,11 +153,11 @@ public class Penman
     //                          ** max : 5000
     //                          ** unit : g m-2 d-1
     //                          ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-        double evapoTranspirationPriestlyTaylor = r.getevapoTranspirationPriestlyTaylor();
-        double hslope = a.gethslope();
-        double VPDair = a.getVPDair();
-        double conductance = s.getconductance();
-        double evapoTranspirationPenman;
+        Double evapoTranspirationPriestlyTaylor = r.getevapoTranspirationPriestlyTaylor();
+        Double hslope = a.gethslope();
+        Double VPDair = a.getVPDair();
+        Double conductance = s.getconductance();
+        Double evapoTranspirationPenman;
         evapoTranspirationPenman = evapoTranspirationPriestlyTaylor / Alpha + (1000.0d * (rhoDensityAir * specificHeatCapacityAir * VPDair * conductance / (lambdaV * (hslope + psychrometricConstant))));
         r.setevapoTranspirationPenman(evapoTranspirationPenman);
     }

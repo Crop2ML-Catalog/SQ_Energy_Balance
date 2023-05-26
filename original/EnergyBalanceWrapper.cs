@@ -1,15 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using SiriusQualityEnergyBalance.DomainClass;
-using SiriusQualityEnergyBalance.DomainClass;
+using Crop2ML_EnergyBalance.DomainClass;
+using Crop2ML_EnergyBalance.Strategies;
 
-namespace SiriusModel.Model.EnergyBalance
+namespace Model.Model.EnergyBalance
 {
     class EnergyBalanceWrapper :  UniverseLink
     {
         private EnergyBalanceState s;
-        private EnergyBalanceState s1;
         private EnergyBalanceRate r;
         private EnergyBalanceAuxiliary a;
         private EnergyBalanceExogenous ex;
@@ -18,7 +17,6 @@ namespace SiriusModel.Model.EnergyBalance
         public EnergyBalanceWrapper(Universe universe) : base(universe)
         {
             s = new EnergyBalanceState();
-            s1 = new EnergyBalanceState();
             r = new EnergyBalanceRate();
             a = new EnergyBalanceAuxiliary();
             ex = new EnergyBalanceExogenous();
@@ -60,7 +58,6 @@ namespace SiriusModel.Model.EnergyBalance
         public EnergyBalanceWrapper(Universe universe, EnergyBalanceWrapper toCopy, bool copyAll) : base(universe)
         {
             s = (toCopy.s != null) ? new EnergyBalanceState(toCopy.s, copyAll) : null;
-            s1 = (toCopy.s != null) ? new EnergyBalanceState(toCopy.s1, copyAll) : null;
             r = (toCopy.r != null) ? new EnergyBalanceRate(toCopy.r, copyAll) : null;
             a = (toCopy.a != null) ? new EnergyBalanceAuxiliary(toCopy.a, copyAll) : null;
             ex = (toCopy.ex != null) ? new EnergyBalanceExogenous(toCopy.ex, copyAll) : null;
@@ -91,11 +88,12 @@ namespace SiriusModel.Model.EnergyBalance
             energybalanceComponent.soilDiffusionConstant = soilDiffusionConstant;
             energybalanceComponent.rhoDensityAir = rhoDensityAir;
             energybalanceComponent.specificHeatCapacityAir = specificHeatCapacityAir;
+            energybalanceComponent.tau = tau;
             energybalanceComponent.tauAlpha = tauAlpha;
             energybalanceComponent.isWindVpDefined = isWindVpDefined;
         }
 
-        public void EstimateEnergyBalance(double minTair, double maxTair, double solarRadiation, double vaporPressure, double extraSolarRadiation, double hslope, double plantHeight, double wind, double deficitOnTopLayers, double VPDair, double tau)
+        public void EstimateEnergyBalance(double minTair, double maxTair, double solarRadiation, double vaporPressure, double extraSolarRadiation, double hslope, double plantHeight, double wind, double deficitOnTopLayers, double VPDair, double netOutGoingLongWaveRadiation)
         {
             a.minTair = minTair;
             a.maxTair = maxTair;
@@ -107,7 +105,7 @@ namespace SiriusModel.Model.EnergyBalance
             a.wind = wind;
             a.deficitOnTopLayers = deficitOnTopLayers;
             a.VPDair = VPDair;
-            a.tau = tau;
+            a.netOutGoingLongWaveRadiation = netOutGoingLongWaveRadiation;
             energybalanceComponent.CalculateModel(s,s1, r, a, ex);
         }
 

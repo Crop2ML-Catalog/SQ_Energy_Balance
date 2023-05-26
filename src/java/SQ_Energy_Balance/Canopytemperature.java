@@ -3,36 +3,36 @@ import  java.util.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-public class Canopytemperature
+public class CanopyTemperature
 {
-    private double lambdaV;
-    public double getlambdaV()
+    private Double lambdaV;
+    public Double getlambdaV()
     { return lambdaV; }
 
-    public void setlambdaV(double _lambdaV)
+    public void setlambdaV(Double _lambdaV)
     { this.lambdaV= _lambdaV; } 
     
-    private double rhoDensityAir;
-    public double getrhoDensityAir()
+    private Double rhoDensityAir;
+    public Double getrhoDensityAir()
     { return rhoDensityAir; }
 
-    public void setrhoDensityAir(double _rhoDensityAir)
+    public void setrhoDensityAir(Double _rhoDensityAir)
     { this.rhoDensityAir= _rhoDensityAir; } 
     
-    private double specificHeatCapacityAir;
-    public double getspecificHeatCapacityAir()
+    private Double specificHeatCapacityAir;
+    public Double getspecificHeatCapacityAir()
     { return specificHeatCapacityAir; }
 
-    public void setspecificHeatCapacityAir(double _specificHeatCapacityAir)
+    public void setspecificHeatCapacityAir(Double _specificHeatCapacityAir)
     { this.specificHeatCapacityAir= _specificHeatCapacityAir; } 
     
-    public Canopytemperature() { }
-    public void  Calculate_canopytemperature(EnergybalanceState s, EnergybalanceState s1, EnergybalanceRate r, EnergybalanceAuxiliary a,  EnergybalanceExogenous ex)
+    public CanopyTemperature() { }
+    public void  Calculate_Model(EnergyBalanceState s, EnergyBalanceState s1, EnergyBalanceRate r, EnergyBalanceAuxiliary a,  EnergyBalanceExogenous ex)
     {
         //- Name: CanopyTemperature -Version: 1.0, -Time step: 1
         //- Description:
     //            * Title: CanopyTemperature Model
-    //            * Author: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
+    //            * Authors: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
     //            * Reference: https://doi.org/10.1016/0168-1923(94)02214-5
     //            * Institution: New Zealand Institute for Crop and Food Research Ltd.,
     //            New Zealand Institute for Crop and Food Research Ltd.,
@@ -125,12 +125,12 @@ public class Canopytemperature
     //                          ** max : 45
     //                          ** unit : degC
     //                          ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-        double minTair = a.getminTair();
-        double maxTair = a.getmaxTair();
-        double cropHeatFlux = r.getcropHeatFlux();
-        double conductance = s.getconductance();
-        double minCanopyTemperature;
-        double maxCanopyTemperature;
+        Double minTair = a.getminTair();
+        Double maxTair = a.getmaxTair();
+        Double cropHeatFlux = r.getcropHeatFlux();
+        Double conductance = s.getconductance();
+        Double minCanopyTemperature;
+        Double maxCanopyTemperature;
         minCanopyTemperature = minTair + (cropHeatFlux / (rhoDensityAir * specificHeatCapacityAir * conductance / lambdaV * 1000.0d));
         maxCanopyTemperature = maxTair + (cropHeatFlux / (rhoDensityAir * specificHeatCapacityAir * conductance / lambdaV * 1000.0d));
         s.setminCanopyTemperature(minCanopyTemperature);

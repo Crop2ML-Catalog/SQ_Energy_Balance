@@ -3,16 +3,16 @@ import  java.util.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-public class Soilevaporation
+public class SoilEvaporation
 {
     
-    public Soilevaporation() { }
-    public void  Calculate_soilevaporation(EnergybalanceState s, EnergybalanceState s1, EnergybalanceRate r, EnergybalanceAuxiliary a,  EnergybalanceExogenous ex)
+    public SoilEvaporation() { }
+    public void  Calculate_Model(EnergyBalanceState s, EnergyBalanceState s1, EnergyBalanceRate r, EnergyBalanceAuxiliary a,  EnergyBalanceExogenous ex)
     {
         //- Name: SoilEvaporation -Version: 1.0, -Time step: 1
         //- Description:
     //            * Title: SoilEvaporation Model
-    //            * Author: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
+    //            * Authors: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
     //            * Reference:  https://doi.org/10.1016/0168-1923(94)02214-5
     //            * Institution: New Zealand Institute for Crop and Food Research Ltd.,
     //            New Zealand Institute for Crop and Food Research Ltd.,
@@ -59,9 +59,9 @@ public class Soilevaporation
     //                          ** max : 5000
     //                          ** unit : g m-2 d-1
     //                          ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-        double diffusionLimitedEvaporation = s.getdiffusionLimitedEvaporation();
-        double energyLimitedEvaporation = a.getenergyLimitedEvaporation();
-        double soilEvaporation;
+        Double diffusionLimitedEvaporation = s.getdiffusionLimitedEvaporation();
+        Double energyLimitedEvaporation = a.getenergyLimitedEvaporation();
+        Double soilEvaporation;
         soilEvaporation = Math.min(diffusionLimitedEvaporation, energyLimitedEvaporation);
         a.setsoilEvaporation(soilEvaporation);
     }

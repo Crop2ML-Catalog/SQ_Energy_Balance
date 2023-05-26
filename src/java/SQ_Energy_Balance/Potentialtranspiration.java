@@ -3,22 +3,22 @@ import  java.util.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-public class Potentialtranspiration
+public class PotentialTranspiration
 {
-    private double tau;
-    public double gettau()
+    private Double tau;
+    public Double gettau()
     { return tau; }
 
-    public void settau(double _tau)
+    public void settau(Double _tau)
     { this.tau= _tau; } 
     
-    public Potentialtranspiration() { }
-    public void  Calculate_potentialtranspiration(EnergybalanceState s, EnergybalanceState s1, EnergybalanceRate r, EnergybalanceAuxiliary a,  EnergybalanceExogenous ex)
+    public PotentialTranspiration() { }
+    public void  Calculate_Model(EnergyBalanceState s, EnergyBalanceState s1, EnergyBalanceRate r, EnergyBalanceAuxiliary a,  EnergyBalanceExogenous ex)
     {
         //- Name: PotentialTranspiration -Version: 1.0, -Time step: 1
         //- Description:
     //            * Title: PotentialTranspiration Model
-    //            * Author: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
+    //            * Authors: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
     //            * Reference:  https://doi.org/10.1016/0168-1923(94)02214-5
     //            * Institution: New Zealand Institute for Crop and Food Research Ltd.,
     //            New Zealand Institute for Crop and Food Research Ltd.,
@@ -59,8 +59,8 @@ public class Potentialtranspiration
     //                          ** max : 10000
     //                          ** unit : g m-2 d-1
     //                          ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-        double evapoTranspiration = r.getevapoTranspiration();
-        double potentialTranspiration;
+        Double evapoTranspiration = r.getevapoTranspiration();
+        Double potentialTranspiration;
         potentialTranspiration = evapoTranspiration * (1.0d - tau);
         r.setpotentialTranspiration(potentialTranspiration);
     }

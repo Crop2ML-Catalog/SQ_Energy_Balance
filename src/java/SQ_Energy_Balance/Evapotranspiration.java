@@ -3,22 +3,22 @@ import  java.util.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-public class Evapotranspiration
+public class EvapoTranspiration
 {
-    private int isWindVpDefined;
-    public int getisWindVpDefined()
+    private Integer isWindVpDefined;
+    public Integer getisWindVpDefined()
     { return isWindVpDefined; }
 
-    public void setisWindVpDefined(int _isWindVpDefined)
+    public void setisWindVpDefined(Integer _isWindVpDefined)
     { this.isWindVpDefined= _isWindVpDefined; } 
     
-    public Evapotranspiration() { }
-    public void  Calculate_evapotranspiration(EnergybalanceState s, EnergybalanceState s1, EnergybalanceRate r, EnergybalanceAuxiliary a,  EnergybalanceExogenous ex)
+    public EvapoTranspiration() { }
+    public void  Calculate_Model(EnergyBalanceState s, EnergyBalanceState s1, EnergyBalanceRate r, EnergyBalanceAuxiliary a,  EnergyBalanceExogenous ex)
     {
         //- Name: EvapoTranspiration -Version: 1.0, -Time step: 1
         //- Description:
     //            * Title: Evapotranspiration Model
-    //            * Author: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
+    //            * Authors: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
     //            * Reference:  https://doi.org/10.1016/0168-1923(94)02214-5
     //            * Institution: New Zealand Institute for Crop and Food Research Ltd.,
     //            New Zealand Institute for Crop and Food Research Ltd.,
@@ -70,9 +70,9 @@ public class Evapotranspiration
     //                          ** max : 10000
     //                          ** unit : mm
     //                          ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-        double evapoTranspirationPriestlyTaylor = r.getevapoTranspirationPriestlyTaylor();
-        double evapoTranspirationPenman = r.getevapoTranspirationPenman();
-        double evapoTranspiration;
+        Double evapoTranspirationPriestlyTaylor = r.getevapoTranspirationPriestlyTaylor();
+        Double evapoTranspirationPenman = r.getevapoTranspirationPenman();
+        Double evapoTranspiration;
         if (isWindVpDefined == 1)
         {
             evapoTranspiration = evapoTranspirationPenman;

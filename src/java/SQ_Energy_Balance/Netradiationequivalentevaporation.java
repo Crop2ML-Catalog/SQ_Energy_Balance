@@ -3,22 +3,22 @@ import  java.util.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-public class Netradiationequivalentevaporation
+public class NetRadiationEquivalentEvaporation
 {
-    private double lambdaV;
-    public double getlambdaV()
+    private Double lambdaV;
+    public Double getlambdaV()
     { return lambdaV; }
 
-    public void setlambdaV(double _lambdaV)
+    public void setlambdaV(Double _lambdaV)
     { this.lambdaV= _lambdaV; } 
     
-    public Netradiationequivalentevaporation() { }
-    public void  Calculate_netradiationequivalentevaporation(EnergybalanceState s, EnergybalanceState s1, EnergybalanceRate r, EnergybalanceAuxiliary a,  EnergybalanceExogenous ex)
+    public NetRadiationEquivalentEvaporation() { }
+    public void  Calculate_Model(EnergyBalanceState s, EnergyBalanceState s1, EnergyBalanceRate r, EnergyBalanceAuxiliary a,  EnergyBalanceExogenous ex)
     {
         //- Name: NetRadiationEquivalentEvaporation -Version: 1.0, -Time step: 1
         //- Description:
     //            * Title: NetRadiationEquivalentEvaporation Model
-    //            * Author: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
+    //            * Authors: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
     //            * Reference:  https://doi.org/10.1016/0168-1923(94)02214-5
     //            * Institution: New Zealand Institute for Crop and Food Research Ltd.,
     //            New Zealand Institute for Crop and Food Research Ltd.,
@@ -57,8 +57,8 @@ public class Netradiationequivalentevaporation
     //                          ** max : 5000
     //                          ** unit : g m-2 d-1
     //                          ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-        double netRadiation = a.getnetRadiation();
-        double netRadiationEquivalentEvaporation;
+        Double netRadiation = a.getnetRadiation();
+        Double netRadiationEquivalentEvaporation;
         netRadiationEquivalentEvaporation = netRadiation / lambdaV * 1000.0d;
         a.setnetRadiationEquivalentEvaporation(netRadiationEquivalentEvaporation);
     }

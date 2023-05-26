@@ -3,22 +3,22 @@ import  java.util.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-public class Diffusionlimitedevaporation
+public class DiffusionLimitedEvaporation
 {
-    private double soilDiffusionConstant;
-    public double getsoilDiffusionConstant()
+    private Double soilDiffusionConstant;
+    public Double getsoilDiffusionConstant()
     { return soilDiffusionConstant; }
 
-    public void setsoilDiffusionConstant(double _soilDiffusionConstant)
+    public void setsoilDiffusionConstant(Double _soilDiffusionConstant)
     { this.soilDiffusionConstant= _soilDiffusionConstant; } 
     
-    public Diffusionlimitedevaporation() { }
-    public void  Calculate_diffusionlimitedevaporation(EnergybalanceState s, EnergybalanceState s1, EnergybalanceRate r, EnergybalanceAuxiliary a,  EnergybalanceExogenous ex)
+    public DiffusionLimitedEvaporation() { }
+    public void  Calculate_Model(EnergyBalanceState s, EnergyBalanceState s1, EnergyBalanceRate r, EnergyBalanceAuxiliary a,  EnergyBalanceExogenous ex)
     {
         //- Name: DiffusionLimitedEvaporation -Version: 1.0, -Time step: 1
         //- Description:
     //            * Title: DiffusionLimitedEvaporation Model
-    //            * Author: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
+    //            * Authors: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
     //            * Reference:  https://doi.org/10.1016/0168-1923(94)02214-5
     //            * Institution: New Zealand Institute for Crop and Food Research Ltd.,
     //            New Zealand Institute for Crop and Food Research Ltd.,
@@ -58,8 +58,8 @@ public class Diffusionlimitedevaporation
     //                          ** max : 5000
     //                          ** unit : g m-2 d-1
     //                          ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-        double deficitOnTopLayers = a.getdeficitOnTopLayers();
-        double diffusionLimitedEvaporation;
+        Double deficitOnTopLayers = a.getdeficitOnTopLayers();
+        Double diffusionLimitedEvaporation;
         if (deficitOnTopLayers / 1000.0d <= 0.0d)
         {
             diffusionLimitedEvaporation = 8.3d * 1000.0d;
