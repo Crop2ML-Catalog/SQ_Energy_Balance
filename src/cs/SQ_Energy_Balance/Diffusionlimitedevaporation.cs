@@ -9,14 +9,14 @@ public class DiffusionLimitedEvaporation
             get { return this._soilDiffusionConstant; }
             set { this._soilDiffusionConstant= value; } 
         }
-    public DiffusionLimitedEvaporation() { }
+        public DiffusionLimitedEvaporation() { }
     
     public void  CalculateModel(EnergyBalanceState s, EnergyBalanceState s1, EnergyBalanceRate r, EnergyBalanceAuxiliary a, EnergyBalanceExogenous ex)
     {
         //- Name: DiffusionLimitedEvaporation -Version: 1.0, -Time step: 1
         //- Description:
     //            * Title: DiffusionLimitedEvaporation Model
-    //            * Author: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
+    //            * Authors: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
     //            * Reference:  https://doi.org/10.1016/0168-1923(94)02214-5
     //            * Institution: New Zealand Institute for Crop and Food Research Ltd.,
     //            New Zealand Institute for Crop and Food Research Ltd.,
@@ -58,19 +58,19 @@ public class DiffusionLimitedEvaporation
     //                          ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
         double deficitOnTopLayers = a.deficitOnTopLayers;
         double diffusionLimitedEvaporation;
-        if (deficitOnTopLayers / 1000.0d <= 0.0d)
+        if (deficitOnTopLayers / 1000.00d <= 0.00d)
         {
-            diffusionLimitedEvaporation = 8.3d * 1000.0d;
+            diffusionLimitedEvaporation = 8.30d * 1000.00d;
         }
         else
         {
-            if (deficitOnTopLayers / 1000.0d < 25.0d)
+            if (deficitOnTopLayers / 1000.00d < 25.00d)
             {
-                diffusionLimitedEvaporation = 2.0d * soilDiffusionConstant * soilDiffusionConstant / (deficitOnTopLayers / 1000.0d) * 1000.0d;
+                diffusionLimitedEvaporation = 2.00d * soilDiffusionConstant * soilDiffusionConstant / (deficitOnTopLayers / 1000.00d) * 1000.00d;
             }
             else
             {
-                diffusionLimitedEvaporation = 0.0d;
+                diffusionLimitedEvaporation = 0.00d;
             }
         }
         s.diffusionLimitedEvaporation= diffusionLimitedEvaporation;

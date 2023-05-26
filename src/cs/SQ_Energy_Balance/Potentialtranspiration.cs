@@ -9,14 +9,14 @@ public class PotentialTranspiration
             get { return this._tau; }
             set { this._tau= value; } 
         }
-    public PotentialTranspiration() { }
+        public PotentialTranspiration() { }
     
     public void  CalculateModel(EnergyBalanceState s, EnergyBalanceState s1, EnergyBalanceRate r, EnergyBalanceAuxiliary a, EnergyBalanceExogenous ex)
     {
         //- Name: PotentialTranspiration -Version: 1.0, -Time step: 1
         //- Description:
     //            * Title: PotentialTranspiration Model
-    //            * Author: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
+    //            * Authors: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
     //            * Reference:  https://doi.org/10.1016/0168-1923(94)02214-5
     //            * Institution: New Zealand Institute for Crop and Food Research Ltd.,
     //            New Zealand Institute for Crop and Food Research Ltd.,
@@ -59,7 +59,7 @@ public class PotentialTranspiration
     //                          ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
         double evapoTranspiration = r.evapoTranspiration;
         double potentialTranspiration;
-        potentialTranspiration = evapoTranspiration * (1.0d - tau);
+        potentialTranspiration = evapoTranspiration * (1.00d - tau);
         r.potentialTranspiration = potentialTranspiration;
     }
 }

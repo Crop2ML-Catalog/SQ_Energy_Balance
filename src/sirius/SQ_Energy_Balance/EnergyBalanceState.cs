@@ -24,10 +24,10 @@ namespace SiriusQualityEnergyBalance.DomainClass
         {
             if (copyAll)
             {
-                _diffusionLimitedEvaporation = toCopy._diffusionLimitedEvaporation;
-                _conductance = toCopy._conductance;
-                _minCanopyTemperature = toCopy._minCanopyTemperature;
-                _maxCanopyTemperature = toCopy._maxCanopyTemperature;
+                diffusionLimitedEvaporation = toCopy.diffusionLimitedEvaporation;
+                conductance = toCopy.conductance;
+                minCanopyTemperature = toCopy.minCanopyTemperature;
+                maxCanopyTemperature = toCopy.maxCanopyTemperature;
             }
         }
 

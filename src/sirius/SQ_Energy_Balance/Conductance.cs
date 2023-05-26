@@ -388,7 +388,7 @@ namespace SiriusQualityEnergyBalance.Strategies
             double wind = a.wind;
             double conductance;
             double h;
-            h = Math.Max(10.0d, plantHeight) / 100.0d;
+            h = Math.Max(10.00d, plantHeight) / 100.00d;
             conductance = wind * Math.Pow(vonKarman, 2) / (Math.Log((heightWeatherMeasurements - (d * h)) / (zm * h)) * Math.Log((heightWeatherMeasurements - (d * h)) / (zh * h)));
             s.conductance= conductance;
         }

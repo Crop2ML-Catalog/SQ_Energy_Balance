@@ -26,12 +26,12 @@ namespace SiriusQualityEnergyBalance.DomainClass
         {
             if (copyAll)
             {
-                _evapoTranspirationPriestlyTaylor = toCopy._evapoTranspirationPriestlyTaylor;
-                _evapoTranspirationPenman = toCopy._evapoTranspirationPenman;
-                _evapoTranspiration = toCopy._evapoTranspiration;
-                _potentialTranspiration = toCopy._potentialTranspiration;
-                _soilHeatFlux = toCopy._soilHeatFlux;
-                _cropHeatFlux = toCopy._cropHeatFlux;
+                evapoTranspirationPriestlyTaylor = toCopy.evapoTranspirationPriestlyTaylor;
+                evapoTranspirationPenman = toCopy.evapoTranspirationPenman;
+                evapoTranspiration = toCopy.evapoTranspiration;
+                potentialTranspiration = toCopy.potentialTranspiration;
+                soilHeatFlux = toCopy.soilHeatFlux;
+                cropHeatFlux = toCopy.cropHeatFlux;
             }
         }
 

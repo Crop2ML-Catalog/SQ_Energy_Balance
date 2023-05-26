@@ -4,14 +4,14 @@ using System.Linq;
 public class CropHeatFlux
 {
     
-    public CropHeatFlux() { }
+        public CropHeatFlux() { }
     
     public void  CalculateModel(EnergyBalanceState s, EnergyBalanceState s1, EnergyBalanceRate r, EnergyBalanceAuxiliary a, EnergyBalanceExogenous ex)
     {
         //- Name: CropHeatFlux -Version: 1.0, -Time step: 1
         //- Description:
     //            * Title: CropHeatFlux Model
-    //            * Author: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
+    //            * Authors: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
     //            * Reference:  https://doi.org/10.1016/0168-1923(94)02214-5
     //            * Institution: New Zealand Institute for Crop and Food Research Ltd.,
     //            New Zealand Institute for Crop and Food Research Ltd.,

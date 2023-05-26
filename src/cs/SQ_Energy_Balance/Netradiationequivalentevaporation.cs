@@ -9,14 +9,14 @@ public class NetRadiationEquivalentEvaporation
             get { return this._lambdaV; }
             set { this._lambdaV= value; } 
         }
-    public NetRadiationEquivalentEvaporation() { }
+        public NetRadiationEquivalentEvaporation() { }
     
     public void  CalculateModel(EnergyBalanceState s, EnergyBalanceState s1, EnergyBalanceRate r, EnergyBalanceAuxiliary a, EnergyBalanceExogenous ex)
     {
         //- Name: NetRadiationEquivalentEvaporation -Version: 1.0, -Time step: 1
         //- Description:
     //            * Title: NetRadiationEquivalentEvaporation Model
-    //            * Author: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
+    //            * Authors: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
     //            * Reference:  https://doi.org/10.1016/0168-1923(94)02214-5
     //            * Institution: New Zealand Institute for Crop and Food Research Ltd.,
     //            New Zealand Institute for Crop and Food Research Ltd.,
@@ -38,7 +38,7 @@ public class NetRadiationEquivalentEvaporation
     //                          ** inputtype : parameter
     //            * name: netRadiation
     //                          ** description : net radiation
-    //                          ** variablecategory : state
+    //                          ** variablecategory : auxiliary
     //                          ** datatype : DOUBLE
     //                          ** default : 1.566
     //                          ** min : 0
@@ -55,9 +55,9 @@ public class NetRadiationEquivalentEvaporation
     //                          ** max : 5000
     //                          ** unit : g m-2 d-1
     //                          ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-        double netRadiation = s.netRadiation;
+        double netRadiation = a.netRadiation;
         double netRadiationEquivalentEvaporation;
-        netRadiationEquivalentEvaporation = netRadiation / lambdaV * 1000.0d;
+        netRadiationEquivalentEvaporation = netRadiation / lambdaV * 1000.00d;
         a.netRadiationEquivalentEvaporation= netRadiationEquivalentEvaporation;
     }
 }

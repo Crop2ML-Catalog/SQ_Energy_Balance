@@ -217,19 +217,19 @@ namespace SiriusQualityEnergyBalance.Strategies
         {
             double deficitOnTopLayers = a.deficitOnTopLayers;
             double diffusionLimitedEvaporation;
-            if (deficitOnTopLayers / 1000.0d <= 0.0d)
+            if (deficitOnTopLayers / 1000.00d <= 0.00d)
             {
-                diffusionLimitedEvaporation = 8.3d * 1000.0d;
+                diffusionLimitedEvaporation = 8.30d * 1000.00d;
             }
             else
             {
-                if (deficitOnTopLayers / 1000.0d < 25.0d)
+                if (deficitOnTopLayers / 1000.00d < 25.00d)
                 {
-                    diffusionLimitedEvaporation = 2.0d * soilDiffusionConstant * soilDiffusionConstant / (deficitOnTopLayers / 1000.0d) * 1000.0d;
+                    diffusionLimitedEvaporation = 2.00d * soilDiffusionConstant * soilDiffusionConstant / (deficitOnTopLayers / 1000.00d) * 1000.00d;
                 }
                 else
                 {
-                    diffusionLimitedEvaporation = 0.0d;
+                    diffusionLimitedEvaporation = 0.00d;
                 }
             }
             s.diffusionLimitedEvaporation= diffusionLimitedEvaporation;

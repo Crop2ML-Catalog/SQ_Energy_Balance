@@ -1,7 +1,7 @@
 public class EnergyBalanceComponent
 {
     
-    public EnergyBalanceComponent() { }
+        public EnergyBalanceComponent() { }
     
 
     //Declaration of the associated strategies
@@ -218,19 +218,19 @@ public class EnergyBalanceComponent
 
     public void  CalculateModel(EnergyBalanceState s, EnergyBalanceState s1, EnergyBalanceRate r, EnergyBalanceAuxiliary a, EnergyBalanceExogenous ex)
     {
-        _netradiation.CalculateModel(s,s1, r, a, ex);
-        _conductance.CalculateModel(s,s1, r, a, ex);
-        _diffusionlimitedevaporation.CalculateModel(s,s1, r, a, ex);
-        _netradiationequivalentevaporation.CalculateModel(s,s1, r, a, ex);
-        _priestlytaylor.CalculateModel(s,s1, r, a, ex);
-        _ptsoil.CalculateModel(s,s1, r, a, ex);
-        _penman.CalculateModel(s,s1, r, a, ex);
-        _soilevaporation.CalculateModel(s,s1, r, a, ex);
-        _evapotranspiration.CalculateModel(s,s1, r, a, ex);
-        _soilheatflux.CalculateModel(s,s1, r, a, ex);
-        _potentialtranspiration.CalculateModel(s,s1, r, a, ex);
-        _cropheatflux.CalculateModel(s,s1, r, a, ex);
-        _canopytemperature.CalculateModel(s,s1, r, a, ex);
+        _NetRadiation.CalculateModel(s,s1, r, a, ex);
+        _Conductance.CalculateModel(s,s1, r, a, ex);
+        _DiffusionLimitedEvaporation.CalculateModel(s,s1, r, a, ex);
+        _NetRadiationEquivalentEvaporation.CalculateModel(s,s1, r, a, ex);
+        _PriestlyTaylor.CalculateModel(s,s1, r, a, ex);
+        _PtSoil.CalculateModel(s,s1, r, a, ex);
+        _Penman.CalculateModel(s,s1, r, a, ex);
+        _SoilEvaporation.CalculateModel(s,s1, r, a, ex);
+        _EvapoTranspiration.CalculateModel(s,s1, r, a, ex);
+        _SoilHeatFlux.CalculateModel(s,s1, r, a, ex);
+        _PotentialTranspiration.CalculateModel(s,s1, r, a, ex);
+        _CropHeatFlux.CalculateModel(s,s1, r, a, ex);
+        _CanopyTemperature.CalculateModel(s,s1, r, a, ex);
     }
     
     public EnergyBalanceComponent(EnergyBalanceComponent toCopy): this() // copy constructor 

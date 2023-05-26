@@ -21,14 +21,14 @@ public class CanopyTemperature
             get { return this._specificHeatCapacityAir; }
             set { this._specificHeatCapacityAir= value; } 
         }
-    public CanopyTemperature() { }
+        public CanopyTemperature() { }
     
     public void  CalculateModel(EnergyBalanceState s, EnergyBalanceState s1, EnergyBalanceRate r, EnergyBalanceAuxiliary a, EnergyBalanceExogenous ex)
     {
         //- Name: CanopyTemperature -Version: 1.0, -Time step: 1
         //- Description:
     //            * Title: CanopyTemperature Model
-    //            * Author: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
+    //            * Authors: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
     //            * Reference: https://doi.org/10.1016/0168-1923(94)02214-5
     //            * Institution: New Zealand Institute for Crop and Food Research Ltd.,
     //            New Zealand Institute for Crop and Food Research Ltd.,
@@ -127,8 +127,8 @@ public class CanopyTemperature
         double conductance = s.conductance;
         double minCanopyTemperature;
         double maxCanopyTemperature;
-        minCanopyTemperature = minTair + (cropHeatFlux / (rhoDensityAir * specificHeatCapacityAir * conductance / lambdaV * 1000.0d));
-        maxCanopyTemperature = maxTair + (cropHeatFlux / (rhoDensityAir * specificHeatCapacityAir * conductance / lambdaV * 1000.0d));
+        minCanopyTemperature = minTair + (cropHeatFlux / (rhoDensityAir * specificHeatCapacityAir * conductance / lambdaV * 1000.00d));
+        maxCanopyTemperature = maxTair + (cropHeatFlux / (rhoDensityAir * specificHeatCapacityAir * conductance / lambdaV * 1000.00d));
         s.minCanopyTemperature= minCanopyTemperature;
         s.maxCanopyTemperature= maxCanopyTemperature;
     }

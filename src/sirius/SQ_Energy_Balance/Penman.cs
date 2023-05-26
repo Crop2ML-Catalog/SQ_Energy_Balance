@@ -407,7 +407,7 @@ namespace SiriusQualityEnergyBalance.Strategies
             double VPDair = a.VPDair;
             double conductance = s.conductance;
             double evapoTranspirationPenman;
-            evapoTranspirationPenman = evapoTranspirationPriestlyTaylor / Alpha + (1000.0d * (rhoDensityAir * specificHeatCapacityAir * VPDair * conductance / (lambdaV * (hslope + psychrometricConstant))));
+            evapoTranspirationPenman = evapoTranspirationPriestlyTaylor / Alpha + (1000.00d * (rhoDensityAir * specificHeatCapacityAir * VPDair * conductance / (lambdaV * (hslope + psychrometricConstant))));
             r.evapoTranspirationPenman = evapoTranspirationPenman;
         }
 

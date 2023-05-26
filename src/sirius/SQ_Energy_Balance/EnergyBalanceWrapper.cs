@@ -9,6 +9,7 @@ namespace SiriusModel.Model.EnergyBalance
     class EnergyBalanceWrapper :  UniverseLink
     {
         private EnergyBalanceState s;
+        private EnergyBalanceState s1;
         private EnergyBalanceRate r;
         private EnergyBalanceAuxiliary a;
         private EnergyBalanceExogenous ex;
@@ -93,7 +94,7 @@ namespace SiriusModel.Model.EnergyBalance
             energybalanceComponent.isWindVpDefined = isWindVpDefined;
         }
 
-        public void EstimateEnergyBalance(double minTair, double maxTair, double solarRadiation, double vaporPressure, double extraSolarRadiation, double hslope, double plantHeight, double wind, double deficitOnTopLayers, double VPDair, double netOutGoingLongWaveRadiation)
+        public void EstimateEnergyBalance(double minTair, double maxTair, double solarRadiation, double vaporPressure, double extraSolarRadiation, double hslope, double plantHeight, double wind, double deficitOnTopLayers, double VPDair)
         {
             a.minTair = minTair;
             a.maxTair = maxTair;
@@ -105,7 +106,6 @@ namespace SiriusModel.Model.EnergyBalance
             a.wind = wind;
             a.deficitOnTopLayers = deficitOnTopLayers;
             a.VPDair = VPDair;
-            a.netOutGoingLongWaveRadiation = netOutGoingLongWaveRadiation;
             energybalanceComponent.CalculateModel(s,s1, r, a, ex);
         }
 

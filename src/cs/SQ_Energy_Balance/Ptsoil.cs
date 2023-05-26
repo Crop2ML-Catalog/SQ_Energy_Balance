@@ -21,14 +21,14 @@ public class PtSoil
             get { return this._tauAlpha; }
             set { this._tauAlpha= value; } 
         }
-    public PtSoil() { }
+        public PtSoil() { }
     
     public void  CalculateModel(EnergyBalanceState s, EnergyBalanceState s1, EnergyBalanceRate r, EnergyBalanceAuxiliary a, EnergyBalanceExogenous ex)
     {
         //- Name: PtSoil -Version: 1.0, -Time step: 1
         //- Description:
     //            * Title: PtSoil EnergyLimitedEvaporation Model
-    //            * Author: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
+    //            * Authors: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
     //            * Reference: https://doi.org/10.1016/0168-1923(94)02214-5
     //            * Institution: New Zealand Institute for Crop and Food Research Ltd.,
     //            New Zealand Institute for Crop and Food Research Ltd.,
@@ -92,11 +92,11 @@ public class PtSoil
         double AlphaE;
         if (tau < tauAlpha)
         {
-            AlphaE = 1.0d;
+            AlphaE = 1.00d;
         }
         else
         {
-            AlphaE = Alpha - ((Alpha - 1.0d) * (1.0d - tau) / (1.0d - tauAlpha));
+            AlphaE = Alpha - ((Alpha - 1.00d) * (1.00d - tau) / (1.00d - tauAlpha));
         }
         energyLimitedEvaporation = evapoTranspirationPriestlyTaylor / Alpha * AlphaE * tau;
         a.energyLimitedEvaporation= energyLimitedEvaporation;

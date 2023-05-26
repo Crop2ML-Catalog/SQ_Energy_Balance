@@ -337,8 +337,8 @@ namespace SiriusQualityEnergyBalance.Strategies
             double conductance = s.conductance;
             double minCanopyTemperature;
             double maxCanopyTemperature;
-            minCanopyTemperature = minTair + (cropHeatFlux / (rhoDensityAir * specificHeatCapacityAir * conductance / lambdaV * 1000.0d));
-            maxCanopyTemperature = maxTair + (cropHeatFlux / (rhoDensityAir * specificHeatCapacityAir * conductance / lambdaV * 1000.0d));
+            minCanopyTemperature = minTair + (cropHeatFlux / (rhoDensityAir * specificHeatCapacityAir * conductance / lambdaV * 1000.00d));
+            maxCanopyTemperature = maxTair + (cropHeatFlux / (rhoDensityAir * specificHeatCapacityAir * conductance / lambdaV * 1000.00d));
             s.minCanopyTemperature= minCanopyTemperature;
             s.maxCanopyTemperature= maxCanopyTemperature;
         }

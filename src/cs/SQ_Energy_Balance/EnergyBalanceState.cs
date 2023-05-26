@@ -7,7 +7,7 @@ public class EnergyBalanceState
     private double _minCanopyTemperature;
     private double _maxCanopyTemperature;
     
-    public EnergyBalanceState() { }
+        public EnergyBalanceState() { }
     
     
     public EnergyBalanceState(EnergyBalanceState toCopy, bool copyAll) // copy constructor 
@@ -15,10 +15,10 @@ public class EnergyBalanceState
     if (copyAll)
     {
     
-    _diffusionLimitedEvaporation = toCopy._diffusionLimitedEvaporation;
-    _conductance = toCopy._conductance;
-    _minCanopyTemperature = toCopy._minCanopyTemperature;
-    _maxCanopyTemperature = toCopy._maxCanopyTemperature;
+    diffusionLimitedEvaporation = toCopy.diffusionLimitedEvaporation;
+    conductance = toCopy.conductance;
+    minCanopyTemperature = toCopy.minCanopyTemperature;
+    maxCanopyTemperature = toCopy.maxCanopyTemperature;
     }
     }
     public double diffusionLimitedEvaporation

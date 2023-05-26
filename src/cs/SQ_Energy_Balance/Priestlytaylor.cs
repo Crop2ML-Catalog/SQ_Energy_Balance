@@ -15,14 +15,14 @@ public class PriestlyTaylor
             get { return this._Alpha; }
             set { this._Alpha= value; } 
         }
-    public PriestlyTaylor() { }
+        public PriestlyTaylor() { }
     
     public void  CalculateModel(EnergyBalanceState s, EnergyBalanceState s1, EnergyBalanceRate r, EnergyBalanceAuxiliary a, EnergyBalanceExogenous ex)
     {
         //- Name: PriestlyTaylor -Version: 1.0, -Time step: 1
         //- Description:
     //            * Title: evapoTranspirationPriestlyTaylor  Model
-    //            * Author: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
+    //            * Authors: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
     //            * Reference:  https://doi.org/10.1016/0168-1923(94)02214-5
     //            * Institution: New Zealand Institute for Crop and Food Research Ltd.,
     //            New Zealand Institute for Crop and Food Research Ltd.,
@@ -34,7 +34,7 @@ public class PriestlyTaylor
         //- inputs:
     //            * name: netRadiationEquivalentEvaporation
     //                          ** description : net Radiation in Equivalent Evaporation
-    //                          ** variablecategory : state
+    //                          ** variablecategory : auxiliary
     //                          ** datatype : DOUBLE
     //                          ** default : 638.142
     //                          ** min : 0
@@ -81,10 +81,10 @@ public class PriestlyTaylor
     //                          ** max : 10000
     //                          ** unit : g m-2 d-1
     //                          ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-        double netRadiationEquivalentEvaporation = s.netRadiationEquivalentEvaporation;
+        double netRadiationEquivalentEvaporation = a.netRadiationEquivalentEvaporation;
         double hslope = a.hslope;
         double evapoTranspirationPriestlyTaylor;
-        evapoTranspirationPriestlyTaylor = Math.Max(Alpha * hslope * netRadiationEquivalentEvaporation / (hslope + psychrometricConstant), 0.0d);
+        evapoTranspirationPriestlyTaylor = Math.Max(Alpha * hslope * netRadiationEquivalentEvaporation / (hslope + psychrometricConstant), 0.00d);
         r.evapoTranspirationPriestlyTaylor = evapoTranspirationPriestlyTaylor;
     }
 }

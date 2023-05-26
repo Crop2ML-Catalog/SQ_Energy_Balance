@@ -217,7 +217,7 @@ namespace SiriusQualityEnergyBalance.Strategies
         {
             double netRadiation = a.netRadiation;
             double netRadiationEquivalentEvaporation;
-            netRadiationEquivalentEvaporation = netRadiation / lambdaV * 1000.0d;
+            netRadiationEquivalentEvaporation = netRadiation / lambdaV * 1000.00d;
             a.netRadiationEquivalentEvaporation= netRadiationEquivalentEvaporation;
         }
 

@@ -21,14 +21,14 @@ public class NetRadiation
             get { return this._elevation; }
             set { this._elevation= value; } 
         }
-    public NetRadiation() { }
+        public NetRadiation() { }
     
     public void  CalculateModel(EnergyBalanceState s, EnergyBalanceState s1, EnergyBalanceRate r, EnergyBalanceAuxiliary a, EnergyBalanceExogenous ex)
     {
         //- Name: NetRadiation -Version: 1.0, -Time step: 1
         //- Description:
     //            * Title: NetRadiation Model
-    //            * Author: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
+    //            * Authors: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
     //            * Reference:  https://doi.org/10.1016/0168-1923(94)02214-5
     //            * Institution: New Zealand Institute for Crop and Food Research Ltd.,
     //            New Zealand Institute for Crop and Food Research Ltd.,
@@ -150,11 +150,11 @@ public class NetRadiation
         double surfaceEmissivity;
         double cloudCoverFactor;
         double Nolr;
-        Nsr = (1.0d - albedoCoefficient) * solarRadiation;
-        clearSkySolarRadiation = (0.75d + (2 * Math.Pow(10.0d, -5) * elevation)) * extraSolarRadiation;
-        averageT = (Math.Pow(maxTair + 273.16d, 4) + Math.Pow(minTair + 273.16d, 4)) / 2.0d;
-        surfaceEmissivity = 0.34d - (0.14d * Math.Sqrt(vaporPressure / 10.0d));
-        cloudCoverFactor = 1.35d * (solarRadiation / clearSkySolarRadiation) - 0.35d;
+        Nsr = (1.00d - albedoCoefficient) * solarRadiation;
+        clearSkySolarRadiation = (0.750d + (2 * Math.Pow(10.00d, -5) * elevation)) * extraSolarRadiation;
+        averageT = (Math.Pow(maxTair + 273.160d, 4) + Math.Pow(minTair + 273.160d, 4)) / 2.00d;
+        surfaceEmissivity = 0.340d - (0.140d * Math.Sqrt(vaporPressure / 10.00d));
+        cloudCoverFactor = 1.350d * (solarRadiation / clearSkySolarRadiation) - 0.350d;
         Nolr = stefanBoltzman * averageT * surfaceEmissivity * cloudCoverFactor;
         netRadiation = Nsr - Nolr;
         netOutGoingLongWaveRadiation = Nolr;

@@ -9,14 +9,14 @@ public class SoilHeatFlux
             get { return this._tau; }
             set { this._tau= value; } 
         }
-    public SoilHeatFlux() { }
+        public SoilHeatFlux() { }
     
     public void  CalculateModel(EnergyBalanceState s, EnergyBalanceState s1, EnergyBalanceRate r, EnergyBalanceAuxiliary a, EnergyBalanceExogenous ex)
     {
         //- Name: SoilHeatFlux -Version: 1.0, -Time step: 1
         //- Description:
     //            * Title: SoilHeatFlux Model
-    //            * Author: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
+    //            * Authors: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
     //            * Reference:  https://doi.org/10.1016/0168-1923(94)02214-5
     //            * Institution: New Zealand Institute for Crop and Food Research Ltd.,
     //            New Zealand Institute for Crop and Food Research Ltd.,
@@ -27,7 +27,7 @@ public class SoilHeatFlux
     //            * ShortDescription: The available energy in the soil
         //- inputs:
     //            * name: netRadiationEquivalentEvaporation
-    //                          ** variablecategory : state
+    //                          ** variablecategory : auxiliary
     //                          ** description : net Radiation Equivalent Evaporation
     //                          ** datatype : DOUBLE
     //                          ** default : 638.142
@@ -48,7 +48,7 @@ public class SoilHeatFlux
     //                          ** inputtype : parameter
     //            * name: soilEvaporation
     //                          ** description : soil Evaporation
-    //                          ** variablecategory : state
+    //                          ** variablecategory : auxiliary
     //                          ** datatype : DOUBLE
     //                          ** default : 448.240
     //                          ** min : 0
@@ -65,8 +65,8 @@ public class SoilHeatFlux
     //                          ** max : 10000
     //                          ** unit : g m-2 d-1
     //                          ** uri : http://www1.clermont.inra.fr/siriusquality/?page_id=547
-        double netRadiationEquivalentEvaporation = s.netRadiationEquivalentEvaporation;
-        double soilEvaporation = s.soilEvaporation;
+        double netRadiationEquivalentEvaporation = a.netRadiationEquivalentEvaporation;
+        double soilEvaporation = a.soilEvaporation;
         double soilHeatFlux;
         soilHeatFlux = tau * netRadiationEquivalentEvaporation - soilEvaporation;
         r.soilHeatFlux = soilHeatFlux;

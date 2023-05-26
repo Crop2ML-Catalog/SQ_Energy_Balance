@@ -33,14 +33,14 @@ public class Conductance
             get { return this._d; }
             set { this._d= value; } 
         }
-    public Conductance() { }
+        public Conductance() { }
     
     public void  CalculateModel(EnergyBalanceState s, EnergyBalanceState s1, EnergyBalanceRate r, EnergyBalanceAuxiliary a, EnergyBalanceExogenous ex)
     {
         //- Name: Conductance -Version: 1.0, -Time step: 1
         //- Description:
     //            * Title: Conductance Model
-    //            * Author: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
+    //            * Authors: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
     //            * Reference:  https://doi.org/10.1016/0168-1923(94)02214-5
     //        
     //            * Institution: New Zealand Institute for Crop and Food Research Ltd.,
@@ -140,7 +140,7 @@ public class Conductance
         double wind = a.wind;
         double conductance;
         double h;
-        h = Math.Max(10.0d, plantHeight) / 100.0d;
+        h = Math.Max(10.00d, plantHeight) / 100.00d;
         conductance = wind * Math.Pow(vonKarman, 2) / (Math.Log((heightWeatherMeasurements - (d * h)) / (zm * h)) * Math.Log((heightWeatherMeasurements - (d * h)) / (zh * h)));
         s.conductance= conductance;
     }

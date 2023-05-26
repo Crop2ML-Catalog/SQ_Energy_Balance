@@ -267,7 +267,7 @@ namespace SiriusQualityEnergyBalance.Strategies
             double netRadiationEquivalentEvaporation = a.netRadiationEquivalentEvaporation;
             double hslope = a.hslope;
             double evapoTranspirationPriestlyTaylor;
-            evapoTranspirationPriestlyTaylor = Math.Max(Alpha * hslope * netRadiationEquivalentEvaporation / (hslope + psychrometricConstant), 0.0d);
+            evapoTranspirationPriestlyTaylor = Math.Max(Alpha * hslope * netRadiationEquivalentEvaporation / (hslope + psychrometricConstant), 0.00d);
             r.evapoTranspirationPriestlyTaylor = evapoTranspirationPriestlyTaylor;
         }
 

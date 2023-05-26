@@ -33,14 +33,14 @@ public class Penman
             get { return this._specificHeatCapacityAir; }
             set { this._specificHeatCapacityAir= value; } 
         }
-    public Penman() { }
+        public Penman() { }
     
     public void  CalculateModel(EnergyBalanceState s, EnergyBalanceState s1, EnergyBalanceRate r, EnergyBalanceAuxiliary a, EnergyBalanceExogenous ex)
     {
         //- Name: Penman -Version: 1.0, -Time step: 1
         //- Description:
     //            * Title: Penman Model
-    //            * Author: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
+    //            * Authors: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
     //            * Reference:  https://doi.org/10.1016/0168-1923(94)02214-5
     //            * Institution: New Zealand Institute for Crop and Food Research Ltd.,
     //            New Zealand Institute for Crop and Food Research Ltd.,
@@ -152,7 +152,7 @@ public class Penman
         double VPDair = a.VPDair;
         double conductance = s.conductance;
         double evapoTranspirationPenman;
-        evapoTranspirationPenman = evapoTranspirationPriestlyTaylor / Alpha + (1000.0d * (rhoDensityAir * specificHeatCapacityAir * VPDair * conductance / (lambdaV * (hslope + psychrometricConstant))));
+        evapoTranspirationPenman = evapoTranspirationPriestlyTaylor / Alpha + (1000.00d * (rhoDensityAir * specificHeatCapacityAir * VPDair * conductance / (lambdaV * (hslope + psychrometricConstant))));
         r.evapoTranspirationPenman = evapoTranspirationPenman;
     }
 }

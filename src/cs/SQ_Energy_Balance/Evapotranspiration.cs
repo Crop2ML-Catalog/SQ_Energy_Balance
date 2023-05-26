@@ -9,14 +9,14 @@ public class EvapoTranspiration
             get { return this._isWindVpDefined; }
             set { this._isWindVpDefined= value; } 
         }
-    public EvapoTranspiration() { }
+        public EvapoTranspiration() { }
     
     public void  CalculateModel(EnergyBalanceState s, EnergyBalanceState s1, EnergyBalanceRate r, EnergyBalanceAuxiliary a, EnergyBalanceExogenous ex)
     {
         //- Name: EvapoTranspiration -Version: 1.0, -Time step: 1
         //- Description:
     //            * Title: Evapotranspiration Model
-    //            * Author: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
+    //            * Authors: Peter D. Jamieson, Glen S. Francis, Derick R. Wilson, Robert J. Martin
     //            * Reference:  https://doi.org/10.1016/0168-1923(94)02214-5
     //            * Institution: New Zealand Institute for Crop and Food Research Ltd.,
     //            New Zealand Institute for Crop and Food Research Ltd.,

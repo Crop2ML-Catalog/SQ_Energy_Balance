@@ -19,7 +19,7 @@ public class EnergyBalanceAuxiliary
     private double _energyLimitedEvaporation;
     private double _soilEvaporation;
     
-    public EnergyBalanceAuxiliary() { }
+        public EnergyBalanceAuxiliary() { }
     
     
     public EnergyBalanceAuxiliary(EnergyBalanceAuxiliary toCopy, bool copyAll) // copy constructor 
@@ -27,21 +27,21 @@ public class EnergyBalanceAuxiliary
     if (copyAll)
     {
     
-    _minTair = toCopy._minTair;
-    _maxTair = toCopy._maxTair;
-    _solarRadiation = toCopy._solarRadiation;
-    _vaporPressure = toCopy._vaporPressure;
-    _extraSolarRadiation = toCopy._extraSolarRadiation;
-    _hslope = toCopy._hslope;
-    _plantHeight = toCopy._plantHeight;
-    _wind = toCopy._wind;
-    _deficitOnTopLayers = toCopy._deficitOnTopLayers;
-    _VPDair = toCopy._VPDair;
-    _netRadiation = toCopy._netRadiation;
-    _netOutGoingLongWaveRadiation = toCopy._netOutGoingLongWaveRadiation;
-    _netRadiationEquivalentEvaporation = toCopy._netRadiationEquivalentEvaporation;
-    _energyLimitedEvaporation = toCopy._energyLimitedEvaporation;
-    _soilEvaporation = toCopy._soilEvaporation;
+    minTair = toCopy.minTair;
+    maxTair = toCopy.maxTair;
+    solarRadiation = toCopy.solarRadiation;
+    vaporPressure = toCopy.vaporPressure;
+    extraSolarRadiation = toCopy.extraSolarRadiation;
+    hslope = toCopy.hslope;
+    plantHeight = toCopy.plantHeight;
+    wind = toCopy.wind;
+    deficitOnTopLayers = toCopy.deficitOnTopLayers;
+    VPDair = toCopy.VPDair;
+    netRadiation = toCopy.netRadiation;
+    netOutGoingLongWaveRadiation = toCopy.netOutGoingLongWaveRadiation;
+    netRadiationEquivalentEvaporation = toCopy.netRadiationEquivalentEvaporation;
+    energyLimitedEvaporation = toCopy.energyLimitedEvaporation;
+    soilEvaporation = toCopy.soilEvaporation;
     }
     }
     public double minTair

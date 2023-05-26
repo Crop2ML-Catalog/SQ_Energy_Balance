@@ -217,7 +217,7 @@ namespace SiriusQualityEnergyBalance.Strategies
         {
             double evapoTranspiration = r.evapoTranspiration;
             double potentialTranspiration;
-            potentialTranspiration = evapoTranspiration * (1.0d - tau);
+            potentialTranspiration = evapoTranspiration * (1.00d - tau);
             r.potentialTranspiration = potentialTranspiration;
         }
 

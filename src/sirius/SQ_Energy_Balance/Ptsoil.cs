@@ -300,11 +300,11 @@ namespace SiriusQualityEnergyBalance.Strategies
             double AlphaE;
             if (tau < tauAlpha)
             {
-                AlphaE = 1.0d;
+                AlphaE = 1.00d;
             }
             else
             {
-                AlphaE = Alpha - ((Alpha - 1.0d) * (1.0d - tau) / (1.0d - tauAlpha));
+                AlphaE = Alpha - ((Alpha - 1.00d) * (1.00d - tau) / (1.00d - tauAlpha));
             }
             energyLimitedEvaporation = evapoTranspirationPriestlyTaylor / Alpha * AlphaE * tau;
             a.energyLimitedEvaporation= energyLimitedEvaporation;
